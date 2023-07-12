@@ -1,0 +1,43 @@
+.main{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    margin: 0 auto;
+    transition: 0.4s ease-out 0.1s;
+}
+.nav_menu{
+    display: flex;
+    list-style: none;
+    width: 46%;
+    justify-content: flex-end;
+}
+.nav_item{
+    padding-right: 28px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #196618;
+    transition: 0.3s;
+}
+.login_btn{
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 6px 10px;
+    font-weight: 600;
+    color: white;
+    margin-left: 20px;
+}
+.appointment_btn{
+    border: 1px solid green;
+    border-radius: 20px;
+    padding: 6px 10px;
+    background-color: green;
+    color: white;
+    font-weight: 600;
+}
+:global(.scrolled) .main{
+    transform: translateY(-20px);
+    transition: 0.4s ease-out 0.1s;
+}
+:global(.scrolled) .nav_item{
+    font-size: 22px;
+}

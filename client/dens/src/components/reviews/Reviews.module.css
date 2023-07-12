@@ -1,0 +1,48 @@
+.wrap{
+    background-color: rgb(233, 255, 223);
+}
+.block{
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 60px 0;
+}
+.main_title{
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+.item{
+    border: 1px solid rgb(165, 255, 165);
+    background-color: white;
+    box-shadow: 0 10px 16px rgba(87, 87, 87, 0.63);
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 300px;
+    width: 100%;
+}
+.item_img img{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+}
+.item_head{
+    display: flex;
+}
+.item_info{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+.item_from{
+    font-size: 12px;
+    color: gray;
+}
+.user{
+    font-weight: 600;
+}
+.date{
+    font-size: 14px;
+    color: gray;
+    text-align: end;
+}
