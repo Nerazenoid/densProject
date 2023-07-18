@@ -1,6 +1,7 @@
 import styles from './NavMenu.module.css';
 import {scrolled} from './Header.module.css';
 
+
 function NavMenu() {
 
   return (
@@ -14,7 +15,9 @@ function NavMenu() {
       </ul>
       <div>
         <button className={styles.appointment_btn}>Записаться на прием</button>
-        <button className={styles.login_btn}>Войти</button>
+        <button
+        className={styles.login_btn}
+        >Войти</button>
       </div>
     </nav>
   );
