@@ -1,7 +1,6 @@
 import TopBar from '../components/header/TopBar.jsx';
 const TestPage = () => {
 
-    return ('af'
-    );
+    return ('Тестовая страница');
 }
 export default TestPage;

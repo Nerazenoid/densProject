@@ -1,5 +1,7 @@
 import styles from './NavMenu.module.css';
 import {scrolled} from './Header.module.css';
+import { NavLink } from 'react-router-dom';
+import { LOGIN_ROUTE } from '../../utils/consts';
 
 
 function NavMenu() {
@@ -15,9 +17,10 @@ function NavMenu() {
       </ul>
       <div>
         <button className={styles.appointment_btn}>Записаться на прием</button>
-        <button
+        <NavLink 
+        to={LOGIN_ROUTE}
         className={styles.login_btn}
-        >Войти</button>
+        >Войти</NavLink>
       </div>
     </nav>
   );

@@ -1,22 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { authRoutes, publicRoutes } from "../routes";
 import { LANDING_ROUTE } from "../utils/consts";
+import MainLayout from "./MainLayout";
+import Landing from "../pages/Landing";
+import { Context } from "..";
 
 const AppRouter = () => {
-    const isAuth = false
+    const {user} = useContext(Context)
+    console.log(user)
 
     return (
         <Routes>
-            <Routes>
-                {isAuth === true && authRoutes.map(({ path, Component }) =>
+            <Route path="/">
+                <Route index element={<Landing />} />
+            </Route>
+            <Route path="/" element={<MainLayout />}>
+                {user.isAuth === true && authRoutes.map(({ path, Component }) =>
                     <Route key={path} path={path} element={<Component />} exact />
                 )}
                 {publicRoutes.map(({ path, Component }) =>
                     <Route key={path} path={path} element={<Component />} exact />
                 )}
-                <Route key={'unknown'} path="*" element={<Navigate replace to={LANDING_ROUTE} />} />
-            </Routes>
+            </Route>
+            <Route path='*' element={<Navigate replace to={LANDING_ROUTE} />} />
         </Routes>
     )
 }
