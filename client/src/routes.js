@@ -1,7 +1,8 @@
 import Admin from "./pages/Admin"
 import Auth from "./pages/Auth"
+import NewAppointment from "./pages/NewAppointment"
 import TestPage from "./pages/TestPage"
-import { ADMIN_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, TEST_ROUTE } from "./utils/consts"
+import { ADMIN_ROUTE, LOGIN_ROUTE, NEW_APPOINTMENT_ROUTE, REGISTRATION_ROUTE, TEST_ROUTE } from "./utils/consts"
 
 export const authRoutes = [
     {
@@ -20,7 +21,11 @@ export const publicRoutes = [
         Component: Auth
     },
     {
+        path: NEW_APPOINTMENT_ROUTE,
+        Component: NewAppointment
+    },
+    {
         path: TEST_ROUTE,
         Component: TestPage
-    }
+    },
 ]
