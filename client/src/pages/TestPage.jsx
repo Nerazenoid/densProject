@@ -1,4 +1,8 @@
 import TopBar from '../components/header/TopBar.jsx';
+import {getByDay} from "../http/appointmentAPI";
+import {doLogin} from "../http/userAPI";
+import {LANDING_ROUTE} from "../utils/consts";
+
 const TestPage = () => {
     let testTime = new Date('2023-07-27 16:00:00')
 
@@ -14,6 +18,20 @@ const TestPage = () => {
         let keyTime = new Date(startTime.setMinutes(startTime.getMinutes() + receptionTime))
         times[keyTime] = true
     }
+
+    let doctor_id = new URLSearchParams(window.location.search).get('doctor_id')
+
+    const getAppointment = async () => {
+        try {
+            let data
+            data = await getByDay(doctor_id)
+            console.log(data)
+        } catch (e) {
+            alert(e.response.data.message)
+        }
+    }
+
+    getAppointment()
 
     times[testTime.getTime()] = false
     console.log(times)
