@@ -9,7 +9,7 @@ module.exports = new Sequelize(
         dialectOptions: {
             useUTC: false
         },
-        timezone: '+03:00',
+        timezone: '+04:00',
         host: process.env.DB_HOST,
         port: process.env.DB_PORT
     }
