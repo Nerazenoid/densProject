@@ -6,12 +6,6 @@ import styles from './Calendar.module.css'
 const Calendar = () => {
     
     const [newDate, setnewDate] = useState(new Date())
-    const today = new Date()
-    console.log(today.getDate())
-    console.log(today.getMonth())
-    console.log(today.toLocaleString('default', {month: 'long'}))
-    console.log(today.toLocaleString('default'))
-    console.log(today.getFullYear())
     return (
         <div>
             <DatePicker 
