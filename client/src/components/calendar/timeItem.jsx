@@ -1,12 +1,17 @@
+import styles from './TimePicker.module.css'
 
+const showModal = () => {
+    alert('Нажали')
+}
 
-const TimeItem = (props) => {
-
+const TimeItem = ({appointment}) => {
+    console.log(appointment)
+    let convertTime = new Date(appointment.date).toLocaleTimeString([],{hour: "2-digit", minute: "2-digit"})
     return (
-        <div className="item">
-            {props.name} afaw
-            {props.value}
-        </div>
+        <button className={styles.item}
+                onClick={showModal}>
+            {convertTime}
+        </button>
     );
 }
 

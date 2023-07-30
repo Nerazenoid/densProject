@@ -1,0 +1,9 @@
+.item{
+    background-color: deepskyblue;
+    border: 1px solid dodgerblue;
+    padding: 2px;
+    margin: 2px;
+}
+.list{
+    display: flex;
+}

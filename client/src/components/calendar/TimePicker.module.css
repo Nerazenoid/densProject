@@ -1,0 +1,22 @@
+.list{
+    display: flex;
+    flex-direction: column;
+}
+.item{
+    border: 1px solid #65b376;
+    margin: 2px;
+    width: 80px;
+    text-align: center;
+    padding: 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #68de80;
+    font-weight: 600;
+}
+.item:hover{
+    background-color: #90bf76;
+}
+.item:disabled{
+    background-color: #b7ccbb;
+    cursor: default;
+}

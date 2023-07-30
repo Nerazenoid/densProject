@@ -1,21 +1,25 @@
 import TimeItem from "./timeItem";
+import styles from './TimePicker.module.css'
+import {useContext} from "react";
+import {Context} from "../../index";
+import {observer} from "mobx-react-lite";
 
-const TimePicker = (props) => {
-    let times = props.times
-    console.log(times)
+const TimePicker = observer(() => {
+    const {appointment} = useContext(Context)
 
-    const List = Object.entries(times).map(([key, value]) => {
-        return (
-            <div>{key}:Значение {value.toString()} </div>
-        )
-    })
+    const showModal = () => {
+        alert('Нажали')
+    }
+    console.log(appointment.times)
+
+
     return (
-        <div className="items">
-            список элементов
-            <TimeItem />
-            {List}
+        <div className={styles.list}>
+            {appointment.times.map(appointment =>
+                <TimeItem key={appointment.date} appointment={appointment}/>
+            )}
         </div>
     );
-}
+})
 
 export default TimePicker;
