@@ -1,16 +1,15 @@
-import styles from './TimePicker.module.css'
+import styles from './timePicker.module.css'
 
 const showModal = () => {
     alert('Нажали')
 }
 
-const TimeItem = ({appointment}) => {
-    console.log(appointment)
-    let convertTime = new Date(appointment.date).toLocaleTimeString([],{hour: "2-digit", minute: "2-digit"})
+const TimeItem = ({ appointment }) => {
     return (
         <button className={styles.item}
-                onClick={showModal}>
-            {convertTime}
+            disabled={appointment.isLocked}
+            onClick={showModal}>
+            {appointment.time}
         </button>
     );
 }

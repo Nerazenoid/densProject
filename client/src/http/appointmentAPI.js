@@ -7,6 +7,6 @@ export const getByDay = async (doctor_id) => {
 }
 
 export const getDays = async () => {
-    const {data} = await $host.get('/api/appointment/getday/test')
+    const {data} = await $host.get('/api/appointment/getdays')
     return data
 }

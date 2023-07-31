@@ -1,25 +1,25 @@
-import DayItem from "./DayItem";
-import styles from './DaysPicker.module.css'
+import { observer } from "mobx-react-lite";
+import DayItem from "./dayItem";
+import styles from './daysPicker.module.css'
+import { useContext } from "react";
+import { Context } from "../../index";
 
-const DaysPicker = ({days}) => {
+const DaysPicker = observer(() => {
+    const { appointment } = useContext(Context)
 
     const showModal = () => {
         alert('Нажали день')
     }
+    console.log(appointment.days)
 
-
-
-    const List = days.map(day => {
-        return (
-            <DayItem day={day} onClickHandler={showModal} />
-        )
-    })
     return (
         <div className={styles.list}>
-            список дней
-            {List}
+            {appointment.days.map(day =>
+                <DayItem key={day} day={day} />
+            )}
         </div>
     );
 }
+)
 
 export default DaysPicker;

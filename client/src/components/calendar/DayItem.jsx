@@ -1,12 +1,23 @@
-import styles from './DaysPicker.module.css'
+import { useContext } from 'react'
+import styles from './daysPicker.module.css'
+import { Context } from '../..'
+import { observer } from 'mobx-react-lite'
 
-const TimeItem = ({day, onClickHandler}) => {
-    return (
-        <button className={styles.item}
-                onClick={onClickHandler}>
-            {day}
-        </button>
-    );
+const showModal = () => {
+    alert('Нажали')
 }
 
-export default TimeItem;
+const DayItem = observer(({ day }) => {
+    const {appointment} = useContext(Context) 
+    return (
+        <button
+        className= {`${styles.item} ${(day[1] === appointment.selectedDay[1] ? styles.active : '')}`}
+        onClick={() => appointment.setSelectedDay(day)}
+        >
+            <p>{day[0]}</p>
+            {day[1]}
+        </button>
+    );
+})
+
+export default DayItem;

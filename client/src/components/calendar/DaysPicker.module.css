@@ -1,9 +1,20 @@
-.item{
-    background-color: deepskyblue;
-    border: 1px solid dodgerblue;
-    padding: 2px;
-    margin: 2px;
-}
 .list{
     display: flex;
+}
+.item{
+    background-color: rgb(188, 238, 215);
+    border: 1px solid rgb(8, 104, 80);
+    color: rgb(2, 51, 30);
+    padding: 2px 10px;
+    margin: 2px;
+    border-radius: 4px;
+    width: 120px;
+    text-align: center;
+}
+.item p{
+    font-weight: 600;
+    font-size: 20px;
+}
+.active{
+   background-color: rgb(79, 197, 85); 
 }

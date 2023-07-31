@@ -3,7 +3,8 @@ import { makeAutoObservable } from 'mobx'
 export default class AppointmentStore {
     constructor() {
         this._times = []
-        this._dates = []
+        this._days = []
+        this._selectedDay = []
         makeAutoObservable(this)
     }
 
@@ -11,15 +12,23 @@ export default class AppointmentStore {
         this._times = times
     }
 
-    setDates(dates) {
-        this._dates = dates
+    setDays(days) {
+        this._days = days
+    }
+
+    setSelectedDay(day) {
+        this._selectedDay = day
     }
 
     get times() {
         return this._times
     }
 
-    get dates() {
-        return this._dates
+    get days() {
+        return this._days
+    }
+
+    get selectedDay() {
+        return this._selectedDay
     }
 }
