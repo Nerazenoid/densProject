@@ -8,6 +8,7 @@ import {useContext, useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import DaysPicker from "../components/calendar/daysPicker.jsx";
 import {Context} from "../index";
+import app from "../App";
 
 
 const TestPage = observer(() => {
@@ -15,10 +16,25 @@ const TestPage = observer(() => {
         const {appointment} = useContext(Context)
 
         useEffect(() => {
-            getByDay(doctor_id).then(data => appointment.setTimes(data))
-            getDays().then(data => appointment.setDays(data))
+            getDays().then(data => {
+                appointment.setDays(data);
+                appointment.setSelectedDay(appointment.days[0].dayCode)
+                getByDay(null, appointment.selectedDay).then(data => appointment.setTimes(data))
+            })
             setLoading(false)
-        })
+        }, [])
+
+        useEffect(() => {
+            getByDay(null, appointment.selectedDay).then(data => appointment.setTimes(data))
+        }, [appointment.selectedDay])
+
+        useEffect(() => {
+            getByDay(null, appointment.selectedDay).then(data => appointment.setTimes(data))
+        }, [appointment.time])
+
+        /*useEffect(() => {
+             getByDay(null, appointment.selectedDay).then(data => appointment.setTimes(data))
+         }, [appointment.selectedDay])*/
 
         const [loading, setLoading] = useState(true) //Проверка загрузки
 
@@ -32,8 +48,8 @@ const TestPage = observer(() => {
             return ('Загрузка')
         return (
             <div>
-                <DaysPicker />
-                <TimePicker />
+                <DaysPicker/>
+                <TimePicker/>
             </div>
         )
 

@@ -1,71 +1,94 @@
-const { Appointment } = require('../models/models')
+const {Appointment} = require('../models/models')
+const {Op} = require("sequelize");
 
 class AppointmentController {
-    async getTest(req, res) {
-        const { day } = req.params
-        return res.json(getAppointments())
-    }
 
     async getDays(req, res) {
-        let today = new Date()
-        let daysTotal = 10;
-        let daysAvailable = []
-        for (let i = 0; i < daysTotal; i++) {
-            today.setDate(today.getDate() + 1)
-            if (today.getDay() != 0) {
-                daysAvailable.push(today.toLocaleString('Ru', { day: 'numeric', month: 'long', weekday: 'short' }).split(', '))
+        try {
+            let today = new Date()
+            let daysTotal = 10;
+            let daysAvailable = []
+            for (let i = 0; i < daysTotal; i++) {
+                today.setHours(0, 0, 0, 0)
+                today.setDate(today.getDate() + 1)
+                if (today.getDay() != 0) {
+                    daysAvailable.push({
+                        dayCode: today.getTime(),
+                        name:
+                            today.toLocaleString('Ru', {
+                                day: 'numeric',
+                                month: 'long',
+                                weekday: 'short'
+                            }).split(', ')
+
+                    })
+                }
             }
+            return res.json(daysAvailable)
+        } catch (e) {
+            console.log(e.message)
         }
-        return res.json(daysAvailable)
     }
 
     async getByDay(req, res) {
-        const { doctor_id } = req.query
-        const today = new Date().setHours(0,0,0,0)
+        try {
+            const {doctor_id, day} = req.query
+            
+            const selectedDay = Number(day)
 
-        const appointments = await Appointment.findAll({
-            where: {
-                //id: Number(doctor_id)
-                //date
-            },
-            attributes: ['date'],
-            raw: true
-        })
+            const nextDay = new Date(selectedDay)
+            nextDay.setDate(nextDay.getDate() + 1)
 
-        ///Тест
 
-        const startTime = new Date(2023, 6, 27, 8, 30)
-        const endTime = new Date(2023, 6, 27, 20)
-        startTime.setHours(startTime.getHours(), startTime.getMinutes(), 0, 0)
-        endTime.setHours(endTime.getHours(), endTime.getMinutes(), 0, 0)
+            const startTime = new Date(new Date(selectedDay).setHours(8, 30))
+            const endTime = new Date(new Date(selectedDay).setHours(20))
 
-        const timesNew = []
+            const appointments = await Appointment.findAll({
+                where: {
+                    //id: Number(doctor_id),
+                    date: {
+                        [Op.gt]: selectedDay,
+                        [Op.lt]: nextDay
+                    }
+                },
+                attributes: ['date'],
+                raw: true
+            })
 
-        while (startTime < endTime) {
+            ///Тест
 
-            const isBooked = appointments.some(appointment =>
-                appointment.date.getTime() == startTime.getTime()
-            )
-            const formatedTime = startTime.getHours() + ':' + startTime.getMinutes()
+            startTime.setHours(startTime.getHours(), startTime.getMinutes(), 0, 0)
+            endTime.setHours(endTime.getHours(), endTime.getMinutes(), 0, 0)
 
-            if (isBooked) {
-                timesNew.push({
-                    time: formatedTime,
-                    isLocked: true
-                })
+            const timesNew = []
+
+            while (startTime < endTime) {
+
+                const isBooked = appointments.some(appointment =>
+                    appointment.date.getTime() == startTime.getTime()
+                )
+                const formattedTime = startTime.getHours() + ':' + startTime.getMinutes()
+
+                if (isBooked) {
+                    timesNew.push({
+                        time: formattedTime,
+                        isLocked: true
+                    })
+                } else {
+                    timesNew.push({
+                        time: formattedTime,
+                        isLocked: false
+                    })
+                }
+
+                startTime.setMinutes(startTime.getMinutes() + 60)
             }
-            else {
-                timesNew.push({
-                    time: formatedTime,
-                    isLocked: false
-                })
-            }
 
-            startTime.setMinutes(startTime.getMinutes() + 60)
+
+            return res.json(timesNew)
+        } catch (e) {
+            console.log(e.message)
         }
-
-
-        return res.json(dafa)
     }
 
 }

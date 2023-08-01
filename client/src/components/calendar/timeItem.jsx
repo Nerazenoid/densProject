@@ -4,12 +4,12 @@ const showModal = () => {
     alert('Нажали')
 }
 
-const TimeItem = ({ appointment }) => {
+const TimeItem = ({time}) => {
     return (
         <button className={styles.item}
-            disabled={appointment.isLocked}
-            onClick={showModal}>
-            {appointment.time}
+                disabled={time.isLocked}
+                onClick={showModal}>
+            {time.time}
         </button>
     );
 }
