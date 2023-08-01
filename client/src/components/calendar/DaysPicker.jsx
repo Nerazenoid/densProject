@@ -7,19 +7,13 @@ import { Context } from "../../index";
 const DaysPicker = observer(() => {
     const { appointment } = useContext(Context)
 
-    const showModal = () => {
-        alert('Нажали день')
-    }
-    console.log(appointment.days)
-
     return (
         <div className={styles.list}>
             {appointment.days.map(day =>
-                <DayItem key={day} day={day} />
+                <DayItem key={day.dayCode} day={day} />
             )}
         </div>
     );
-}
-)
+})
 
 export default DaysPicker;
