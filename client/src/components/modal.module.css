@@ -1,0 +1,17 @@
+.wrap{
+    position: fixed;
+    background: rgba(51, 51, 51, 0.425);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.block{
+    width: 400px;
+    height: 400px;
+    background-color: white;
+    border-radius: 10px;
+}

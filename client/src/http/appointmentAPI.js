@@ -1,12 +1,17 @@
-import {$host} from "./index";
+import { $host } from "./index";
 
 export const getByDay = async (doctor_id, day) => {
-    if(!doctor_id) {doctor_id = 0}
-    const {data} = await $host.get('/api/appointment/getday', {params: {doctor_id, day}})
+    if (!doctor_id) { doctor_id = 0 }
+    const { data } = await $host.get('/api/appointment/getday', { params: { doctor_id, day } })
     return data
 }
 
 export const getDays = async () => {
-    const {data} = await $host.get('/api/appointment/getdays')
+    const { data } = await $host.get('/api/appointment/getdays')
     return data
+}
+
+export const createAppoinment = async (date) => {
+    console.log(date)
+    await $host.post('/api/appointment/create', {date})
 }

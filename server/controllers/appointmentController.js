@@ -1,7 +1,21 @@
-const {Appointment} = require('../models/models')
-const {Op} = require("sequelize");
+const { Appointment } = require('../models/models')
+const { Op } = require("sequelize");
 
 class AppointmentController {
+
+    async createAppointment(req, res, next) {
+        try {
+            const { date } = req.body
+            console.log('**************** ' + date)
+            const kf = await Appointment.create({
+                date: date
+            })
+            return res.json(kf)
+        }
+        catch (e) {
+            console.log(e.message)
+        }
+    }
 
     async getDays(req, res) {
         try {
@@ -32,8 +46,8 @@ class AppointmentController {
 
     async getByDay(req, res) {
         try {
-            const {doctor_id, day} = req.query
-            
+            const { doctor_id, day } = req.query
+
             const selectedDay = Number(day)
 
             const nextDay = new Date(selectedDay)
@@ -67,16 +81,17 @@ class AppointmentController {
                 const isBooked = appointments.some(appointment =>
                     appointment.date.getTime() == startTime.getTime()
                 )
-                const formattedTime = startTime.getHours() + ':' + startTime.getMinutes()
+                const resTime = new Date(startTime)
+                //const formattedTime = startTime.getHours() + ':' + startTime.getMinutes()
 
                 if (isBooked) {
                     timesNew.push({
-                        time: formattedTime,
+                        time: resTime,
                         isLocked: true
                     })
                 } else {
                     timesNew.push({
-                        time: formattedTime,
+                        time: resTime,
                         isLocked: false
                     })
                 }

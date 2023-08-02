@@ -6,11 +6,10 @@ import { observer } from "mobx-react-lite";
 
 const TimePicker = observer(() => {
     const { appointment } = useContext(Context)
-
     return (
         <div className={styles.list}>
             {appointment.times.map(time =>
-                <TimeItem key={time.date} time={time} />
+                <TimeItem key={time.time} time={time} />
             )}
         </div>
     );

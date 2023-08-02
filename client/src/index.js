@@ -6,6 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import UserStore from './store/UserStore';
 import AppointmentStore from "./store/AppointmentStore";
+import ComponentsStore from './store/ComponentStore';
 
 export const Context = createContext(null)
 
@@ -13,7 +14,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Context.Provider value={{
         user: new UserStore(),
-        appointment: new AppointmentStore()
+        appointment: new AppointmentStore(),
+        component: new ComponentsStore()
     }}>
         <App/>
     </Context.Provider>

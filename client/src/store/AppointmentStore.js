@@ -5,6 +5,8 @@ export default class AppointmentStore {
         this._times = []
         this._days = []
         this._selectedDay = []
+        this._selectedTime = []
+        
         makeAutoObservable(this)
     }
 
@@ -20,6 +22,10 @@ export default class AppointmentStore {
         this._selectedDay = day
     }
 
+    setSelectedTime(time) {
+        this._selectedTime = time
+    }
+
     get times() {
         return this._times
     }
@@ -30,5 +36,8 @@ export default class AppointmentStore {
 
     get selectedDay() {
         return this._selectedDay
+    }
+    get selectedTime() {
+        return this._selectedTime
     }
 }

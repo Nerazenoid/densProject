@@ -1,6 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
 import Logo from "./header/Logo";
 import { LOGIN_ROUTE, TEST_ROUTE } from "../utils/consts";
+import { useEffect } from "react";
+import Modal from "./modal";
 
 function MainLayout() {
     return (
@@ -10,6 +12,8 @@ function MainLayout() {
             <NavLink to='/'>Главная</NavLink>
             <Logo />
             <Outlet />
+            
+            <Modal />
         </div>
     );
 }
