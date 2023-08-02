@@ -11,7 +11,7 @@ export const getDays = async () => {
     return data
 }
 
-export const createAppoinment = async (date) => {
+export const createAppointment = async (date) => {
     console.log(date)
     await $host.post('/api/appointment/create', {date})
 }

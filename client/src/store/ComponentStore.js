@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx'
+import {makeAutoObservable} from 'mobx'
 
 export default class ComponentStore {
     constructor() {
@@ -6,13 +6,22 @@ export default class ComponentStore {
         this._body = null
         makeAutoObservable(this)
     }
-    setModal = (active) => {
-        this._active = active
+
+    openModal = (body) => {
+        this._active = true
+        this._body =  'Вы уверены что хотите записаться на' + body + '?'
     }
-    get body(){
+
+    closeModal = () => {
+        this._active = false
+        this._body = null
+    }
+
+    get body() {
         return this._body
     }
-    get active(){
+
+    get active() {
         return this._active
     }
 

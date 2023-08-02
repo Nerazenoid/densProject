@@ -12,8 +12,6 @@ function MainLayout() {
             <NavLink to='/'>Главная</NavLink>
             <Logo />
             <Outlet />
-            
-            <Modal />
         </div>
     );
 }

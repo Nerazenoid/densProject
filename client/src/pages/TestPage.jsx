@@ -40,6 +40,7 @@ const TestPage = observer(() => {
         <div>
             <DaysPicker />
             <TimePicker />
+            <Modal>awfawfawfwwaf </Modal>
         </div>
     )
 
