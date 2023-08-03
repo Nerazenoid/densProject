@@ -1,36 +1,41 @@
 import { get, set } from 'mobx';
 import TopBar from '../components/header/TopBar.jsx';
-import { getByDay, getDays } from "../http/appointmentAPI";
-import { doLogin } from "../http/userAPI";
-import { LANDING_ROUTE } from "../utils/consts";
+import { getByDay, getDays } from "../http/appointmentAPI.js";
+import { doLogin } from "../http/userAPI.js";
+import { LANDING_ROUTE } from "../utils/consts.js";
 import TimePicker from '../components/calendar/timePicker.jsx';
 import { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import DaysPicker from "../components/calendar/daysPicker.jsx";
 import { Context } from "../index";
 import Modal from '../components/modal.jsx';
+import { useParams } from 'react-router-dom';
 
 
-const TestPage = observer(() => {
+const MakeNewAppt = observer(() => {
 
-    const { appointment } = useContext(Context)
+    const { appointment,user } = useContext(Context)
 
-    const doctor_id = new URLSearchParams(window.location.search).get('doctor_id')
+    const [loading, setLoading] = useState(true) //Проверка загрузки
 
+    const {doctor_id} = useParams()
+
+    console.log(user.user)
     useEffect(() => {
         getDays().then(data => {
             appointment.setDays(data);
             appointment.setSelectedDay(appointment.days[0].dayCode)
-            getByDay(null, appointment.selectedDay).then(data => appointment.setTimes(data))
+            getByDay(doctor_id, appointment.selectedDay).then(data => appointment.setTimes(data))
         })
         setLoading(false)
     }, [])
 
     useEffect(() => {
-        getByDay(null, appointment.selectedDay).then(data => appointment.setTimes(data))
+        getByDay(doctor_id, appointment.selectedDay).then(data => {
+            appointment.setTimes(data);
+        })
     }, [appointment.selectedDay, appointment.selectedTime])
 
-    const [loading, setLoading] = useState(true) //Проверка загрузки
 
 
     //Не рендерю компонент TimePicker если все еще происходит загрузка
@@ -46,4 +51,4 @@ const TestPage = observer(() => {
 
 }
 )
-export default TestPage;
+export default MakeNewAppt;

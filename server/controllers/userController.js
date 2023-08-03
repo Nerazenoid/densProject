@@ -14,9 +14,9 @@ class UserController {
     async registration(req, res, next) {
         const {login, password, role} = req.body
         if (!login || !password) {
-            return next(ApiError.badRequest('Неверный логин или пароль'))
+            return next(ApiError.badRequest('Введите логин и пароль'))
         }
-        const candidate = await User.findOne({where: login})
+        const candidate = await User.findOne({where: {login}})
         if (candidate) {
             return next(ApiError.badRequest('Пользователь с таким логином уже существует'))
         }
@@ -28,7 +28,7 @@ class UserController {
 
     async login(req, res, next) {
         const {login, password} = req.body
-        const user = await User.findOne({where: login})
+        const user = await User.findOne({where: {login}})
         if (!user) {
             return next(ApiError.badRequest('Пользователь не найден'))
         }

@@ -1,16 +1,16 @@
-const { Appointment } = require('../models/models')
+const { Appointment, User, Doctor } = require('../models/models')
 const { Op } = require("sequelize");
 
 class AppointmentController {
 
     async createAppointment(req, res, next) {
         try {
-            const { date } = req.body
-            console.log('**************** ' + date)
-            const kf = await Appointment.create({
-                date: date
+            const { date, doctor_id } = req.body
+            await Appointment.create({
+                date: date,
+                doctorId: doctor_id
             })
-            return res.json(kf)
+            return res.send(true)
         }
         catch (e) {
             console.log(e.message)
@@ -59,7 +59,7 @@ class AppointmentController {
 
             const appointments = await Appointment.findAll({
                 where: {
-                    //id: Number(doctor_id),
+                    doctorId: Number(doctor_id),
                     date: {
                         [Op.gt]: selectedDay,
                         [Op.lt]: nextDay
@@ -99,9 +99,24 @@ class AppointmentController {
                 startTime.setMinutes(startTime.getMinutes() + 60)
             }
 
-
             return res.json(timesNew)
         } catch (e) {
+            console.log(e.message)
+        }
+    }
+
+    async getDoctors(req, res) {
+        try{
+            const doctors = await Doctor.findAll({
+                include: {
+                    model: User,
+                    attributes: ['firstName', 'lastName', 'patronymic']
+                },
+                attributes: ['id', 'speciality']
+            })
+            return res.json(doctors)
+        }
+        catch(e){
             console.log(e.message)
         }
     }

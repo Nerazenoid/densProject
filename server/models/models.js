@@ -17,8 +17,6 @@ const Doctor = sequelize.define('doctor',
     {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
         speciality: { type: DataTypes.STRING },
-        start_time: {type: DataTypes.STRING},
-        end_time: {type: DataTypes.STRING}
     })
 
 const Appointment = sequelize.define('appointment',

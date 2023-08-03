@@ -1,8 +1,6 @@
-import {createAppoinment} from '../../http/appointmentAPI'
 import styles from './timePicker.module.css'
 import {useContext} from 'react'
 import {Context} from '../../index'
-import {observer} from "mobx-react-lite";
 
 
 const TimeItem = ({time}) => {

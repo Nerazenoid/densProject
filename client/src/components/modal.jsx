@@ -3,16 +3,19 @@ import {Context} from '..';
 import styles from './modal.module.css';
 import {useContext,} from 'react';
 import {createAppointment} from "../http/appointmentAPI";
+import { useParams } from 'react-router-dom';
 
 
 
 const Modal = observer(() => {
+    const {doctor_id} = useParams()
     const {appointment, component} = useContext(Context)
     console.log(component.active)
 
     const create = async () => {
-        await createAppointment(appointment.selectedTime)
+        await createAppointment(doctor_id, appointment.selectedTime)
         appointment.setSelectedTime(null)
+        console.log(appointment.selectedTime)
         component.closeModal()
     }
 
