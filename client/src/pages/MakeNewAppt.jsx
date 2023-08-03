@@ -14,6 +14,7 @@ import { useParams } from 'react-router-dom';
 
 const MakeNewAppt = observer(() => {
 
+
     const { appointment,user } = useContext(Context)
 
     const [loading, setLoading] = useState(true) //Проверка загрузки
