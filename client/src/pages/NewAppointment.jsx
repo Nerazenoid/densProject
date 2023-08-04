@@ -7,9 +7,11 @@ import { observer } from "mobx-react-lite"
 
 const NewAppointment = observer(() => {
 
-    const { appointment } = useContext(Context)
+    const { appointment, user } = useContext(Context)
 
     const [loading, setLoading] = useState(true)
+
+    console.log(user)
 
     useEffect(() => {
         getDoctors().then(data => appointment.setDoctors(data))

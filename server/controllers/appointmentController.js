@@ -5,10 +5,11 @@ class AppointmentController {
 
     async createAppointment(req, res, next) {
         try {
-            const { date, doctor_id } = req.body
+            const { date, doctor_id, user_id } = req.body
             await Appointment.create({
                 date: date,
-                doctorId: doctor_id
+                doctorId: doctor_id,
+                userId: user_id
             })
             return res.send(true)
         }

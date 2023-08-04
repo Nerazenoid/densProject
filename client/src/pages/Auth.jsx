@@ -18,7 +18,7 @@ const Auth = observer(() => {
     try {
       let data
       data = await doRegistration(login, pass)
-      user.setUser(user)
+      user.setUser(data)
       user.setIsAuth(true)
       console.log(user.isAuth)
       navigate(LANDING_ROUTE)
@@ -31,7 +31,7 @@ const Auth = observer(() => {
     try {
       let data
       data = await doLogin(login, pass)
-      user.setUser(user)
+      user.setUser(data)
       user.setIsAuth(true)
       console.log(user.user)
       navigate(LANDING_ROUTE)

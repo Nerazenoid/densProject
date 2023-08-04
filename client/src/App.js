@@ -1,32 +1,30 @@
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import AppRouter from './components/AppRouter';
-/*import TopBar from './components/header/TopBar.jsx';
-import MainSlider from './components/MainSlider';
-import Advantages from './components/advantages/Advantages';
-import Services from './components/services/Services';
-import Reviews from './components/reviews/Reviews';*/
+import { observer } from 'mobx-react-lite';
+import { useContext, useEffect, useState } from 'react';
+import { Context } from '.';
+import { check } from './http/userAPI';
 
-const App = () => {
+const App = observer(() => {
+  const {user} = useContext(Context)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(()=> {
+    check().then(data => {
+      user.setUser(data)
+      user.setIsAuth(true)
+    }).finally(() => setLoading(false))
+  }, [])
+
+  if(loading) {
+    return 'Загрузка'
+  }
+
   return (
     <BrowserRouter>
       <AppRouter />
     </BrowserRouter>)
 }
-
-/*function App() {
-  return (
-    <div className="App">
-      
-        <TopBar />
-        <div className='main_content'>
-          <MainSlider />
-          <Advantages />
-          <Services />
-          <Reviews />
-        </div>
-    </div>
-  );
-}*/
-
+)
 export default App;
