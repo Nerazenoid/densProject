@@ -12,6 +12,14 @@ const authInterceptor = config => {
     config.headers.authorization = `Bearer ${localStorage.getItem('token')}`
     return config
 }
+/*$authHost.interceptors.response.use(response => {
+    return response;
+}, error => {
+    if (error.response.status === 401) {
+        console.log('Ошибка')
+    }
+    return error;
+})*/
 
 $authHost.interceptors.request.use(authInterceptor)
 

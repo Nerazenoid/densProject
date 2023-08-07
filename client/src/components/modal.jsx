@@ -8,11 +8,11 @@ import {useParams} from 'react-router-dom';
 
 const Modal = observer(() => {
     const {doctor_id} = useParams()
-    const {appointment, component} = useContext(Context)
+    const {appointment, component, user} = useContext(Context)
     console.log(component.active)
 
     const create = async () => {
-        await createAppointment(doctor_id, appointment.selectedTime)
+        await createAppointment(appointment.selectedTime, doctor_id, user.user.id)
         appointment.setSelectedTime(null)
         component.closeModal()
     }

@@ -18,9 +18,6 @@ app.use(errorHandler)
 
 const PORT = process.env.PORT;
 
-app.get('/', (req,res) => {
-    res.status(200).json({message: 'Okay'})
-})
 
 const start = async () => {
     try {

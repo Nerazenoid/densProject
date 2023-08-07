@@ -1,5 +1,5 @@
 const { Appointment, User, Doctor } = require('../models/models')
-const { Op } = require("sequelize");
+const { Op, Model } = require("sequelize");
 
 class AppointmentController {
 
@@ -16,6 +16,28 @@ class AppointmentController {
         catch (e) {
             console.log(e.message)
         }
+    }
+
+    async getAppointments(req, res) {
+        const Appointments = await Appointment.findAll({
+            //where: {id: 142},
+            attributes: ['id'],
+            include: [{
+                model: User,
+                attributes: ['firstName', 'lastName', 'patronymic', 'id']
+            },
+            {
+                model: Doctor,
+                attributes: ['id'],
+                include: {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName', 'patronymic']
+                }
+            }
+            ]
+        })
+        console.log(Appointments)
+        return res.json(Appointments)
     }
 
     async getDays(req, res) {
@@ -107,7 +129,7 @@ class AppointmentController {
     }
 
     async getDoctors(req, res) {
-        try{
+        try {
             const doctors = await Doctor.findAll({
                 include: {
                     model: User,
@@ -117,7 +139,7 @@ class AppointmentController {
             })
             return res.json(doctors)
         }
-        catch(e){
+        catch (e) {
             console.log(e.message)
         }
     }

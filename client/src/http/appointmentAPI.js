@@ -19,3 +19,9 @@ export const getDoctors = async (date) => {
     const { data } = await $host.get('/api/appointment/getdoctors', { date })
     return data
 }
+
+export const getAppointments = async() => {
+    console.log('awfawf')
+    const {data} = await $host.get('/api/appointment/getlist')
+    return data
+}

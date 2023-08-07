@@ -1,8 +1,9 @@
 import Admin from "./pages/Admin"
 import Auth from "./pages/Auth"
 import NewAppointment from "./pages/NewAppointment"
-import { ADMIN_ROUTE, LOGIN_ROUTE, MAKE_NEW_APPT_ROUTE, NEW_APPOINTMENT_ROUTE, REGISTRATION_ROUTE, TEST_ROUTE } from "./utils/consts"
+import { ADMIN_ROUTE, APPOINTMENTS_LIST_ROUTE, LOGIN_ROUTE, MAKE_NEW_APPT_ROUTE, NEW_APPOINTMENT_ROUTE, REGISTRATION_ROUTE, TEST_ROUTE } from "./utils/consts"
 import MakeNewAppt from "./pages/MakeNewAppt"
+import AppointmentsPage from "./pages/AppointmentsPage"
 
 export const authRoutes = [
     {
@@ -28,4 +29,8 @@ export const publicRoutes = [
         path: NEW_APPOINTMENT_ROUTE + '/:doctor_id',
         Component: MakeNewAppt
     },
+    {
+        path: APPOINTMENTS_LIST_ROUTE,
+        Component: AppointmentsPage
+    }
 ]
