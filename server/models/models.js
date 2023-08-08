@@ -22,7 +22,8 @@ const Doctor = sequelize.define('doctor',
 const Appointment = sequelize.define('appointment',
     {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-        date: { type: DataTypes.DATE }
+        date: { type: DataTypes.DATE },
+        status: {type: DataTypes.STRING, defaultValue: 'inProgress'}
     })
 
 const Category = sequelize.define('category',

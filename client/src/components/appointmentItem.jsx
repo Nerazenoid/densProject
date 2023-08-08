@@ -1,14 +1,28 @@
+import { useNavigate } from 'react-router-dom'
 import styles from './appointments.module.css'
+import { APPOINTMENTS_LIST_ROUTE } from '../utils/consts'
 
 
-const AppointmentItem =  ({info}) => {
-    const {doctor, user} = info 
+
+const AppointmentItem = ({ info }) => {
+    const navigate = useNavigate()
+
+    const { doctor, user } = info
+    const date = new Date(info.date)
     return (
-        <div className={styles.item}>
-            <div className={styles.doctor}>
-                {doctor.user.firstName} {doctor.user.lastName} {doctor.user.patronymic}
+        <div className={styles.row} onClick={() => navigate(APPOINTMENTS_LIST_ROUTE + '/' + info.id)}>
+            <div>
+                {info.id}
             </div>
-            {doctor.id} {doctor.user.firstName}
+            <div>
+                {doctor.user.lastName} {doctor.user.firstName} {doctor.user.patronymic}
+            </div>
+            <div>
+                {user.lastName} {user.firstName} {user.patronymic}
+            </div>
+            <div>
+                {date.toLocaleString('ru')}
+            </div>
         </div>
     );
 }

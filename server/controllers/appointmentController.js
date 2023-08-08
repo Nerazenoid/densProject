@@ -18,10 +18,35 @@ class AppointmentController {
         }
     }
 
+    async getAppointmentInfo(req, res) {
+        const { appt_id } = req.params
+        console.log('id: ' + appt_id)
+        const AppointmentInfo = await Appointment.findOne({
+            where: { id: appt_id },
+            attributes: ['id', 'date', 'createdAt', 'status', 'userId', 'doctorId'],
+            include: [{
+                model: User,
+                attributes: ['firstName', 'lastName', 'patronymic']
+            },
+            {
+                model: Doctor,
+                attributes: ['speciality'],
+                include: {
+                    model: User,
+                    attributes: ['firstName', 'lastName', 'patronymic']
+                }
+            }],
+        })
+        return res.json(AppointmentInfo)
+    }
+
     async getAppointments(req, res) {
         const Appointments = await Appointment.findAll({
             //where: {id: 142},
-            attributes: ['id'],
+            attributes: ['id', 'date'],
+            order: [
+                ['id', 'DESC']
+            ],
             include: [{
                 model: User,
                 attributes: ['firstName', 'lastName', 'patronymic', 'id']
@@ -36,7 +61,6 @@ class AppointmentController {
             }
             ]
         })
-        console.log(Appointments)
         return res.json(Appointments)
     }
 

@@ -3,6 +3,7 @@ import { getAppointments } from "../http/appointmentAPI"
 import { Context } from ".."
 import AppointmentItem from "../components/appointmentItem"
 import { observer } from "mobx-react-lite"
+import styles from '../components/appointments.module.css'
 
 const AppointmentsPage = observer(() => {
 
@@ -19,9 +20,15 @@ const AppointmentsPage = observer(() => {
 
     console.log(appointment.appointments)
     return (
-        <div>Записи
+        <div className={styles.table}>
+            <div className={styles.header}>
+                <div>Номер записи</div>
+                <div>ФИО врача</div>
+                <div>ФИО пациента</div>
+                <div>Время записи</div>
+            </div>
             {appointment.appointments.map(record =>
-                <AppointmentItem info={record} />
+                <AppointmentItem key={record.id} info={record} />
             )}
         </div>
     )
