@@ -29,3 +29,8 @@ export const getAppointmentInfo = async (appt_id) => {
     const { data } = await $host.get('/api/appointment/getinfo/' + appt_id)
     return data
 }
+
+export const getServices = async() => {
+    const {data} = await $host.get('api/appointment/getservices')
+    return data
+}

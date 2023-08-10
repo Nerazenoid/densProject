@@ -16,7 +16,6 @@ const AppointmentsPage = observer(() => {
         })
     }, [])
 
-    setTimeout(() => { console.log(appointment.appointments) }, 2000)
 
     console.log(appointment.appointments)
     return (
