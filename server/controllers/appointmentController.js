@@ -1,4 +1,4 @@
-const { Appointment, User, Doctor, Service } = require('../models/models')
+const { Appointment, User, Doctor, Service, ProvidedService } = require('../models/models')
 const { Op, Model } = require("sequelize");
 
 class AppointmentController {
@@ -42,7 +42,7 @@ class AppointmentController {
 
     async getServices(req, res) {
         const Services = await Service.findAll({
-            attributes: ['id','name', 'price']
+            attributes: ['id', 'name', 'price']
         })
         return res.json(Services)
     }
@@ -96,6 +96,20 @@ class AppointmentController {
         } catch (e) {
             console.log(e.message)
         }
+    }
+
+    async applyServices(req, res) {
+        const {services, appt_id} = req.body
+
+        await ProvidedService.bulkCreate(services)
+
+        await Appointment.update({status: 'awaitPayment'}, {
+            where: {
+                id: appt_id
+            }
+        })
+
+        return res.json('fawf')
     }
 
     async getByDay(req, res) {

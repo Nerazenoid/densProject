@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAppointmentInfo, getServices } from "../http/appointmentAPI";
+import { createProvidedServices, getAppointmentInfo, getServices } from "../http/appointmentAPI";
 import { useParams } from "react-router-dom";
 import style from './appointmentInfo.module.css'
 import { observer } from "mobx-react-lite";
@@ -19,21 +19,31 @@ const AppointmentInfo = () => {
     const startAppointments = () => {
         setLoading(true)
         getServices()
-            .then(data => setServices(data)
-            )
+            .then(data => setServices(data))
             .finally(() => {
                 setPage('DOCTOR')
                 setLoading(false)
             })
     }
 
+
+    const applyProvidedServices = () => {
+        setLoading(true)
+        createProvidedServices(providedServices, appointment_id)
+            .then(() => setProvidedServices([]))
+            .finally(() => {
+                setPage('USER')
+                setLoading(false)
+            })
+    }
+
     const CheckBoxHandler = (e, service_id, price) => {
-        if(e.target.checked){
+        if (e.target.checked) {
             setTotal(total + price)
-            setProvidedServices([...providedServices, service_id])
-        }else{
+            setProvidedServices([...providedServices, { serviceId: service_id, appointmentId: appointment_id }])
+        } else {
             setTotal(total - price)
-            setProvidedServices(providedServices.filter(item => item !== service_id))
+            setProvidedServices(providedServices.filter(item => item.serviceId !== service_id))
         }
         console.log(providedServices)
     }
@@ -65,6 +75,7 @@ const AppointmentInfo = () => {
                     </div>
                 )}
                 <p>Итого: {total}</p>
+                <button onClick={applyProvidedServices}>Сохранить</button>
             </div>
         )
     }
@@ -76,7 +87,9 @@ const AppointmentInfo = () => {
             <div className={style.appointment_info}>
                 <p><b>Дата приема:</b> {new Date(appointment.date).toLocaleString('ru')} </p>
                 <p><b>Дата записи:</b> {new Date(appointment.createdAt).toLocaleString('ru')} </p>
-                <p><b>Статус приема:</b> {appointment.status == 'inProgress' ? 'Запись создана' : 'Отменен'} </p>
+                <p><b>Статус приема:</b> {
+                    appointment.status == 'inProgress' ? 'Запись создана' :
+                        appointment.status == 'awaitPayment' ? 'Ожидает оплаты' : 'Отклонена'} </p>
             </div>
             <div className={style.body}>
                 <div className={style.block}>
@@ -89,7 +102,10 @@ const AppointmentInfo = () => {
                     <p><b>Специальность: </b>{appointment.doctor.speciality}</p>
                 </div>
             </div>
-            <button onClick={startAppointments}>Начать прием</button>
+            {appointment.status == 'inProgress' ? 
+            <button onClick={startAppointments}>Начать прием</button> : 
+            <button onClick={startAppointments}>Оплата подтверждена</button>}
+
         </div>
     );
 }

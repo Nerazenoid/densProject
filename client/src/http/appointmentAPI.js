@@ -15,6 +15,10 @@ export const createAppointment = async (date, doctor_id, user_id) => {
     await $host.post('/api/appointment/create', { date, doctor_id, user_id })
 }
 
+export const createProvidedServices = async(services, appt_id) => {
+    await $host.post('/api/appointment/addservices', {services, appt_id})
+}
+
 export const getDoctors = async () => {
     const { data } = await $host.get('/api/appointment/getdoctors')
     return data

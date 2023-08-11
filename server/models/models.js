@@ -23,7 +23,7 @@ const Appointment = sequelize.define('appointment',
     {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
         date: { type: DataTypes.DATE },
-        status: {type: DataTypes.STRING, defaultValue: 'inProgress'}
+        status: { type: DataTypes.STRING, defaultValue: 'inProgress' }
     })
 
 const Category = sequelize.define('category',
@@ -39,6 +39,12 @@ const Service = sequelize.define('service',
         price: { type: DataTypes.INTEGER }
     })
 const OrderService = sequelize.define('order_service',
+    {
+        id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+        amount: { type: DataTypes.INTEGER }
+    })
+
+const ProvidedService = sequelize.define('provided_service',
     {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
         amount: {type: DataTypes.INTEGER}
@@ -62,11 +68,18 @@ OrderService.belongsTo(Appointment)
 Service.hasMany(OrderService)
 OrderService.belongsTo(Service)
 
+Appointment.hasMany(ProvidedService)
+ProvidedService.belongsTo(Appointment)
+
+Service.hasMany(ProvidedService)
+ProvidedService.belongsTo(Service)
+
 module.exports = {
     User,
     Doctor,
     Appointment,
     OrderService,
     Service,
-    Category
+    Category,
+    ProvidedService
 }

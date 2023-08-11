@@ -9,5 +9,6 @@ router.get('/getdoctors', appointmentController.getDoctors)
 router.get('/getlist', appointmentController.getAppointments)
 router.get('/getinfo/:appt_id', appointmentController.getAppointmentInfo)
 router.get('/getservices', appointmentController.getServices)
+router.post('/addservices', appointmentController.applyServices)
 
 module.exports = router
