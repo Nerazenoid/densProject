@@ -38,3 +38,7 @@ export const getServices = async() => {
     const {data} = await $host.get('api/appointment/getservices')
     return data
 }
+
+export const updatePayment = async(appt_id) => {
+    await $host.post('api/appointment/approvepayment', {appt_id})
+}

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { createProvidedServices, getAppointmentInfo, getServices } from "../http/appointmentAPI";
+import { createProvidedServices, getAppointmentInfo, getServices, updatePayment } from "../http/appointmentAPI";
 import { useParams } from "react-router-dom";
 import style from './appointmentInfo.module.css'
 import { observer } from "mobx-react-lite";
+import { getStatus } from "../utils/status";
 
 const AppointmentInfo = () => {
 
@@ -15,6 +16,17 @@ const AppointmentInfo = () => {
 
     const { appointment_id } = useParams()
 
+    useEffect(() => {
+        getAppointmentInfo(appointment_id)
+            .then(data =>
+                setAppointment(data)
+            )
+            .finally(() => {
+                setLoading(false)
+            })
+
+    }, [page])
+
 
     const startAppointments = () => {
         setLoading(true)
@@ -26,6 +38,16 @@ const AppointmentInfo = () => {
             })
     }
 
+    const approvePayment = () => {
+        setLoading(true)
+        updatePayment(appointment_id)
+            .then(() => {
+                getAppointmentInfo(appointment_id)
+                    .then(data => setAppointment(data))
+                    .finally(() => setLoading(false))
+            })
+
+    }
 
     const applyProvidedServices = () => {
         setLoading(true)
@@ -49,16 +71,6 @@ const AppointmentInfo = () => {
     }
 
 
-    useEffect(() => {
-        getAppointmentInfo(appointment_id)
-            .then(data =>
-                setAppointment(data)
-            )
-            .finally(() => {
-                setLoading(false)
-            })
-
-    }, [])
 
 
     if (loading) {
@@ -87,9 +99,7 @@ const AppointmentInfo = () => {
             <div className={style.appointment_info}>
                 <p><b>Дата приема:</b> {new Date(appointment.date).toLocaleString('ru')} </p>
                 <p><b>Дата записи:</b> {new Date(appointment.createdAt).toLocaleString('ru')} </p>
-                <p><b>Статус приема:</b> {
-                    appointment.status == 'inProgress' ? 'Запись создана' :
-                        appointment.status == 'awaitPayment' ? 'Ожидает оплаты' : 'Отклонена'} </p>
+                <p><b>Статус приема:</b> {getStatus(appointment.status)} </p>
             </div>
             <div className={style.body}>
                 <div className={style.block}>
@@ -101,10 +111,14 @@ const AppointmentInfo = () => {
                     <p><b>ФИО: </b>{appointment.doctor.user.lastName} {appointment.doctor.user.firstName} {appointment.doctor.user.patronymic}</p>
                     <p><b>Специальность: </b>{appointment.doctor.speciality}</p>
                 </div>
+                {appointment.status == 'complete' ?
+                    <p className={style.subtitle}>Стоимость приема: {appointment.appointment_info.total} </p> :
+                    ''}
             </div>
-            {appointment.status == 'inProgress' ? 
-            <button onClick={startAppointments}>Начать прием</button> : 
-            <button onClick={startAppointments}>Оплата подтверждена</button>}
+            {appointment.status == 'inProgress' ?
+                <button onClick={startAppointments}>Начать прием</button> :
+                appointment.status == 'awaitPayment' ?
+                    <button onClick={approvePayment}>Оплата подтверждена</button> : ''}
 
         </div>
     );

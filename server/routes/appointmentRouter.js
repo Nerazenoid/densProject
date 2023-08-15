@@ -10,5 +10,6 @@ router.get('/getlist', appointmentController.getAppointments)
 router.get('/getinfo/:appt_id', appointmentController.getAppointmentInfo)
 router.get('/getservices', appointmentController.getServices)
 router.post('/addservices', appointmentController.applyServices)
+router.post('/approvepayment', appointmentController.approvePayment)
 
 module.exports = router

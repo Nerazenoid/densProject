@@ -50,6 +50,13 @@ const ProvidedService = sequelize.define('provided_service',
         amount: {type: DataTypes.INTEGER}
     })
 
+    const AppointmentInfo = sequelize.define('appointment_info',
+    {
+        id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+        total: {type: DataTypes.INTEGER},
+        discount: {type: DataTypes.INTEGER }
+    })
+
 User.hasOne(Doctor)
 Doctor.belongsTo(User)
 
@@ -64,6 +71,9 @@ Service.belongsTo(Category)
 
 Appointment.hasMany(OrderService)
 OrderService.belongsTo(Appointment)
+
+Appointment.hasOne(AppointmentInfo)
+AppointmentInfo.belongsTo(Appointment)
 
 Service.hasMany(OrderService)
 OrderService.belongsTo(Service)
@@ -81,5 +91,6 @@ module.exports = {
     OrderService,
     Service,
     Category,
-    ProvidedService
+    ProvidedService,
+    AppointmentInfo
 }

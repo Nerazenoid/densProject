@@ -1,5 +1,5 @@
-const { Appointment, User, Doctor, Service, ProvidedService } = require('../models/models')
-const { Op, Model } = require("sequelize");
+const { Appointment, User, Doctor, Service, ProvidedService, AppointmentInfo } = require('../models/models')
+const { Op, Model, Sequelize } = require("sequelize");
 
 class AppointmentController {
 
@@ -21,7 +21,7 @@ class AppointmentController {
     async getAppointmentInfo(req, res) {
         const { appt_id } = req.params
         console.log('id: ' + appt_id)
-        const AppointmentInfo = await Appointment.findOne({
+        const fullAppointmentInfo = await Appointment.findOne({
             where: { id: appt_id },
             attributes: ['id', 'date', 'createdAt', 'status', 'userId', 'doctorId'],
             include: [{
@@ -35,9 +35,13 @@ class AppointmentController {
                     model: User,
                     attributes: ['firstName', 'lastName', 'patronymic']
                 }
+            },
+            {
+                model: AppointmentInfo, 
+                attributes: ['total']
             }]
         })
-        return res.json(AppointmentInfo)
+        return res.json(fullAppointmentInfo)
     }
 
     async getServices(req, res) {
@@ -99,17 +103,29 @@ class AppointmentController {
     }
 
     async applyServices(req, res) {
-        const {services, appt_id} = req.body
+        const { services, appt_id } = req.body
 
         await ProvidedService.bulkCreate(services)
 
-        await Appointment.update({status: 'awaitPayment'}, {
+        await Appointment.update({ status: 'awaitPayment' }, {
             where: {
                 id: appt_id
             }
         })
 
-        return res.json('fawf')
+        const result = await ProvidedService.sum(
+            'service.price', {
+            where: {
+                appointmentId: appt_id
+            },
+            include: [{
+                model: Service,
+                attributes: []
+            }]
+        })
+
+
+        return res.json(result)
     }
 
     async getByDay(req, res) {
@@ -173,6 +189,8 @@ class AppointmentController {
         }
     }
 
+
+
     async getDoctors(req, res) {
         try {
             const doctors = await Doctor.findAll({
@@ -183,6 +201,21 @@ class AppointmentController {
                 attributes: ['id', 'speciality']
             })
             return res.json(doctors)
+        }
+        catch (e) {
+            console.log(e.message)
+        }
+    }
+
+    async approvePayment(req, res) {
+        try {
+            const { appt_id } = req.body
+            await Appointment.update({ status: 'complete' }, {
+                where: {
+                    id: appt_id
+                }
+            })
+            res.json(true)
         }
         catch (e) {
             console.log(e.message)
