@@ -1,10 +1,14 @@
 .table{
     background-color: rgb(79, 196, 127);
     display: grid;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 10px;
 }
 .header{
     display: grid;
-    grid-template-columns: 1fr 3fr 3fr 1fr;
+    grid-template-columns: 1fr 4fr 4fr 2fr 1fr;
     text-align: center;
     font-weight: 600;
     font-size: 22px;
@@ -13,7 +17,7 @@
 }
 .row{
     display: grid;
-    grid-template-columns: 1fr 3fr 3fr 1fr;
+    grid-template-columns: 1fr 4fr 4fr 2fr 1fr;
     text-align: center;
     background-color: rgb(168, 231, 168);
     border-radius: 10px;
@@ -23,4 +27,7 @@
 }
 .row div{
     border-right: 1px solid black;
+}
+.row div:last-child{
+    border: none;
 }

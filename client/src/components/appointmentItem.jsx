@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import styles from './appointments.module.css'
 import { APPOINTMENTS_LIST_ROUTE } from '../utils/consts'
+import { getStatus } from '../utils/status'
 
 
 
@@ -22,6 +23,9 @@ const AppointmentItem = ({ info }) => {
             </div>
             <div>
                 {date.toLocaleString('ru')}
+            </div>
+            <div>
+                {getStatus(info.status)}
             </div>
         </div>
     );

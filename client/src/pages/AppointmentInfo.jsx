@@ -70,9 +70,6 @@ const AppointmentInfo = () => {
         console.log(providedServices)
     }
 
-
-
-
     if (loading) {
         return (<p>Загрузка</p>)
     }
@@ -92,7 +89,6 @@ const AppointmentInfo = () => {
         )
     }
 
-
     return (
         <div className={style.page}>
             <p className={style.title}>Информация о записи №{appointment.id}</p>
@@ -111,7 +107,7 @@ const AppointmentInfo = () => {
                     <p><b>ФИО: </b>{appointment.doctor.user.lastName} {appointment.doctor.user.firstName} {appointment.doctor.user.patronymic}</p>
                     <p><b>Специальность: </b>{appointment.doctor.speciality}</p>
                 </div>
-                {appointment.status == 'complete' ?
+                {appointment.status == 'complete' || appointment.status == 'awaitPayment' ?
                     <p className={style.subtitle}>Стоимость приема: {appointment.appointment_info.total} </p> :
                     ''}
             </div>

@@ -25,6 +25,7 @@ const AppointmentsPage = observer(() => {
                 <div>ФИО врача</div>
                 <div>ФИО пациента</div>
                 <div>Время записи</div>
+                <div>Статус</div>
             </div>
             {appointment.appointments.map(record =>
                 <AppointmentItem key={record.id} info={record} />

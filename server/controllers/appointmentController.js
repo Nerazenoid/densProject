@@ -3,7 +3,7 @@ const { Op, Model, Sequelize } = require("sequelize");
 
 class AppointmentController {
 
-    async createAppointment(req, res, next) {
+    async createAppointment(req, res) {
         try {
             const { date, doctor_id, user_id } = req.body
             await Appointment.create({
@@ -54,7 +54,7 @@ class AppointmentController {
     async getAppointments(req, res) {
         const Appointments = await Appointment.findAll({
             //where: {id: 142},
-            attributes: ['id', 'date'],
+            attributes: ['id', 'date', 'status'],
             order: [
                 ['id', 'DESC']
             ],
@@ -113,7 +113,7 @@ class AppointmentController {
             }
         })
 
-        const result = await ProvidedService.sum(
+        const total = await ProvidedService.sum(
             'service.price', {
             where: {
                 appointmentId: appt_id
@@ -124,8 +124,12 @@ class AppointmentController {
             }]
         })
 
+        await AppointmentInfo.create({
+            appointmentId: appt_id,
+            total: total
+        })
 
-        return res.json(result)
+        return res.json(true)
     }
 
     async getByDay(req, res) {

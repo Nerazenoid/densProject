@@ -20,3 +20,12 @@ export const check = async () => {
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }
+
+export const getUsers = async (search_query) => {
+    const {data} = await $host.get('api/admin/getusers/' + search_query)
+    return data
+}
+
+export const getUserInfo = async(login) => {
+    await $host.get('api/admin/getuser/' + login)
+}
