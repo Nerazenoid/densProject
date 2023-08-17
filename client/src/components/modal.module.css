@@ -33,7 +33,7 @@
 .wrap.active .block{
     transform: scale(1);
 }
-button{
+.submit,.deny{
     border: 1px solid;
     padding: 2px 10px;
     border-radius: 6px;

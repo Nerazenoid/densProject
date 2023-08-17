@@ -14,7 +14,7 @@ const generateJwt = (id, login, role) => {
 
 class UserController {
     async registration(req, res, next) {
-        const { login, password, role } = req.body
+        const { login, password, role, phone, fullname, birthday } = req.body
         if (!login || !password) {
             return next(ApiError.badRequest('Введите логин и пароль'))
         }
@@ -23,7 +23,16 @@ class UserController {
             return next(ApiError.badRequest('Пользователь с таким логином уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const user = await User.create({ login, role, password: hashPassword })
+        const user = await User.create({
+            login,
+            role,
+            password: hashPassword,
+            phone,
+            firstName: fullname.firstName,
+            lastName: fullname.lastName,
+            patronymic: fullname.patronymic,
+            birthday
+        })
         const token = generateJwt(user.id, user.login, user.role)
         return res.json({ token })
     }
@@ -84,8 +93,8 @@ class UserController {
         const { login } = req.params
 
         const userInfo = await User.findOne({
-            attributes: ['login', 'phone','firstName', 'lastName', 'patronymic', 'role', 'createdAt'],
-            where: {login}
+            attributes: ['login', 'phone', 'firstName', 'lastName', 'patronymic', 'role', 'createdAt', 'birthday'],
+            where: { login }
         })
         res.json(userInfo)
     }

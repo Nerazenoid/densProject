@@ -38,7 +38,10 @@
 }
 .search_btn{
     margin: 0 10px;
-    background-color: rgb(97, 255, 97);
+    background-color: rgb(160, 223, 160);
     border: 1px solid rgb(86, 146, 86);
+    padding: 0 10px;
+    border-radius: 6px;
+    font-weight: 600;
     color: rgb(2, 73, 20);
 }
