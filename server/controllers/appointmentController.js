@@ -37,7 +37,7 @@ class AppointmentController {
                 }
             },
             {
-                model: AppointmentInfo, 
+                model: AppointmentInfo,
                 attributes: ['total']
             }]
         })
@@ -223,6 +223,46 @@ class AppointmentController {
         }
         catch (e) {
             console.log(e.message)
+        }
+    }
+
+    async getProvidedServices(req,res) {
+        try{
+            const {appt_id} = req.params
+            const services = await ProvidedService.findAll({
+                attributes: ['id','amount'],
+                where: {appointmentId: appt_id},
+                include: {
+                    model: Service,
+                    attributes: ['name','price']
+                }
+            })
+            res.json(services)
+        }
+        catch(e){
+
+        }
+    }
+
+    async getUserAppointments(req, res) {
+        try {
+            const { user_id } = req.params
+            const appointments = await Appointment.findAll({
+                attributes: ['id', 'date', 'status'],
+                where: { userId: user_id },
+                include: {
+                    model: Doctor,
+                    attributes: ['id'],
+                    include: {
+                        model: User,
+                        attributes: ['firstName', 'lastName', 'patronymic']
+                    }
+                }
+            })
+            res.json(appointments)
+        }
+        catch (e) {
+            res.json(e)
         }
     }
 

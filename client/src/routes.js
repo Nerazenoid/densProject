@@ -11,18 +11,7 @@ import User from "./pages/User"
 export const authRoutes = [
     {
         path: ADMIN_ROUTE,
-        Component: Admin
-    }
-]
-
-export const publicRoutes = [
-    {
-        path: LOGIN_ROUTE,
-        Component: Auth
-    },
-    {
-        path: REGISTRATION_ROUTE,
-        Component: Auth
+        Component: Admin,
     },
     {
         path: NEW_APPOINTMENT_ROUTE,
@@ -47,5 +36,16 @@ export const publicRoutes = [
     {
         path: USER_ROUTE + '/:login',
         Component: User
+    }
+]
+
+export const publicRoutes = [
+    {
+        path: LOGIN_ROUTE,
+        Component: Auth
+    },
+    {
+        path: REGISTRATION_ROUTE,
+        Component: Auth
     }
 ]

@@ -5,9 +5,10 @@ import { LANDING_ROUTE } from "../utils/consts";
 import MainLayout from "./MainLayout";
 import Landing from "../pages/Landing";
 import { Context } from "..";
+import { observer } from "mobx-react-lite";
 
-const AppRouter = () => {
-    const {user} = useContext(Context)
+const AppRouter = observer(() => {
+    const { user } = useContext(Context)
     console.log(user)
 
     return (
@@ -26,5 +27,5 @@ const AppRouter = () => {
             <Route path='*' element={<Navigate replace to={LANDING_ROUTE} />} />
         </Routes>
     )
-}
+})
 export default AppRouter;

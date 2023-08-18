@@ -2,6 +2,7 @@
     display: flex;
     background-color: rgb(216, 240, 220);
     padding: 10px;
+    padding-right: 50px;
     position: fixed;
     width: 100%;
     align-items: flex-end;
@@ -15,4 +16,17 @@
     padding-top: 160px;
     background-color: rgb(241, 255, 251);
     min-height: 100vh;
+}
+.logout_btn{
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background-color: rgb(238, 92, 48);
+    font-weight: 600;
+    color: rgb(250, 245, 245);
+}
+.links_wrap{
+    display: flex;
+    align-items: flex-end;
+    flex-grow: 1;
 }

@@ -93,7 +93,7 @@ class UserController {
         const { login } = req.params
 
         const userInfo = await User.findOne({
-            attributes: ['login', 'phone', 'firstName', 'lastName', 'patronymic', 'role', 'createdAt', 'birthday'],
+            attributes: ['id', 'login', 'phone', 'firstName', 'lastName', 'patronymic', 'role', 'createdAt', 'birthday'],
             where: { login }
         })
         res.json(userInfo)

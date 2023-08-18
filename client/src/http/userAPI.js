@@ -30,3 +30,8 @@ export const getUserInfo = async(login) => {
     const {data} = await $host.get('api/admin/getuser/' + login)
     return data
 }
+
+export const getUserAppointments = async(user_id) => {
+    const {data} = await $host.get('api/admin/userappointments/' + user_id)
+    return data
+}

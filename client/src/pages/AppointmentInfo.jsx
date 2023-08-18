@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createProvidedServices, getAppointmentInfo, getServices, updatePayment } from "../http/appointmentAPI";
+import { createProvidedServices, getAppointmentInfo, getProvidedServices, getServices, updatePayment } from "../http/appointmentAPI";
 import { useParams } from "react-router-dom";
 import style from './appointmentInfo.module.css'
 import { observer } from "mobx-react-lite";
@@ -13,18 +13,31 @@ const AppointmentInfo = () => {
     const [services, setServices] = useState([])
     const [total, setTotal] = useState(0)
     const [providedServices, setProvidedServices] = useState([])
+    const [userServices, setUserServices] = useState([])
 
     const { appointment_id } = useParams()
 
-    useEffect(() => {
+    const loadInfo = (appointment_id) => {
         getAppointmentInfo(appointment_id)
-            .then(data =>
-                setAppointment(data)
+            .then(data => {
+                setAppointment(data);
+                if (data.status == 'awaitPayment' ||
+                    data.status == 'complete') {
+                    getProvidedServices(appointment_id).then(
+                        data => {
+                            setUserServices(data)
+                        }
+                    )
+                }
+            }
             )
             .finally(() => {
                 setLoading(false)
             })
+    }
 
+    useEffect(() => {
+        loadInfo(appointment_id)
     }, [page])
 
 
@@ -42,9 +55,7 @@ const AppointmentInfo = () => {
         setLoading(true)
         updatePayment(appointment_id)
             .then(() => {
-                getAppointmentInfo(appointment_id)
-                    .then(data => setAppointment(data))
-                    .finally(() => setLoading(false))
+                loadInfo(appointment_id)
             })
 
     }
@@ -84,7 +95,7 @@ const AppointmentInfo = () => {
                     </div>
                 )}
                 <p>Итого: {total}</p>
-                <button onClick={applyProvidedServices}>Сохранить</button>
+                <button className={style.submit_btn} onClick={applyProvidedServices}>Сохранить</button>
             </div>
         )
     }
@@ -107,14 +118,25 @@ const AppointmentInfo = () => {
                     <p><b>ФИО: </b>{appointment.doctor.user.lastName} {appointment.doctor.user.firstName} {appointment.doctor.user.patronymic}</p>
                     <p><b>Специальность: </b>{appointment.doctor.speciality}</p>
                 </div>
+
                 {appointment.status == 'complete' || appointment.status == 'awaitPayment' ?
-                    <p className={style.subtitle}>Стоимость приема: {appointment.appointment_info.total} </p> :
-                    ''}
+                    <div className={style.US_wrap}>
+                        <div className={style.US_block}>
+                            <p className={style.subtitle}>Перечень оказанных услуг:</p>
+                            {userServices.map(item =>
+                                <p key={item.id}>{item.service.name} – {item.service.price} x {item.amount || 1} </p>
+                            )}
+                            <p className={style.total_price}>Итого: {appointment.appointment_info.total} </p>
+                        </div>
+                    </div> :
+
+                    null}
             </div>
+
             {appointment.status == 'inProgress' ?
-                <button onClick={startAppointments}>Начать прием</button> :
+                <button className={style.submit_btn} onClick={startAppointments}>Начать прием</button> :
                 appointment.status == 'awaitPayment' ?
-                    <button onClick={approvePayment}>Оплата подтверждена</button> : ''}
+                    <button className={style.submit_btn} onClick={approvePayment}>Оплата подтверждена</button> : ''}
 
         </div>
     );

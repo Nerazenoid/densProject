@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { doRegistration, doLogin } from '../http/userAPI'
 import { Context } from '../index'
 import { observer } from 'mobx-react-lite'
-import { LANDING_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/consts';
+import { LANDING_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ROUTE } from '../utils/consts';
 import { NavLink, useLocation, useNavigate, } from 'react-router-dom';
 import style from '../components/auth.module.css'
 
@@ -30,7 +30,7 @@ const Auth = observer(() => {
       user.setUser(data)
       user.setIsAuth(true)
       console.log(user.isAuth)
-      navigate(LANDING_ROUTE)
+      navigate(USER_ROUTE + '/' + data.login)
     } catch (e) {
       alert(e.response.data.message)
     }
@@ -43,7 +43,7 @@ const Auth = observer(() => {
       user.setUser(data)
       user.setIsAuth(true)
       console.log(user.user)
-      navigate(LANDING_ROUTE)
+      navigate(USER_ROUTE + '/' + data.login)
     } catch (e) {
       alert(e.response.data.message)
     }

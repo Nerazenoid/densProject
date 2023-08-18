@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import styles from '../components/userItem.module.css'
-import { getUserInfo } from '../http/userAPI'
+import { getUserAppointments, getUserInfo } from '../http/userAPI'
 import { useParams } from 'react-router-dom'
+import AppointmentCard from '../components/appointmentCard'
 
 const UserPage = () => {
 
     const [user, setUser] = useState()
     const [loading, setLoading] = useState(true)
+    const [appointments, setAppointments] = useState([])
 
     const { login } = useParams()
 
@@ -15,10 +17,12 @@ const UserPage = () => {
     useEffect(() => {
         getUserInfo(login)
             .then(
-                data =>
-                    setUser(data))
+                data => {
+                    setUser(data);
+                    getUserAppointments(data.id)
+                    .then(data => setAppointments(data));
+                })
             .finally(() => {
-
                 setLoading(false)
             })
     }, [])
@@ -39,7 +43,9 @@ const UserPage = () => {
             </div>
             <div>
                 <p className={styles.title}>Информация о приемах</p>
-
+                <div className={styles.appt_list}>
+                    {appointments.map(appointment => <AppointmentCard key={appointment.id} data={appointment}/>)}
+                </div>
             </div>
         </div>
     )
