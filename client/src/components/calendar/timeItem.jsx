@@ -4,7 +4,7 @@ import {Context} from '../../index'
 
 
 const TimeItem = ({time}) => {
-    const {appointment, component} = useContext(Context)
+    const {appointment, component, user} = useContext(Context)
 
     const create = async () => {
         let date = new Date(time.time).getTime()

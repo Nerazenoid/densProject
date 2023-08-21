@@ -1,0 +1,20 @@
+.dropdown{
+    background-color: rgb(252, 245, 245);
+    position: absolute;
+    width: 100%;
+    max-width: 300px;
+    top: 28px;
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
+    border-bottom: 1px solid gray;
+    max-height: 200px;
+    overflow-y: auto;
+    opacity: 0;
+}
+.dropdown.active{
+    opacity: 1;
+}
+.item{
+    padding: 6px;
+    border-bottom: 1px solid gray;
+}

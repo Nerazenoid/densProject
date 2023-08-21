@@ -29,6 +29,11 @@ export const getAppointments = async () => {
     return data
 }
 
+export const getDoctorAppointments = async(user_id) => {
+    const {data} = await $host.get('api/admin/doctorappointments/' + user_id)
+    return data
+}
+
 export const getAppointmentInfo = async (appt_id) => {
     const { data } = await $host.get('/api/appointment/getinfo/' + appt_id)
     return data

@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { createProvidedServices, getAppointmentInfo, getProvidedServices, getServices, updatePayment } from "../http/appointmentAPI";
 import { useParams } from "react-router-dom";
 import style from './appointmentInfo.module.css'
 import { observer } from "mobx-react-lite";
 import { getStatus } from "../utils/status";
+import { Context } from "..";
 
 const AppointmentInfo = () => {
 
+    const { user } = useContext(Context)
     const [page, setPage] = useState('USER')
     const [appointment, setAppointment] = useState()
     const [loading, setLoading] = useState(true)
@@ -133,9 +135,9 @@ const AppointmentInfo = () => {
                     null}
             </div>
 
-            {appointment.status == 'inProgress' ?
+            {appointment.status == 'inProgress' && user.user.role === 'DOCTOR' ?
                 <button className={style.submit_btn} onClick={startAppointments}>Начать прием</button> :
-                appointment.status == 'awaitPayment' ?
+                appointment.status == 'awaitPayment' && user.user.role === 'ADMIN' ?
                     <button className={style.submit_btn} onClick={approvePayment}>Оплата подтверждена</button> : ''}
 
         </div>

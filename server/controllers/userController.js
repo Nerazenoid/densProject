@@ -64,7 +64,7 @@ class UserController {
         }
 
         const result = await User.findAll({
-            attributes: ['login', 'phone', 'firstName', 'lastName', 'patronymic', 'createdAt'],
+            attributes: ['id','login', 'phone', 'firstName', 'lastName', 'patronymic', 'createdAt'],
             where: {
                 [Op.or]: [
                     {
@@ -97,6 +97,20 @@ class UserController {
             where: { login }
         })
         res.json(userInfo)
+    }
+
+    async addUser(req,res) {
+        const {phone, fullname} = req.body
+        const login = 'user' + new Date().getTime()
+        await User.create({
+            login,
+            password: 'nonepass',
+            phone,
+            firstName: fullname.firstName,
+            lastName: fullname.lastName,
+            patronymic: fullname.patronymic,
+        })
+        res.json(login)
     }
 }
 

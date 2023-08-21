@@ -15,6 +15,10 @@ export const doLogin = async (login, password) => {
     return jwt_decode(data.token)
 }
 
+export const addUser = async(fullname, phone) => {
+    await $host.post('api/admin/adduser', {fullname,phone})
+}
+
 export const check = async () => {
     const { data } = await $authHost.get('api/auth/auth')
     localStorage.setItem('token', data.token)

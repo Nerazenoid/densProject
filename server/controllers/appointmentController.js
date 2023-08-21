@@ -53,7 +53,6 @@ class AppointmentController {
 
     async getAppointments(req, res) {
         const Appointments = await Appointment.findAll({
-            //where: {id: 142},
             attributes: ['id', 'date', 'status'],
             order: [
                 ['id', 'DESC']
@@ -65,6 +64,34 @@ class AppointmentController {
             {
                 model: Doctor,
                 attributes: ['id'],
+                include: {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName', 'patronymic']
+                }
+            }
+            ]
+        })
+        return res.json(Appointments)
+    }
+
+    async getAppointmentsToDoctor(req, res) {
+        const { user_id } = req.params
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' + user_id)
+        const Appointments = await Appointment.findAll({
+            attributes: ['id', 'date', 'status'],
+            order: [
+                ['id', 'DESC']
+            ],
+            include: [{
+                model: User,
+                attributes: ['firstName', 'lastName', 'patronymic', 'id']
+            },
+            {
+                model: Doctor,
+                attributes: ['id'],
+                where: {
+                    userId: user_id
+                },
                 include: {
                     model: User,
                     attributes: ['id', 'firstName', 'lastName', 'patronymic']
@@ -226,20 +253,20 @@ class AppointmentController {
         }
     }
 
-    async getProvidedServices(req,res) {
-        try{
-            const {appt_id} = req.params
+    async getProvidedServices(req, res) {
+        try {
+            const { appt_id } = req.params
             const services = await ProvidedService.findAll({
-                attributes: ['id','amount'],
-                where: {appointmentId: appt_id},
+                attributes: ['id', 'amount'],
+                where: { appointmentId: appt_id },
                 include: {
                     model: Service,
-                    attributes: ['name','price']
+                    attributes: ['name', 'price']
                 }
             })
             res.json(services)
         }
-        catch(e){
+        catch (e) {
 
         }
     }

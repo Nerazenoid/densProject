@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react"
-import { getAppointments } from "../http/appointmentAPI"
+import { getAppointments, getDoctorAppointments } from "../http/appointmentAPI"
 import { Context } from ".."
 import AppointmentItem from "../components/appointmentItem"
 import { observer } from "mobx-react-lite"
@@ -7,13 +7,21 @@ import styles from '../components/appointments.module.css'
 
 const AppointmentsPage = observer(() => {
 
-    const { appointment } = useContext(Context)
+    const { user, appointment } = useContext(Context)
 
     useEffect(() => {
-        getAppointments().then(data => {
-            console.log(data)
-            appointment.setAppointments(data)
-        })
+        if (user.user.role === 'DOCTOR') {
+            getDoctorAppointments(user.user.id).then(data => {
+                console.log(data)
+                appointment.setAppointments(data)
+            })
+        }
+        else {
+            getAppointments().then(data => {
+                console.log(data)
+                appointment.setAppointments(data)
+            })
+        }
     }, [])
 
 

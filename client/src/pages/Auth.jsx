@@ -49,6 +49,11 @@ const Auth = observer(() => {
     }
   }
 
+  const formatPhone = (phone) => {
+    const value = phone.replace(/[^\d]/g, '')
+    setPhone(value)
+  }
+
 
   return (
     <div className={style.page}>
@@ -67,7 +72,7 @@ const Auth = observer(() => {
                 <p className={style.subtitle}>Дата рождения:</p>
                 <input type='date' className={style.datepicker} onChange={e=> setBirthday(e.target.value)}></input>
               </div>
-              <input type='tel' className={style.input} placeholder='Номер телефона' value={phone} onChange={e => setPhone(e.target.value)}></input>
+              <input type='tel' className={style.input} placeholder='Номер телефона' value={phone} onChange={e => formatPhone(e.target.value)}></input>
             </div>
           )
             : ('')}
