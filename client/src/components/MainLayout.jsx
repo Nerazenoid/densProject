@@ -40,6 +40,7 @@ function MainLayout() {
                         <NavLink to={USER_ROUTE}>Пользователи</NavLink> :
                         null}
                 </div>
+                {user.user.login}
                 {user.isAuth ?
                     <button className={style.logout_btn} onClick={() => logOut()}>Выйти</button> :
                     null
@@ -47,6 +48,9 @@ function MainLayout() {
             </div>
             <div className={style.body}>
                 <Outlet className={style.padding} />
+            </div>
+            <div className={style.footer}>
+                Футер
             </div>
         </div>
     );

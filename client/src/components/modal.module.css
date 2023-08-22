@@ -71,3 +71,6 @@
     max-width: 300px;
     width: 100%;
 }
+.input::placeholder{
+    color: gray;
+}

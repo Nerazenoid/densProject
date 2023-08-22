@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { createProvidedServices, getAppointmentInfo, getProvidedServices, getServices, updatePayment } from "../http/appointmentAPI";
+import { cancelAppointment, createProvidedServices, getAppointmentInfo, getProvidedServices, getServices, updatePayment } from "../http/appointmentAPI";
 import { useParams } from "react-router-dom";
 import style from './appointmentInfo.module.css'
 import { observer } from "mobx-react-lite";
@@ -18,6 +18,13 @@ const AppointmentInfo = () => {
     const [userServices, setUserServices] = useState([])
 
     const { appointment_id } = useParams()
+
+    const colors = {
+        inProgress: '#ddad00',
+        awaitPayment: '#5bcdc7',
+        complete: '#57c314',
+        deny: '#740000'
+    }
 
     const loadInfo = (appointment_id) => {
         getAppointmentInfo(appointment_id)
@@ -39,7 +46,8 @@ const AppointmentInfo = () => {
     }
 
     useEffect(() => {
-        loadInfo(appointment_id)
+        loadInfo(appointment_id);
+        window.scrollTo(0, 0)
     }, [page])
 
 
@@ -59,7 +67,14 @@ const AppointmentInfo = () => {
             .then(() => {
                 loadInfo(appointment_id)
             })
+    }
 
+    const denyAppointment = () => {
+        setLoading(true)
+        cancelAppointment(appointment_id)
+            .then(() => {
+                loadInfo(appointment_id)
+            })
     }
 
     const applyProvidedServices = () => {
@@ -71,6 +86,7 @@ const AppointmentInfo = () => {
                 setLoading(false)
             })
     }
+
 
     const CheckBoxHandler = (e, service_id, price) => {
         if (e.target.checked) {
@@ -103,22 +119,27 @@ const AppointmentInfo = () => {
     }
 
     return (
-        <div className={style.page}>
+        <div className={style.page} style={{ borderColor: colors[appointment.status] }}>
             <p className={style.title}>Информация о записи №{appointment.id}</p>
-            <div className={style.appointment_info}>
-                <p><b>Дата приема:</b> {new Date(appointment.date).toLocaleString('ru')} </p>
-                <p><b>Дата записи:</b> {new Date(appointment.createdAt).toLocaleString('ru')} </p>
-                <p><b>Статус приема:</b> {getStatus(appointment.status)} </p>
-            </div>
             <div className={style.body}>
-                <div className={style.block}>
-                    <p className={style.subtitle}>Информация о пациенте</p>
-                    <p><b>ФИО: </b>{appointment.user.lastName} {appointment.user.firstName} {appointment.user.patronymic}</p>
-                </div>
-                <div className={style.block}>
-                    <p className={style.subtitle}>Информация о враче</p>
-                    <p><b>ФИО: </b>{appointment.doctor.user.lastName} {appointment.doctor.user.firstName} {appointment.doctor.user.patronymic}</p>
-                    <p><b>Специальность: </b>{appointment.doctor.speciality}</p>
+                <div className={style.main_info}>
+                    <div className={style.block}>
+                        <p className={style.string_creation}><b>Дата создания:</b> {new Date(appointment.createdAt).toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })} </p>
+                        <p className={style.string}><b>Время приема:</b> {new Date(appointment.date).toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric' })} </p>
+                        <p className={style.string}><b>Статус приема: <i style={{ color: colors[appointment.status] }}>{getStatus(appointment.status)}</i></b></p>
+                    </div>
+                    <div className={style.flex}>
+                        <div className={style.block}>
+                            <p className={style.subtitle}>Информация о пациенте</p>
+                            <p className={style.string}><b>ФИО: </b>{appointment.user.lastName} {appointment.user.firstName} {appointment.user.patronymic}</p>
+                            <p className={style.string}><b>Телефон: </b>{appointment.user.phone}</p>
+                        </div>
+                        <div className={style.block}>
+                            <p className={style.subtitle}>Информация о враче</p>
+                            <p className={style.string}><b>ФИО: </b>{appointment.doctor.user.lastName} {appointment.doctor.user.firstName} {appointment.doctor.user.patronymic}</p>
+                            <p className={style.string}><b>Специальность: </b>{appointment.doctor.speciality}</p>
+                        </div>
+                    </div>
                 </div>
 
                 {appointment.status == 'complete' || appointment.status == 'awaitPayment' ?
@@ -126,19 +147,20 @@ const AppointmentInfo = () => {
                         <div className={style.US_block}>
                             <p className={style.subtitle}>Перечень оказанных услуг:</p>
                             {userServices.map(item =>
-                                <p key={item.id}>{item.service.name} – {item.service.price} x {item.amount || 1} </p>
+                                <p key={item.id} className={style.US_string}>{item.service.name} – {item.service.price} x {item.amount || 1} </p>
                             )}
                             <p className={style.total_price}>Итого: {appointment.appointment_info.total} </p>
                         </div>
                     </div> :
-
                     null}
             </div>
 
             {appointment.status == 'inProgress' && user.user.role === 'DOCTOR' ?
-                <button className={style.submit_btn} onClick={startAppointments}>Начать прием</button> :
-                appointment.status == 'awaitPayment' && user.user.role === 'ADMIN' ?
-                    <button className={style.submit_btn} onClick={approvePayment}>Оплата подтверждена</button> : ''}
+                <button className={style.submit_btn} onClick={startAppointments}>Начать прием</button> : null}
+            {appointment.status == 'awaitPayment' && user.user.role === 'ADMIN' ?
+                <button className={style.submit_btn} onClick={approvePayment}>Оплата подтверждена</button> : null}
+            {appointment.status == 'inProgress' && user.user.role === 'ADMIN' ?
+                <button className={style.deny_btn} onClick={denyAppointment}>Отменить</button> : null}
 
         </div>
     );

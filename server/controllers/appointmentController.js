@@ -26,7 +26,7 @@ class AppointmentController {
             attributes: ['id', 'date', 'createdAt', 'status', 'userId', 'doctorId'],
             include: [{
                 model: User,
-                attributes: ['firstName', 'lastName', 'patronymic']
+                attributes: ['firstName', 'lastName', 'patronymic', 'phone']
             },
             {
                 model: Doctor,
@@ -55,7 +55,8 @@ class AppointmentController {
         const Appointments = await Appointment.findAll({
             attributes: ['id', 'date', 'status'],
             order: [
-                ['id', 'DESC']
+                [Sequelize.literal("status='deny', status='complete', status='inProgress', status='awaitPayment'")],
+                ['date', 'asc']
             ],
             include: [{
                 model: User,
@@ -74,33 +75,6 @@ class AppointmentController {
         return res.json(Appointments)
     }
 
-    async getAppointmentsToDoctor(req, res) {
-        const { user_id } = req.params
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' + user_id)
-        const Appointments = await Appointment.findAll({
-            attributes: ['id', 'date', 'status'],
-            order: [
-                ['id', 'DESC']
-            ],
-            include: [{
-                model: User,
-                attributes: ['firstName', 'lastName', 'patronymic', 'id']
-            },
-            {
-                model: Doctor,
-                attributes: ['id'],
-                where: {
-                    userId: user_id
-                },
-                include: {
-                    model: User,
-                    attributes: ['id', 'firstName', 'lastName', 'patronymic']
-                }
-            }
-            ]
-        })
-        return res.json(Appointments)
-    }
 
     async getDays(req, res) {
         try {
@@ -253,6 +227,21 @@ class AppointmentController {
         }
     }
 
+    async cancelAppointment(req,res) {
+        try {
+            const { appt_id } = req.body
+            await Appointment.update({ status: 'deny' }, {
+                where: {
+                    id: appt_id
+                }
+            })
+            res.json(true)
+        }
+        catch (e) {
+            console.log(e.message)
+        }
+    }
+
     async getProvidedServices(req, res) {
         try {
             const { appt_id } = req.params
@@ -276,21 +265,57 @@ class AppointmentController {
             const { user_id } = req.params
             const appointments = await Appointment.findAll({
                 attributes: ['id', 'date', 'status'],
+                order: [
+                    ['id', 'DESC']
+                ],
                 where: { userId: user_id },
-                include: {
-                    model: Doctor,
-                    attributes: ['id'],
-                    include: {
+                include: [
+                    {
                         model: User,
-                        attributes: ['firstName', 'lastName', 'patronymic']
+                        attributes: ['firstName', 'lastName', 'patronymic', 'id']
+                    },
+                    {
+                        model: Doctor,
+                        attributes: ['id'],
+                        include: {
+                            model: User,
+                            attributes: ['firstName', 'lastName', 'patronymic', 'id']
+                        }
                     }
-                }
+                ]
             })
             res.json(appointments)
         }
         catch (e) {
             res.json(e)
         }
+    }
+
+    async getAppointmentsToDoctor(req, res) {
+        const { user_id } = req.params
+        const appointments = await Appointment.findAll({
+            attributes: ['id', 'date', 'status'],
+            order: [
+                ['id', 'DESC']
+            ],
+            include: [{
+                model: User,
+                attributes: ['firstName', 'lastName', 'patronymic', 'id']
+            },
+            {
+                model: Doctor,
+                attributes: ['id'],
+                where: {
+                    userId: user_id
+                },
+                include: {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName', 'patronymic']
+                }
+            }
+            ]
+        })
+        return res.json(appointments)
     }
 
 }

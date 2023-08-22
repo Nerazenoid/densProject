@@ -61,7 +61,7 @@ const Modal = observer(() => {
                     <div className={styles.block} onClick={(e) => e.stopPropagation()}>
                         <p className={styles.message}>Записать пользователя?</p>
                         <div className={styles.search_block}>
-                            <input className={styles.input} type='text' value={search} onChange={e => findUsers(e.target.value)}></input>
+                            <input className={styles.input} type='text' placeholder='Поиск' value={search} onChange={e => findUsers(e.target.value)}></input>
                             <DropDown users={usersList} selectedUserName={(query) => setSearch(query)} selectedUserId={(id) => setSelectedUser(id)}/>
                         </div>
                         <div className={styles.buttons}>

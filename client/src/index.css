@@ -1,6 +1,21 @@
+html{
+  overflow-y: scroll;
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Segoe UI';
+  min-height: 100vh;
+}
+
+body::-webkit-scrollbar{
+  background: none;
+  width: 14px;
+
+}
+body::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgb(110, 173, 110), rgb(0, 97, 0));
 }

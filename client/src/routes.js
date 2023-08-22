@@ -44,6 +44,7 @@ export const authRoutes = [
     }
 ]
 
+
 export const publicRoutes = [
     {
         path: LOGIN_ROUTE,

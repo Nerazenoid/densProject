@@ -4,24 +4,32 @@ import { Context } from ".."
 import AppointmentItem from "../components/appointmentItem"
 import { observer } from "mobx-react-lite"
 import styles from '../components/appointments.module.css'
+import { getUserAppointments } from "../http/userAPI"
 
 const AppointmentsPage = observer(() => {
 
     const { user, appointment } = useContext(Context)
 
     useEffect(() => {
+        if(user.user.role === 'ADMIN') {
+            getAppointments().then(data => {
+                console.log(data)
+                appointment.setAppointments(data)
+            })
+        }
         if (user.user.role === 'DOCTOR') {
             getDoctorAppointments(user.user.id).then(data => {
                 console.log(data)
                 appointment.setAppointments(data)
             })
         }
-        else {
-            getAppointments().then(data => {
+        if(user.user.role === 'USER') {
+            getUserAppointments(user.user.id).then(data => {
                 console.log(data)
                 appointment.setAppointments(data)
             })
         }
+
     }, [])
 
 
