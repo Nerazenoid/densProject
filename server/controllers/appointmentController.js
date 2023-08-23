@@ -103,6 +103,38 @@ class AppointmentController {
         }
     }
 
+    async test(req,res) {
+        const {appt_id} = req.body
+
+        const {price} = await ProvidedService.findOne({
+            attributes: [
+                [Sequelize.literal('SUM(service.price * provided_service.amount)'), 'price']
+            ],
+            group: ['provided_service.appointmentId'],
+            where: {
+                appointmentId: appt_id
+            },
+            include: [{
+                model: Service,
+                attributes: []
+            }],
+            raw: true
+        })
+        /*const total = await ProvidedService.sum(
+            'service.price', {
+            where: {
+                appointmentId: appt_id
+            },
+            include: [{
+                model: Service,
+                attributes: []
+            }]
+        })*/
+        console.log(price)
+        res.json(price)
+    }
+
+
     async applyServices(req, res) {
         const { services, appt_id } = req.body
 
@@ -114,20 +146,26 @@ class AppointmentController {
             }
         })
 
-        const total = await ProvidedService.sum(
-            'service.price', {
+        const {price} = await ProvidedService.findOne({
+            attributes: [
+                [Sequelize.literal('SUM(service.price * provided_service.amount)'), 'price']
+            ],
+            group: ['provided_service.appointmentId'],
             where: {
                 appointmentId: appt_id
             },
             include: [{
                 model: Service,
                 attributes: []
-            }]
+            }],
+            raw: true
         })
+        
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' + price)
 
         await AppointmentInfo.create({
             appointmentId: appt_id,
-            total: total
+            total: price
         })
 
         return res.json(true)
@@ -227,7 +265,7 @@ class AppointmentController {
         }
     }
 
-    async cancelAppointment(req,res) {
+    async cancelAppointment(req, res) {
         try {
             const { appt_id } = req.body
             await Appointment.update({ status: 'deny' }, {
@@ -266,7 +304,8 @@ class AppointmentController {
             const appointments = await Appointment.findAll({
                 attributes: ['id', 'date', 'status'],
                 order: [
-                    ['id', 'DESC']
+                    [Sequelize.literal("status='deny', status='complete', status='inProgress', status='awaitPayment'")],
+                    ['date', 'asc']
                 ],
                 where: { userId: user_id },
                 include: [
@@ -296,7 +335,8 @@ class AppointmentController {
         const appointments = await Appointment.findAll({
             attributes: ['id', 'date', 'status'],
             order: [
-                ['id', 'DESC']
+                [Sequelize.literal("status='deny', status='complete', status='awaitPayment', status='inProgress'")],
+                ['date', 'asc']
             ],
             include: [{
                 model: User,

@@ -14,7 +14,6 @@ const AppointmentInfo = () => {
     const [loading, setLoading] = useState(true)
     const [services, setServices] = useState([])
     const [total, setTotal] = useState(0)
-    const [providedServices, setProvidedServices] = useState([])
     const [userServices, setUserServices] = useState([])
 
     const { appointment_id } = useParams()
@@ -50,11 +49,15 @@ const AppointmentInfo = () => {
         window.scrollTo(0, 0)
     }, [page])
 
+    useEffect(() => {
+        CountTotal()
+    }, [services])
+
 
     const startAppointments = () => {
         setLoading(true)
         getServices()
-            .then(data => setServices(data))
+            .then(data => setServices(data.map(obj => ({ ...obj, isChecked: false, amount: '' }))))
             .finally(() => {
                 setPage('DOCTOR')
                 setLoading(false)
@@ -78,25 +81,46 @@ const AppointmentInfo = () => {
     }
 
     const applyProvidedServices = () => {
-        setLoading(true)
+        //setLoading(true)
+        const providedServices = services.reduce((arr, obj) => {
+            if (obj.isChecked === true) {
+                arr.push({
+                    serviceId: obj.id,
+                    amount: obj.amount,
+                    appointmentId: appointment_id
+                })
+            }
+            return arr
+        }, [])
         createProvidedServices(providedServices, appointment_id)
-            .then(() => setProvidedServices([]))
-            .finally(() => {
+            .then(() => {
                 setPage('USER')
                 setLoading(false)
             })
     }
 
-
-    const CheckBoxHandler = (e, service_id, price) => {
+    const checkBoxHandler = (e, service_id) => {
         if (e.target.checked) {
-            setTotal(total + price)
-            setProvidedServices([...providedServices, { serviceId: service_id, appointmentId: appointment_id }])
-        } else {
-            setTotal(total - price)
-            setProvidedServices(providedServices.filter(item => item.serviceId !== service_id))
+            setServices(services.map(obj => obj.id === service_id ? { ...obj, isChecked: true, amount: '1' } : obj))
+
         }
-        console.log(providedServices)
+        else {
+            setServices(services.map(obj => obj.id === service_id ? { ...obj, isChecked: false, amount: '' } : obj))
+
+        }
+    }
+
+    const CountTotal = () => {
+
+        const result = services.filter(({ isChecked }) => isChecked === true)
+            .reduce((sum, service) => sum + service.price * service.amount, 0)
+
+        setTotal(result)
+    }
+
+    const ChangeValue = (service_id, amount) => {
+        setServices(services.map(obj => obj.id == service_id ? { ...obj, amount: amount } : obj))
+        CountTotal()
     }
 
     if (loading) {
@@ -106,13 +130,32 @@ const AppointmentInfo = () => {
     if (page === 'DOCTOR') {
         return (
             <div className={style.page}>
-                {services.map(service =>
-                    <div className={style.checkbox_item} key={service.id}>
-                        <input type="checkbox" className={style.checkbox} onChange={(e) => CheckBoxHandler(e, service.id, service.price,)}></input>
-                        {service.name}
-                    </div>
-                )}
-                <p>Итого: {total}</p>
+                <div className={style.service_list}>
+                    {services.map(service =>
+                        <div className={service.isChecked ? `${style.service_item} ${style.selected}` : `${style.service_item}`} key={service.id}>
+                            <input
+                                type="checkbox"
+                                className={style.checkbox}
+                                checked={service.isChecked}
+                                onChange={(e) => checkBoxHandler(e, service.id, service.price)}>
+
+                            </input>
+                            <p className={style.service_name}>{service.name}
+                            </p>
+                            {service.isChecked ? <i> x </i> : null}
+                            <input type="number"
+                                className={style.amount_input}
+                                disabled={!service.isChecked}
+                                placeholder=" "
+                                value={service.amount}
+                                onBlur={(e) => { if (!e.target.value || e.target.value < 1) ChangeValue(service.id, '1') }}
+                                onChange={(e) => ChangeValue(service.id, e.target.value)}>
+
+                            </input>
+                        </div>
+                    )}
+                </div>
+                <p className={style.total}>Итого: {total}</p>
                 <button className={style.submit_btn} onClick={applyProvidedServices}>Сохранить</button>
             </div>
         )

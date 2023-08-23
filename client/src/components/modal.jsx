@@ -26,6 +26,7 @@ const Modal = observer(() => {
     const createByAdmin = async () => {
         await createAppointment(appointment.selectedTime, doctor_id, selectedUser)
         appointment.setSelectedTime(null)
+        setSearch('')
         component.closeModal()
     }
 
@@ -75,7 +76,7 @@ const Modal = observer(() => {
     }
     return (
         <div className={component.active ? `${styles.wrap} ${styles.active}` : styles.wrap}
-            onClick={() => component.closeModal()}>
+            onClick={() => {component.closeModal()}}>
             <div className={styles.block} onClick={(e) => e.stopPropagation()}>
             </div>
         </div>

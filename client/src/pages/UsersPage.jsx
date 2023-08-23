@@ -36,9 +36,11 @@ const UsersPage = () => {
                 <button className={styles.search_btn} onClick={() => SearchUsers()}>Поиск</button>
                 <button className={styles.search_btn} onClick={() => navigate('/adduser')}>Добавить пациента</button>
             </div>
-            {users.map(user =>
-                <UserItem key={user.login} user={user} />
-            )}
+            <div className={styles.grid}>
+                {users.map(user =>
+                    <UserItem key={user.login} user={user} />
+                )}
+            </div>
         </div>
     )
 }

@@ -9,10 +9,10 @@
     border-bottom: 1px solid gray;
     max-height: 200px;
     overflow-y: auto;
-    opacity: 0;
+    visibility: hidden;
 }
 .dropdown.active{
-    opacity: 1;
+    visibility: visible;
 }
 .item{
     padding: 6px;

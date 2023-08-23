@@ -64,7 +64,7 @@ class UserController {
         }
 
         const result = await User.findAll({
-            attributes: ['id','login', 'phone', 'firstName', 'lastName', 'patronymic', 'createdAt'],
+            attributes: ['id','login', 'phone', 'firstName', 'lastName', 'patronymic', 'createdAt', 'birthday'],
             where: {
                 [Op.or]: [
                     {

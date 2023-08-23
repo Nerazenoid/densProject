@@ -14,4 +14,6 @@ router.post('/approvepayment', appointmentController.approvePayment)
 router.post('/cancelappointment', appointmentController.cancelAppointment)
 router.get('/providedservices/:appt_id', appointmentController.getProvidedServices)
 
+router.get('/test', appointmentController.test)
+
 module.exports = router
