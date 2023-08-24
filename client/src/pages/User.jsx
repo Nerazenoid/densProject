@@ -33,13 +33,13 @@ const UserPage = () => {
 
     return (
         <div className={styles.page}>
-            <p className={styles.title}>Страница пользователя</p>
-            <div>
-                <p className={styles.subtitle}>ФИО: {`${user.lastName} ${user.firstName} ${user.patronymic}`}</p>
-                <p className={styles.subtitle}>Дата рождения: {new Date(user.birthday).toLocaleDateString('ru')}</p>
-                <p className={styles.subtitle}>Логин: {user.login}</p>
-                <p className={styles.subtitle}>Номер телефона: {user.phone || 'Не указан'}</p>
-                <p className={styles.subtitle}>Дата регистрации: {new Date(user.createdAt).toLocaleDateString('ru')}</p>
+            <p className={styles.title}>Карточка пациента № {user.id}</p>
+            <div className={styles.info_block}>
+                <p className={styles.subtitle}><b>ФИО:</b> {`${user.lastName} ${user.firstName} ${user.patronymic}`}</p>
+                <p className={styles.subtitle}><b>Дата рождения:</b> {new Date(user.birthday).toLocaleDateString('ru')}</p>
+                <p className={styles.subtitle}><b>Логин:</b> {user.login}</p>
+                <p className={styles.phone}>{user.phone || 'Не указан'}</p>
+                <p className={styles.subtitle}><b>Дата регистрации:</b> {new Date(user.createdAt).toLocaleDateString('ru')}</p>
             </div>
             <div>
                 <p className={styles.title}>Информация о приемах</p>

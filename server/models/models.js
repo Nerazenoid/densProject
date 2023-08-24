@@ -7,7 +7,7 @@ const User = sequelize.define('user',
         login: { type: DataTypes.STRING, unique: true },
         password: { type: DataTypes.STRING },
         phone: { type: DataTypes.STRING },
-        birthday: { type: DataTypes.DATEONLY},
+        birthday: { type: DataTypes.DATEONLY },
         firstName: { type: DataTypes.STRING },
         lastName: { type: DataTypes.STRING },
         patronymic: { type: DataTypes.STRING },
@@ -18,6 +18,7 @@ const Doctor = sequelize.define('doctor',
     {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
         speciality: { type: DataTypes.STRING },
+        photo: { type: DataTypes.STRING },
     })
 
 const Appointment = sequelize.define('appointment',
@@ -48,14 +49,14 @@ const OrderService = sequelize.define('order_service',
 const ProvidedService = sequelize.define('provided_service',
     {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-        amount: {type: DataTypes.INTEGER}
+        amount: { type: DataTypes.INTEGER }
     })
 
-    const AppointmentInfo = sequelize.define('appointment_info',
+const AppointmentInfo = sequelize.define('appointment_info',
     {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-        total: {type: DataTypes.INTEGER},
-        discount: {type: DataTypes.INTEGER }
+        total: { type: DataTypes.INTEGER },
+        discount: { type: DataTypes.INTEGER }
     })
 
 User.hasOne(Doctor)

@@ -7,6 +7,7 @@
     width: 100%;
     align-items: flex-end;
     border-radius: 0 0 14px 14px;
+    z-index: 100;
 }
 .header a{
     margin: 0 10px;
@@ -26,12 +27,21 @@
     background-color: rgb(238, 92, 48);
     font-weight: 600;
     color: rgb(250, 245, 245);
+    margin-left: 10px;
 }
 .links_wrap{
     display: flex;
     align-items: flex-end;
     flex-grow: 1;
 }
+.username{
+    font-weight: 600;
+    font-size: 18px;
+    color: rgb(10, 82, 64);
+}
 .footer{
     background-color: green;
+}
+.auth_block{
+    display: flex;
 }

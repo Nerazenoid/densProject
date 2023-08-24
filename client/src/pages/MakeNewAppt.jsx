@@ -1,8 +1,4 @@
-import { get, set } from 'mobx';
-import TopBar from '../components/header/TopBar.jsx';
 import { getByDay, getDays } from "../http/appointmentAPI.js";
-import { doLogin } from "../http/userAPI.js";
-import { LANDING_ROUTE } from "../utils/consts.js";
 import TimePicker from '../components/calendar/timePicker.jsx';
 import { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
@@ -10,16 +6,17 @@ import DaysPicker from "../components/calendar/daysPicker.jsx";
 import { Context } from "../index";
 import Modal from '../components/modal.jsx';
 import { useParams } from 'react-router-dom';
+import style from './appointmentInfo.module.css'
 
 
 const MakeNewAppt = observer(() => {
 
 
-    const { appointment,user } = useContext(Context)
+    const { appointment, user } = useContext(Context)
 
     const [loading, setLoading] = useState(true) //Проверка загрузки
 
-    const {doctor_id} = useParams()
+    const { doctor_id } = useParams()
 
     console.log(user.user)
     useEffect(() => {
@@ -43,9 +40,12 @@ const MakeNewAppt = observer(() => {
     if (loading)
         return ('Загрузка')
     return (
-        <div>
-            <DaysPicker />
-            <TimePicker />
+        <div className={style.page}>
+            <p className={style.title}>Новая запись</p>
+            <div className={style.appointment_form}>
+                <DaysPicker />
+                <TimePicker />
+            </div>
             <Modal>awfawfawfwwaf </Modal>
         </div>
     )

@@ -1,9 +1,31 @@
 
-.block{
+.block, .info_block{
     padding: 10px;
     border-radius: 10px;
     background-color: rgb(222 255 238);
+}
+.block{
     cursor: pointer;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    transition: 0.2s;
+}
+.block:hover{
+    transform: scale(1.05);
+    background-color: white;
+    transition: 0.2s;
+}
+.info_block{
+    
+    max-width: 500px;
+}
+.info_block b{
+    font-weight: 600;
+}
+.subtitle{
+    margin-left: 10px;
+    color:rgb(5, 80, 51)
 }
 .page{
     background-color: rgb(48 161 132);
@@ -30,7 +52,8 @@
     background-color: white;
     padding: 4px 10px;
     border-radius: 10px;
-    box-shadow: inset 0px 0px 12px 0px #919191;
+    box-shadow: inset 0px 0px 4px #5e5e5e;
+    margin-right: 10px;
 }
 .search_block{
     display: flex;
@@ -39,13 +62,14 @@
     margin-bottom: 20px;
 }
 .search_btn{
-    margin: 0 10px;
-    background-color: rgb(160, 223, 160);
-    border: 1px solid rgb(86, 146, 86);
-    padding: 0 10px;
+    padding: 2px 10px;
+    margin-right: 14px;
     border-radius: 6px;
+    background-color: rgb(222 255 238);
     font-weight: 600;
-    color: rgb(2, 73, 20);
+    color: rgb(10, 139, 90);
+    cursor: pointer;
+    width: fit-content;
 }
 .appt_list{
     display: grid;
@@ -56,8 +80,39 @@
     font-size: 24px;
     font-weight: 600;
     color: rgb(10, 139, 90);
+    margin-bottom: 6px;
+}
+.phone, .age{
+    color: rgb(5, 80, 51);
+    margin-bottom: 4px;
+    position: relative;
+    margin-left: 30px;
+}
+.phone::before, .age::before{
+    content: '';
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    width: 20px;
+    height: 20px;
+    left: -24px;
+    top: 0;
+    filter: brightness(0) saturate(100%) invert(23%) sepia(21%) saturate(2267%) hue-rotate(112deg) brightness(93%) contrast(96%);
+}
+.phone::before{
+    background-image: url('../components/phone_icon_small.svg');
+}
+.age::before{
+    background-image: url('../components//calendar_icon.svg');
+}
+.reg_info{
+    font-size: 14px;
+    color: gray;
 }
 .login{
     font-size: 14px;
     color: rgb(112, 133, 127);
+}
+.additional_info{
+    flex-grow: 1;
 }

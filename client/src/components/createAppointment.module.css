@@ -1,0 +1,21 @@
+.page{
+    background-color: rgb(48 161 132);
+    padding: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+    border-radius: 16px;
+}
+.title{
+    text-align: center;
+    font-weight: 600;
+    font-size: 30px;
+    color: rgb(255 255 255);
+    margin-bottom: 40px;
+}
+.doctor_list{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}

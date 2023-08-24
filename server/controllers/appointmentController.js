@@ -241,7 +241,7 @@ class AppointmentController {
                     model: User,
                     attributes: ['firstName', 'lastName', 'patronymic']
                 },
-                attributes: ['id', 'speciality']
+                attributes: ['id', 'speciality', 'photo']
             })
             return res.json(doctors)
         }

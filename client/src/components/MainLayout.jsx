@@ -24,7 +24,7 @@ function MainLayout() {
                 <div className={style.links_wrap}>
                     <NavLink to='/'><Logo /></NavLink>
 
-                    {user.isAuth && user.user.role  === 'ADMIN' ?
+                    {user.isAuth && user.user.role === 'ADMIN' ?
                         <NavLink to={NEW_APPOINTMENT_ROUTE}>Создать запись</NavLink> :
                         user.isAuth && user.user.role === 'USER' ?
                             <NavLink to={NEW_APPOINTMENT_ROUTE}>Записаться</NavLink> :
@@ -36,13 +36,15 @@ function MainLayout() {
                             <NavLink to={APPOINTMENTS_LIST_ROUTE}> Мои записи</NavLink> :
                             null}
 
-                    {user.isAuth && user.user.role === 'ADMIN' ?
+                    {user.isAuth && user.user.role === 'ADMIN' || user.user.role === 'DOCTOR' ?
                         <NavLink to={USER_ROUTE}>Пользователи</NavLink> :
                         null}
                 </div>
-                {user.user.login}
                 {user.isAuth ?
-                    <button className={style.logout_btn} onClick={() => logOut()}>Выйти</button> :
+                    <div className={style.auth_block}>
+                        <p className={style.username}>{user.user.login}</p>
+                        <button className={style.logout_btn} onClick={() => logOut()}>Выйти</button>
+                    </div> :
                     null
                 }
             </div>

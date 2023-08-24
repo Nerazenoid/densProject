@@ -11,6 +11,7 @@
     opacity: 0;
     transition: 0.5s;
     pointer-events: none;
+    z-index: 10000;
 }
 .block{
     position: absolute;
