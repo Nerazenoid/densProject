@@ -4,17 +4,36 @@
     width: 100%;
     max-width: 300px;
     top: 28px;
-    border-right: 1px solid gray;
-    border-left: 1px solid gray;
-    border-bottom: 1px solid gray;
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
     visibility: hidden;
+    border-radius: 6px;
+    box-shadow: 0 8px 8px rgb(83, 82, 82);
 }
 .dropdown.active{
     visibility: visible;
 }
 .item{
-    padding: 6px;
-    border-bottom: 1px solid gray;
+    padding: 4px 10px;
+    border-bottom: 1px solid rgb(174, 219, 208);
+    cursor: pointer;
+    transition: 0.2s;
+    background-color: white;
+}
+.item:hover{
+    transition: 0.2s;
+    background-color: rgb(222 255 238);
+}
+.login{
+    font-size: 14px;
+    color: gray;
+}
+.name{
+    color: rgb(48 161 132);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+.birthday{
+    color: rgb(48 161 132);
 }

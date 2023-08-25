@@ -3,7 +3,7 @@
     display: grid;
     max-width: 1600px;
     margin: 0 auto;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 16px;
 }
 .header{
@@ -31,6 +31,7 @@
 }
 .row:hover{
     background-color: rgb(255, 255, 255);
+    transform: scale(1.005);
 }
 .row div{
     border-right: 2px solid;

@@ -56,7 +56,7 @@ class AppointmentController {
             attributes: ['id', 'date', 'status'],
             order: [
                 [Sequelize.literal("status='deny', status='complete', status='inProgress', status='awaitPayment'")],
-                ['date', 'asc']
+                [Sequelize.literal("CASE WHEN status = 'inProgress' THEN date END ASC, CASE WHEN 'status' <> 'inProgress' THEN date END DESC")]
             ],
             include: [{
                 model: User,
@@ -305,7 +305,7 @@ class AppointmentController {
                 attributes: ['id', 'date', 'status'],
                 order: [
                     [Sequelize.literal("status='deny', status='complete', status='inProgress', status='awaitPayment'")],
-                    ['date', 'asc']
+                    [Sequelize.literal("CASE WHEN status = 'inProgress' THEN date END ASC, CASE WHEN 'status' <> 'inProgress' THEN date END DESC")]
                 ],
                 where: { userId: user_id },
                 include: [
@@ -336,7 +336,7 @@ class AppointmentController {
             attributes: ['id', 'date', 'status'],
             order: [
                 [Sequelize.literal("status='deny', status='complete', status='awaitPayment', status='inProgress'")],
-                ['date', 'asc']
+                [Sequelize.literal("CASE WHEN status = 'inProgress' THEN date END ASC, CASE WHEN 'status' <> 'inProgress' THEN date END DESC")]
             ],
             include: [{
                 model: User,

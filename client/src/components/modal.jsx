@@ -15,7 +15,7 @@ const Modal = observer(() => {
 
     const [usersList, setUsersList] = useState([])
     const [search, setSearch] = useState('');
-    const [selectedUser, setSelectedUser] = useState()
+    const [selectedUser, setSelectedUser] = useState('')
 
     const create = async () => {
         await createAppointment(appointment.selectedTime, doctor_id, user.user.id)
@@ -27,6 +27,12 @@ const Modal = observer(() => {
         await createAppointment(appointment.selectedTime, doctor_id, selectedUser)
         appointment.setSelectedTime(null)
         setSearch('')
+        component.closeModal()
+    }
+
+    const denyButton = () => {
+        setSearch('')
+        setSelectedUser('')
         component.closeModal()
     }
 
@@ -58,7 +64,7 @@ const Modal = observer(() => {
         if (user.user.role == 'ADMIN') {
             return (
                 <div className={component.active ? `${styles.wrap} ${styles.active}` : styles.wrap}
-                    onClick={() => component.closeModal()}>
+                    onClick={denyButton}>
                     <div className={styles.block} onClick={(e) => e.stopPropagation()}>
                         <p className={styles.message}>Записать пользователя?</p>
                         <div className={styles.search_block}>
@@ -66,8 +72,8 @@ const Modal = observer(() => {
                             <DropDown users={usersList} selectedUserName={(query) => setSearch(query)} selectedUserId={(id) => setSelectedUser(id)}/>
                         </div>
                         <div className={styles.buttons}>
-                            <button className={styles.submit} onClick={createByAdmin}>Да</button>
-                            <button className={styles.deny} onClick={() => component.closeModal()}>Отмена</button>
+                            <button className={styles.deny} onClick={denyButton}>Отмена</button>
+                            {selectedUser ? <button className={styles.submit} onClick={createByAdmin}>Подтвердить</button> : null}
                         </div>
                     </div>
                 </div>

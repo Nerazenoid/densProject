@@ -25,14 +25,28 @@
 }
 .subtitle{
     margin-left: 10px;
+    margin-bottom: 6px;
+    font-size: 20px;
     color:rgb(5, 80, 51)
+}
+.subtitle.phone{
+    font-size: 20px;
+    margin-left: 36px;
+}
+.subtitle.phone::before{
+    width: 26px;
+    height: 26px;
+    background-size: 26px 24px;
+    bottom: 0;
+    left: -30px;
+    top: auto;
 }
 .page{
     background-color: rgb(48 161 132);
     max-width: 1600px;
     margin: 0 auto;
     border-radius: 16px;
-    padding: 10px;
+    padding: 10px 20px;
 }
 .grid{
     display: grid;
