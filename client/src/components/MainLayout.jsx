@@ -18,25 +18,32 @@ function MainLayout() {
         navigate(LANDING_ROUTE)
     }
 
+    const navlinks = () => {
+        if(user.isAuth) {
+            
+        }
+    }
+    
+    console.log(user.isAuth)
     return (
         <div>
             <div className={style.header}>
                 <div className={style.links_wrap}>
                     <NavLink to='/'><Logo /></NavLink>
 
-                    {user.isAuth && user.user.role === 'ADMIN' ?
+                    {user.isAuth === true && user.user.role === 'ADMIN' ?
                         <NavLink to={NEW_APPOINTMENT_ROUTE}>Создать запись</NavLink> :
-                        user.isAuth && user.user.role === 'USER' ?
+                        user.isAuth === true && user.user.role === 'USER' ?
                             <NavLink to={NEW_APPOINTMENT_ROUTE}>Записаться</NavLink> :
                             null}
 
-                    {user.isAuth && user.user.role === 'ADMIN' ?
-                        <NavLink to={APPOINTMENTS_LIST_ROUTE}>Записи</NavLink> :
-                        user.isAuth ?
+                    {user.isAuth === true && user.user.role === 'ADMIN' ?
+                        <NavLink to={APPOINTMENTS_LIST_ROUTE}>Мои Записи</NavLink> :
+                        user.isAuth === true ?
                             <NavLink to={APPOINTMENTS_LIST_ROUTE}> Мои записи</NavLink> :
                             null}
 
-                    {user.isAuth && user.user.role === 'ADMIN' || user.user.role === 'DOCTOR' ?
+                    {user.isAuth === true && (user.user.role === 'ADMIN' || user.user.role === 'DOCTOR') ?
                         <NavLink to={USER_ROUTE}>Пользователи</NavLink> :
                         null}
                 </div>

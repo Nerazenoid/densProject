@@ -24,13 +24,13 @@ export const getDoctors = async () => {
     return data
 }
 
-export const getAppointments = async () => {
-    const { data } = await $host.get('/api/appointment/getlist')
+export const getAppointments = async (page, limit = 10) => {
+    const {data}  = await $host.get('/api/appointment/getlist', {params: {page,limit}})
     return data
 }
 
-export const getDoctorAppointments = async(user_id) => {
-    const {data} = await $host.get('api/admin/doctorappointments/' + user_id)
+export const getDoctorAppointments = async(user_id, page, limit = 5 ) => {
+    const {data} = await $host.get('api/admin/doctorappointments/' + user_id, {params: {page, limit}})
     return data
 }
 

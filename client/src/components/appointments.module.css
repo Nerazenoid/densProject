@@ -1,10 +1,14 @@
-.table{
+.page{
     background-color: rgb(48 161 132);
-    display: grid;
-    max-width: 1600px;
-    margin: 0 auto;
     padding: 10px 20px;
     border-radius: 16px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+.table{
+    display: grid;
+    min-height: 620px;
+    grid-auto-rows: min-content;
 }
 .header{
     display: grid;
