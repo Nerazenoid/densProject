@@ -38,7 +38,7 @@ function MainLayout() {
                             null}
 
                     {user.isAuth === true && user.user.role === 'ADMIN' ?
-                        <NavLink to={APPOINTMENTS_LIST_ROUTE}>Мои Записи</NavLink> :
+                        <NavLink to={APPOINTMENTS_LIST_ROUTE}>Все записи</NavLink> :
                         user.isAuth === true ?
                             <NavLink to={APPOINTMENTS_LIST_ROUTE}> Мои записи</NavLink> :
                             null}

@@ -46,7 +46,7 @@ const MakeNewAppt = observer(() => {
                 <DaysPicker />
                 <TimePicker />
             </div>
-            <Modal>awfawfawfwwaf </Modal>
+            <Modal />
         </div>
     )
 

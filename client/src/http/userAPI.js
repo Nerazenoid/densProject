@@ -15,8 +15,8 @@ export const doLogin = async (login, password) => {
     return jwt_decode(data.token)
 }
 
-export const addUser = async(fullname, phone) => {
-    await $host.post('api/admin/adduser', {fullname,phone})
+export const addUser = async (fullname, phone) => {
+    await $host.post('api/admin/adduser', { fullname, phone })
 }
 
 export const check = async () => {
@@ -25,17 +25,17 @@ export const check = async () => {
     return jwt_decode(data.token)
 }
 
-export const getUsers = async (search_query) => {
-    const {data} = await $host.get('api/admin/getusers/' + search_query)
+export const getUsers = async (search_query, page = 1, limit = 12) => {
+    const { data } = await $host.get('api/admin/getusers/' + search_query, {params: {page, limit}})
     return data
 }
 
-export const getUserInfo = async(login) => {
-    const {data} = await $host.get('api/admin/getuser/' + login)
+export const getUserInfo = async (login) => {
+    const { data } = await $host.get('api/admin/getuser/' + login)
     return data
 }
 
-export const getUserAppointments = async(user_id) => {
-    const {data} = await $host.get('api/admin/userappointments/' + user_id)
+export const getUserAppointments = async (user_id) => {
+    const { data } = await $host.get('api/admin/userappointments/' + user_id)
     return data
 }

@@ -8,20 +8,11 @@ export default class AppointmentStore {
         this._selectedTime = []
         this._doctors = []
         this._appointments = []
-        this._page = 1
-        this._totalCount = 0
-        this._limit = 10
         
         makeAutoObservable(this)
     }
 
-    setPage(page){
-        this._page = page || 1
-    }
 
-    setTotalCount(count){
-        this._totalCount = count
-    }
 
     setAppointments(appointments){
         this._appointments = appointments
@@ -47,17 +38,6 @@ export default class AppointmentStore {
         this._doctors = doctors
     }
 
-    get page() {
-        return this._page
-    }
-
-    get limit() {
-        return this._limit
-    }
-
-    get totalCount() {
-        return this._totalCount
-    }
 
     get appointments() {
         return this._appointments

@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite';
 
 const NavMenu = observer(() => {
 
-  const { user } = useContext(Context)
+  const { user, component } = useContext(Context)
 
   console.log(user.isAuth)
 
@@ -23,7 +23,8 @@ const NavMenu = observer(() => {
         <li className={styles.nav_item}>Подробнее</li>
       </ul>
       <div>
-        <button className={styles.appointment_btn}>Записаться на прием</button>
+        <button className={styles.appointment_btn}
+        onClick={() => component.showMainModal()}>Записаться на прием</button>
 
         {user.isAuth ?
           <NavLink

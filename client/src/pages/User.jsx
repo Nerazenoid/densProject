@@ -16,12 +16,11 @@ const UserPage = () => {
 
     useEffect(() => {
         getUserInfo(login)
-            .then(
-                data => {
-                    setUser(data);
-                    getUserAppointments(data.id)
-                        .then(data => setAppointments(data));
-                })
+            .then(data => {
+                setUser(data);
+                getUserAppointments(data.id)
+                    .then(data => setAppointments(data));
+            })
             .finally(() => {
                 setLoading(false)
             })

@@ -5,6 +5,7 @@ import Services from '../components/services/Services.jsx';
 import Reviews from '../components/reviews/Reviews.jsx';
 import { useContext } from 'react';
 import { Context } from '../index.js';
+import MainModal from '../components/mainModal.jsx';
 
 const Landing = () => {
   const {user} = useContext(Context)
@@ -19,6 +20,7 @@ const Landing = () => {
           <Services />
           <Reviews />
         </div>
+        <MainModal />
     </div>
   );
 }

@@ -5,7 +5,31 @@ export default class ComponentStore {
         this._active = false
         this._body = null
         this._dropActive = false
+        this._page = 1
+        this._totalCount = 0
+        this._limit = 0
+        this._mainShown = false
         makeAutoObservable(this)
+    }
+
+    showMainModal = () => {
+        this._mainShown = true
+    }
+
+    closeMainModal = () => {
+        this._mainShown = false
+    }
+
+    setPage = (page) => {
+        this._page = page || 1
+    }
+
+    setTotalCount = (count) => {
+        this._totalCount = count
+    }
+
+    setLimit =(limit) => {
+        this._limit = limit
     }
 
     setDropActive = (bool) => {
@@ -22,6 +46,18 @@ export default class ComponentStore {
         this._body = null
     }
 
+    get page() {
+        return this._page
+    }
+
+    get limit() {
+        return this._limit
+    }
+
+    get totalCount() {
+        return this._totalCount
+    }
+
     get dropActive() {
         return this._dropActive
     }
@@ -32,6 +68,10 @@ export default class ComponentStore {
 
     get active() {
         return this._active
+    }
+
+    get mainModalActive() {
+        return this._mainShown
     }
 
 }

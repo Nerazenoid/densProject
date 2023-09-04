@@ -63,7 +63,12 @@ class UserController {
             login = req.params.login
         }
 
-        const result = await User.findAll({
+        const {page, limit} = req.query
+        let offset = page * limit - limit
+
+        const result = await User.findAndCountAll({
+            offset,
+            limit,
             attributes: ['id','login', 'phone', 'firstName', 'lastName', 'patronymic', 'createdAt', 'birthday'],
             where: {
                 [Op.or]: [

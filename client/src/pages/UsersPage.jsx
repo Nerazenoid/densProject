@@ -4,11 +4,13 @@ import UserItem from "../components/userItem"
 import styles from "../components/userItem.module.css"
 import { useNavigate } from "react-router-dom"
 import { Context } from ".."
+import Pagination from "../components/pagination"
+import { observer } from "mobx-react-lite"
 
 
-const UsersPage = () => {
+const UsersPage = observer(() => {
 
-    const { user } = useContext(Context)
+    const { user, component } = useContext(Context)
     const [search, setSearch] = useState('')
     const [loading, setLoading] = useState(true)
     const [users, setUsers] = useState([])
@@ -16,15 +18,23 @@ const UsersPage = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        SearchUsers()
+        component.setLimit(12)
+        component.setPage(1)
     }, [])
 
+    useEffect(() => {
+        SearchUsers()
+    }, [component.page])
+
     const SearchUsers = () => {
-        getUsers(search)
-            .then(data =>
-                setUsers(data))
+        getUsers(search, component.page)
+            .then(data => {
+                setUsers(data.rows)
+                component.setTotalCount(data.count)
+            })
             .finally(() =>
-                setLoading(false))
+                setLoading(false)
+            )
     }
 
     if (loading) {
@@ -47,8 +57,9 @@ const UsersPage = () => {
                     <UserItem key={user.login} user={user} />
                 )}
             </div>
+            <Pagination />
         </div>
     )
-}
+})
 
 export default UsersPage

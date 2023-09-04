@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { getAppointments, getDoctorAppointments } from "../http/appointmentAPI"
 import { Context } from ".."
 import AppointmentItem from "../components/appointmentItem"
@@ -9,33 +9,46 @@ import Pagination from "../components/pagination"
 
 const AppointmentsPage = observer(() => {
 
-    const { user, appointment } = useContext(Context)
+    const { user, appointment, component } = useContext(Context)
+
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        if (user.user.role === 'ADMIN') {
-            getAppointments(appointment.page, appointment.limit).then(data => {
-                console.log(data.count)
-                appointment.setAppointments(data.rows)
-                appointment.setTotalCount(data.count)
-            })
-        }
-        if (user.user.role === 'DOCTOR') {
-            getDoctorAppointments(user.user.id).then(data => {
-                console.log(data)
-                appointment.setAppointments(data)
-            })
-        }
-        if (user.user.role === 'USER') {
-            getUserAppointments(user.user.id).then(data => {
-                console.log(data)
-                appointment.setAppointments(data)
-            })
-        }
+        component.setPage(1)
+        component.setLimit(10)
+        setLoading(false)
+    }, [])
 
-    }, [appointment.page])
+    useEffect(() => {
+        if (!loading) {
+            if (user.user.role === 'ADMIN') {
+                getAppointments(component.page, component.limit)
+                    .then(data => {
+                        console.log(data.count)
+                        appointment.setAppointments(data.rows)
+                        component.setTotalCount(data.count)
+                    })
+            }
+            if (user.user.role === 'DOCTOR') {
+                getDoctorAppointments(user.user.id, component.page, component.limit).then(data => {
+                    console.log(data.count)
+                    appointment.setAppointments(data.rows)
+                    component.setTotalCount(data.count)
+                })
+            }
+            if (user.user.role === 'USER') {
+                getUserAppointments(user.user.id).then(data => {
+                    console.log(data)
+                    appointment.setAppointments(data)
+                })
+            }
+            console.log(appointment.appointments)
+        }
+    }, [component.page, loading])
 
-
-    console.log(appointment.appointments)
+    if (loading) {
+        return 'Загрузка...'
+    }
     return (
         <div className={styles.page}>
             <div className={styles.table}>

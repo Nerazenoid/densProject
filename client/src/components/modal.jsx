@@ -27,6 +27,7 @@ const Modal = observer(() => {
         await createAppointment(appointment.selectedTime, doctor_id, selectedUser)
         appointment.setSelectedTime(null)
         setSearch('')
+        setSelectedUser('')
         component.closeModal()
     }
 
@@ -40,7 +41,7 @@ const Modal = observer(() => {
         component.setDropActive(true)
         setSearch(query)
         const users = await getUsers(query)
-        setUsersList(users)
+        setUsersList(users.rows)
     }
 
 

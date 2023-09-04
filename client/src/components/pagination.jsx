@@ -4,8 +4,8 @@ import { observer } from "mobx-react-lite"
 import styles from './pagination.module.css'
 
 const Pagination = observer(() => {
-    const { appointment } = useContext(Context)
-    const pageCount = Math.ceil(appointment.totalCount / appointment.limit)
+    const { component } = useContext(Context)
+    const pageCount = Math.ceil(component.totalCount / component.limit)
     const pages = []
 
     for (let i = 0; i < pageCount; i++) {
@@ -16,8 +16,8 @@ const Pagination = observer(() => {
             {pages.map(page =>
                 <div
                     key={page}
-                    className={`${styles.item} ${(page === appointment.page ? styles.active : '')}`}
-                    onClick={() => appointment.setPage(page)}
+                    className={`${styles.item} ${(page === component.page ? styles.active : '')}`}
+                    onClick={() => component.setPage(page)}
                 >
                     {page}
                 </div>

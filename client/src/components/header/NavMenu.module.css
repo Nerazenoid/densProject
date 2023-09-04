@@ -33,6 +33,7 @@
     background-color: green;
     color: white;
     font-weight: 600;
+    cursor: pointer;
 }
 :global(.scrolled) .main{
     transform: translateY(-20px);

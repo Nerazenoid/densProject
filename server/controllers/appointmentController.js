@@ -336,7 +336,11 @@ class AppointmentController {
 
     async getAppointmentsToDoctor(req, res) {
         const { user_id } = req.params
-        const appointments = await Appointment.findAll({
+        const {page, limit} = req.query
+        let offset = page * limit - limit
+        const appointments = await Appointment.findAndCountAll({
+            limit,
+            offset,
             attributes: ['id', 'date', 'status'],
             order: [
                 [Sequelize.literal("status='deny', status='complete', status='awaitPayment', status='inProgress'")],
