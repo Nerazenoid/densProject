@@ -1,4 +1,4 @@
-const { Appointment, User, Doctor, Service, ProvidedService, AppointmentInfo } = require('../models/models')
+const { Appointment, User, Doctor, Service, ProvidedService, AppointmentInfo, Category } = require('../models/models')
 const { Op, Model, Sequelize } = require("sequelize");
 
 class AppointmentController {
@@ -45,8 +45,12 @@ class AppointmentController {
     }
 
     async getServices(req, res) {
-        const Services = await Service.findAll({
-            attributes: ['id', 'name', 'price']
+        const Services = await Category.findAll({
+            attributes: ['name'],
+            include: [{
+                model: Service,
+                attributes: ['id','name','price']
+            }]
         })
         return res.json(Services)
     }
@@ -108,34 +112,14 @@ class AppointmentController {
     }
 
     async test(req,res) {
-        const {appt_id} = req.body
-
-        const {price} = await ProvidedService.findOne({
-            attributes: [
-                [Sequelize.literal('SUM(service.price * provided_service.amount)'), 'price']
-            ],
-            group: ['provided_service.appointmentId'],
-            where: {
-                appointmentId: appt_id
-            },
+        const result = await Category.findAll({
+            attributes: ['name'],
             include: [{
                 model: Service,
-                attributes: []
-            }],
-            raw: true
-        })
-        /*const total = await ProvidedService.sum(
-            'service.price', {
-            where: {
-                appointmentId: appt_id
-            },
-            include: [{
-                model: Service,
-                attributes: []
+                attributes: ['id','name','price']
             }]
-        })*/
-        console.log(price)
-        res.json(price)
+        })
+        return res.json(result)
     }
 
 

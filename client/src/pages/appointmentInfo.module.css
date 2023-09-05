@@ -68,7 +68,7 @@
 .service_item {
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: top;
     margin-bottom: 14px;
     font-weight: 600;
     width: 100%;
@@ -191,18 +191,20 @@
 .service_name {
     margin-right: 6px;
     flex-grow: 1;
+    max-width: 260px;
 }
 
 .service_list {
     height: 100%;
     flex-grow: 1;
     margin-bottom: 20px;
-    max-height: 340px;
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     overflow-y: auto;
     background-color: rgb(222 255 238);
     padding: 10px;
     border-radius: 10px;
-    max-width: 360px;
 }
 
 .total {
@@ -217,4 +219,7 @@
     border-radius: 10px;
     background-color: rgb(222 255 238);
     display: flex;
+}
+.category_block{
+    border: 1px solid green;
 }

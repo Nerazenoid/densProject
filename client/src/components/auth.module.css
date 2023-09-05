@@ -46,6 +46,7 @@
     font-weight: 600;
     margin-bottom: 10px;
     font-size: 22px;
+    cursor: pointer;
 }
 .inputs_block{
     display: flex;
