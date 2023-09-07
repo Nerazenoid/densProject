@@ -59,6 +59,14 @@ const AppointmentInfo = sequelize.define('appointment_info',
         discount: { type: DataTypes.INTEGER }
     })
 
+const Request = sequelize.define('requests',
+    {
+        id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+        phone: {type: DataTypes.STRING},
+        fullname: {type: DataTypes.STRING},
+        status: {type: DataTypes.STRING, defaultValue: 'inProgress'}
+    })
+
 User.hasOne(Doctor)
 Doctor.belongsTo(User)
 
@@ -94,5 +102,6 @@ module.exports = {
     Service,
     Category,
     ProvidedService,
-    AppointmentInfo
+    AppointmentInfo,
+    Request
 }

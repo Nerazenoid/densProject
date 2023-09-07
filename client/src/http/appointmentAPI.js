@@ -44,8 +44,8 @@ export const getServices = async() => {
     return data
 }
 
-export const updatePayment = async(appt_id) => {
-    await $host.post('api/appointment/approvepayment', {appt_id})
+export const updatePayment = async(appt_id, discount) => {
+    await $host.post('api/appointment/approvepayment', {appt_id, discount})
 }
 
 export const cancelAppointment = async(appt_id) => {

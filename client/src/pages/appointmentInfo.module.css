@@ -49,7 +49,7 @@
 .subtitle {
     font-weight: 600;
     color: rgb(13, 146, 91);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 22px;
 }
 
@@ -68,11 +68,10 @@
 .service_item {
     position: relative;
     display: flex;
-    align-items: top;
+    align-items: flex-start;
     margin-bottom: 14px;
     font-weight: 600;
     width: 100%;
-    display: flex;
     cursor: pointer;
     color: rgb(136, 136, 136);
 }
@@ -195,15 +194,12 @@
 }
 
 .service_list {
-    height: 100%;
-    flex-grow: 1;
+    height: 400px;
     margin-bottom: 20px;
     display: grid;
-    gap: 40px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
     overflow-y: auto;
-    background-color: rgb(222 255 238);
-    padding: 10px;
     border-radius: 10px;
 }
 
@@ -219,7 +215,51 @@
     border-radius: 10px;
     background-color: rgb(222 255 238);
     display: flex;
+    
 }
 .category_block{
-    border: 1px solid green;
+    border-radius: 10px;
+    height: fit-content;
+    padding: 10px;
+    background-color: rgb(222 255 238);
+}
+.service_inputs{
+    max-height: 200px;
+    overflow-y: auto;
+}
+.service_inputs::-webkit-scrollbar{
+    width: 6px;
+}
+.service_inputs::-webkit-scrollbar-thumb{
+    background-color: green;
+    border-radius: 6px;
+}
+.submit_block{
+    display: flex;
+    flex-direction: column;
+}
+.input{
+    background-color: white;
+    max-width: 40px;
+    padding: 0 6px;
+    text-align: center;
+    color: black;
+    margin: 0 4px;
+    border-radius: 6px;
+}
+.discount_title{
+    font-size: 16px;
+    color: rgb(222 255 238);
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+.total_discount_block{
+    display: inline;
+}
+.total_discount_block s{
+    text-decoration: line-through;
+    text-decoration-color: rgb(71, 71, 71);
+    font-size: 16px;
+    font-weight: 400;
+    color: rgb(97, 129, 110);
 }

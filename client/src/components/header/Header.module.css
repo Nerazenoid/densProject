@@ -17,7 +17,7 @@
 }
 .header{
     margin: 0 auto;
-    max-width: 1700px;
+    max-width: 1800px;
     display: flex;
 }
 .topbar_wrap::before{
@@ -44,10 +44,12 @@
     flex-grow: 1;
     transition: 0.2s;
     position: relative;
+    margin-left: 50px;
 }
 .contacts_wrap{
     display: flex;
     align-items: center;
+    margin-right: 20px;
 }
 :global(.scrolled) .contacts_wrap{
     transform: translateY(-40px);

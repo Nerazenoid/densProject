@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { cancelAppointment, createProvidedServices, getAppointmentInfo, getProvidedServices, getServices, updatePayment } from "../http/appointmentAPI";
 import { useParams } from "react-router-dom";
 import style from './appointmentInfo.module.css'
-import { observer } from "mobx-react-lite";
 import { getStatus } from "../utils/status";
 import { Context } from "..";
 
@@ -13,6 +12,7 @@ const AppointmentInfo = () => {
     const [appointment, setAppointment] = useState()
     const [loading, setLoading] = useState(true)
     const [services, setServices] = useState([])
+    const [discount, setDiscount] = useState(0)
     const [total, setTotal] = useState(0)
     const [userServices, setUserServices] = useState([])
 
@@ -29,8 +29,8 @@ const AppointmentInfo = () => {
         getAppointmentInfo(appointment_id)
             .then(data => {
                 setAppointment(data);
-                if (data.status == 'awaitPayment' ||
-                    data.status == 'complete') {
+                if (data.status === 'awaitPayment' ||
+                    data.status === 'complete') {
                     getProvidedServices(appointment_id).then(
                         data => {
                             setUserServices(data)
@@ -86,7 +86,7 @@ const AppointmentInfo = () => {
 
     const approvePayment = () => {
         setLoading(true)
-        updatePayment(appointment_id)
+        updatePayment(appointment_id, discount)
             .then(() => {
                 loadInfo(appointment_id)
             })
@@ -171,7 +171,7 @@ const AppointmentInfo = () => {
                 return {
                     ...arr,
                     services: Object.values(arr.services).map(item =>
-                        item.id == service_id ? { ...item, amount: amount } : item)
+                        item.id === service_id ? { ...item, amount: amount } : item)
                 }
             })
         )
@@ -189,30 +189,31 @@ const AppointmentInfo = () => {
                     {services.map((category) =>
                         <div className={style.category_block} key={category.name}>
                             <p className={style.subtitle}>{category.name}</p>
-                            {category.services.map(service =>
-                                <div className={service.isChecked ? `${style.service_item} ${style.selected}` : `${style.service_item}`} key={service.id}>
-                                    <input
-                                        type="checkbox"
-                                        className={style.checkbox}
-                                        checked={service.isChecked}
-                                        onChange={(e) => checkBoxHandler(e, service.id, service.price)}>
+                            <div className={style.service_inputs}>
+                                {category.services.map(service =>
+                                    <div className={service.isChecked ? `${style.service_item} ${style.selected}` : `${style.service_item}`} key={service.id}>
+                                        <input
+                                            type="checkbox"
+                                            className={style.checkbox}
+                                            checked={service.isChecked}
+                                            onChange={(e) => checkBoxHandler(e, service.id, service.price)}>
+                                        </input>
+                                        <p className={style.service_name}>{service.name}
+                                        </p>
 
-                                    </input>
-                                    <p className={style.service_name}>{service.name}
-                                    </p>
+                                        {service.isChecked ? <i> x </i> : null}
+                                        <input type="number"
+                                            className={style.amount_input}
+                                            disabled={!service.isChecked}
+                                            placeholder=" "
+                                            value={service.amount}
+                                            onBlur={(e) => { if (!e.target.value || e.target.value < 1) ChangeValue(service.id, '1') }}
+                                            onChange={(e) => ChangeValue(service.id, e.target.value)}>
 
-                                    {service.isChecked ? <i> x </i> : null}
-                                    <input type="number"
-                                        className={style.amount_input}
-                                        disabled={!service.isChecked}
-                                        placeholder=" "
-                                        value={service.amount}
-                                        onBlur={(e) => { if (!e.target.value || e.target.value < 1) ChangeValue(service.id, '1') }}
-                                        onChange={(e) => ChangeValue(service.id, e.target.value)}>
-
-                                    </input>
-                                </div>
-                            )}
+                                        </input>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     )}
                 </div>
@@ -246,24 +247,44 @@ const AppointmentInfo = () => {
                     </div>
                 </div>
 
-                {appointment.status == 'complete' || appointment.status == 'awaitPayment' ?
+                {appointment.status === 'complete' || appointment.status === 'awaitPayment' ?
                     <div className={style.US_wrap}>
                         <div className={style.US_block}>
                             <p className={style.subtitle}>Перечень оказанных услуг:</p>
                             {userServices.map(item =>
                                 <p key={item.id} className={style.US_string}>{item.service.name} – {item.service.price} x {item.amount || 1} </p>
                             )}
-                            <p className={style.total_price}>Итого: {appointment.appointment_info.total} </p>
+                            <p className={style.total_price}>Итого:
+                                {appointment.appointment_info.discount !== null ?
+                                    <p className={style.total_discount_block}>
+                                        <s>{appointment.appointment_info.total}-{appointment.appointment_info.discount}%= </s>
+                                        {appointment.appointment_info.total - (appointment.appointment_info.total / 100 * appointment.appointment_info.discount)}
+                                    </p> :
+                                    appointment.appointment_info.total
+                                }
+                            </p>
                         </div>
                     </div> :
                     null}
             </div>
 
-            {appointment.status == 'inProgress' && user.user.role === 'DOCTOR' ?
+            {appointment.status === 'inProgress' && user.user.role === 'DOCTOR' ?
                 <button className={style.submit_btn} onClick={startAppointments}>Начать прием</button> : null}
-            {appointment.status == 'awaitPayment' && user.user.role === 'ADMIN' ?
-                <button className={style.submit_btn} onClick={approvePayment}>Оплата подтверждена</button> : null}
-            {appointment.status == 'inProgress' && user.user.role === 'ADMIN' ?
+            {appointment.status === 'awaitPayment' && user.user.role === 'ADMIN' ?
+                <div className={style.submit_block}>
+                    <div>
+                        <p className={style.discount_title}>Размер скидки:
+                            <input
+                                className={style.input}
+                                value={discount}
+                                onChange={e => setDiscount(e.target.value)}
+                            >
+                            </input>%
+                        </p>
+                    </div>
+                    <button className={style.submit_btn} onClick={approvePayment}>Оплата подтверждена</button>
+                </div> : null}
+            {appointment.status === 'inProgress' && user.user.role === 'ADMIN' ?
                 <button className={style.deny_btn} onClick={denyAppointment}>Отменить</button> : null}
 
         </div>

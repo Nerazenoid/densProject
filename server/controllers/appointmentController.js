@@ -38,7 +38,7 @@ class AppointmentController {
             },
             {
                 model: AppointmentInfo,
-                attributes: ['total']
+                attributes: ['total', 'discount']
             }]
         })
         return res.json(fullAppointmentInfo)
@@ -49,14 +49,14 @@ class AppointmentController {
             attributes: ['name'],
             include: [{
                 model: Service,
-                attributes: ['id','name','price']
+                attributes: ['id', 'name', 'price']
             }]
         })
         return res.json(Services)
     }
 
     async getAppointments(req, res) {
-        const {page, limit} = req.query
+        const { page, limit } = req.query
         let offset = page * limit - limit
         const Appointments = await Appointment.findAndCountAll({
             offset,
@@ -111,12 +111,12 @@ class AppointmentController {
         }
     }
 
-    async test(req,res) {
+    async test(req, res) {
         const result = await Category.findAll({
             attributes: ['name'],
             include: [{
                 model: Service,
-                attributes: ['id','name','price']
+                attributes: ['id', 'name', 'price']
             }]
         })
         return res.json(result)
@@ -134,7 +134,7 @@ class AppointmentController {
             }
         })
 
-        const {price} = await ProvidedService.findOne({
+        const { price } = await ProvidedService.findOne({
             attributes: [
                 [Sequelize.literal('SUM(service.price * provided_service.amount)'), 'price']
             ],
@@ -148,7 +148,7 @@ class AppointmentController {
             }],
             raw: true
         })
-        
+
         console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' + price)
 
         await AppointmentInfo.create({
@@ -240,12 +240,19 @@ class AppointmentController {
 
     async approvePayment(req, res) {
         try {
-            const { appt_id } = req.body
+            const { appt_id, discount } = req.body
             await Appointment.update({ status: 'complete' }, {
                 where: {
                     id: appt_id
                 }
             })
+            if (discount != 0) {
+                await AppointmentInfo.update({ discount }, {
+                    where: {
+                        appointmentId: appt_id
+                    }
+                })
+            }
             res.json(true)
         }
         catch (e) {
@@ -320,7 +327,7 @@ class AppointmentController {
 
     async getAppointmentsToDoctor(req, res) {
         const { user_id } = req.params
-        const {page, limit} = req.query
+        const { page, limit } = req.query
         let offset = page * limit - limit
         const appointments = await Appointment.findAndCountAll({
             limit,

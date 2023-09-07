@@ -78,3 +78,13 @@
     left: 8px;
     font-size: 14px;
 }
+.submit_btn{
+    font-size: 24px;
+    padding: 4px 18px;
+    font-weight: 600;
+    border-radius: 10px;
+    background: linear-gradient(109deg, #97e37d, rgb(23 149 0));
+    margin-bottom: 10px;
+    color: white;
+    cursor: pointer;
+}

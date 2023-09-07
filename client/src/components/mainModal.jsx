@@ -1,10 +1,13 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import styles from './Main.module.css'
 import { Context } from '..'
 import { observer } from 'mobx-react-lite'
+import { createRequest } from '../http/requestAPI'
 
 const MainModal = observer(() => {
 
+    const [phone, setPhone] = useState('')
+    const [fullname, setFullname] = useState('')
     const { component } = useContext(Context)
     return (
         <div className={component.mainModalActive
@@ -17,12 +20,30 @@ const MainModal = observer(() => {
                     Оставьте свои контактные данные, чтобы мы с вами связались</p>
                 <div className={styles.form}>
                     <div className={styles.input_block}>
-                        <input className={styles.input} placeholder=' '></input>
+                        <input
+                            className={styles.input}
+                            placeholder=' '
+                            value={phone}
+                            onChange={e => setPhone(e.target.value)}
+                        >
+                        </input>
                         <p className={styles.input_tip}>Телефон</p>
                     </div>
                     <div className={styles.input_block}>
-                        <input className={styles.input} placeholder=' '></input>
+                        <input
+                            className={styles.input}
+                            placeholder=' '
+                            value={fullname}
+                            onChange={e => setFullname(e.target.value)}
+                        >
+                        </input>
                         <p className={styles.input_tip}>ФИО</p>
+                    </div>
+                    <div>
+                        <button
+                            className={styles.submit_btn}
+                            onClick={() => createRequest(phone, fullname)}
+                        >Отправить</button>
                     </div>
                 </div>
             </div>
