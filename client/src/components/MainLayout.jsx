@@ -44,7 +44,7 @@ function MainLayout() {
                             null}
 
                     {user.isAuth === true && (user.user.role === 'ADMIN' || user.user.role === 'DOCTOR') ?
-                        <NavLink to={USER_ROUTE}>Пользователи</NavLink> :
+                        <NavLink to={USER_ROUTE}>Пациенты</NavLink> :
                         null}
                 </div>
                 {user.isAuth ?

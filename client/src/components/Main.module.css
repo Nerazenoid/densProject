@@ -83,8 +83,26 @@
     padding: 4px 18px;
     font-weight: 600;
     border-radius: 10px;
-    background: linear-gradient(109deg, #97e37d, rgb(23 149 0));
     margin-bottom: 10px;
     color: white;
     cursor: pointer;
+    position: relative;
+    background: linear-gradient(109deg, #6acc9b, rgb(2, 131, 81));
+    z-index: 1;
+}
+.submit_btn::before{
+    content: '';
+    opacity: 0;
+    transition: .2s;
+    background: linear-gradient(109deg, #8af186, rgb(6, 148, 61));
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: 10px;
+    z-index: -1;
+}
+.submit_btn:hover::before{
+    opacity: 1;
 }
