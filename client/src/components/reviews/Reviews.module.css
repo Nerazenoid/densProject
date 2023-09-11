@@ -1,5 +1,5 @@
 .wrap{
-    background-color: rgb(233, 255, 223);
+    background-color: #eef9f0;
 }
 .block{
     max-width: 1500px;
@@ -20,6 +20,9 @@
     border-radius: 10px;
     max-width: 300px;
     width: 100%;
+    min-width: 300px;
+    z-index: 1;
+    transition: 0.2s;
 }
 .item_img img{
     width: 60px;
@@ -38,6 +41,10 @@
     font-size: 12px;
     color: gray;
 }
+
+.item:hover{
+    transform: scale(1.05);
+}
 .user{
     font-weight: 600;
 }
@@ -45,4 +52,35 @@
     font-size: 14px;
     color: gray;
     text-align: end;
+}
+.reviews_list{
+    display: flex;
+    width: 100%;
+    overflow-x: hidden;
+    gap: 20px;
+    padding: 20px 0;
+}
+.carousel{
+    position: relative;
+}
+.next_btn, .prev_btn{
+    position: absolute;
+    height: 100%;
+    width: 300px;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 10px;
+    color: white;
+    z-index: 2;
+    cursor: pointer;
+}
+.next_btn{
+    right: 0;
+    text-align: end;
+    background: linear-gradient(270deg, rgb(160, 184, 160), transparent);
+    border-radius: 0px 16px 16px 0;
+}
+.prev_btn{
+    background: linear-gradient(90deg, rgb(160, 184, 160), transparent);
+    border-radius: 16px 0 0 16px;
 }

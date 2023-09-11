@@ -11,6 +11,7 @@ const Landing = () => {
   const {user} = useContext(Context)
   console.log(user.isAuth)
   console.log(localStorage.getItem('token'))
+
   return (
     <div className="App">
         <TopBar />

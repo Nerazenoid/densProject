@@ -1,13 +1,14 @@
 import Admin from "./pages/Admin"
 import Auth from "./pages/Auth"
 import NewAppointment from "./pages/NewAppointment"
-import { ADD_USER, ADMIN_ROUTE, APPOINTMENTS_LIST_ROUTE, LOGIN_ROUTE, NEW_APPOINTMENT_ROUTE, REGISTRATION_ROUTE, USER_ROUTE } from "./utils/consts"
+import { ADD_USER, ADMIN_ROUTE, APPOINTMENTS_LIST_ROUTE, LOGIN_ROUTE, NEW_APPOINTMENT_ROUTE, REGISTRATION_ROUTE, REQUESTS_ROUTE, USER_ROUTE } from "./utils/consts"
 import MakeNewAppt from "./pages/MakeNewAppt"
 import AppointmentsPage from "./pages/AppointmentsPage"
 import AppointmentInfo from "./pages/AppointmentInfo"
 import UsersPage from "./pages/UsersPage"
 import User from "./pages/User"
 import AddUserPage from "./pages/AddUser"
+import PhoneRequests from "./pages/PhoneRequests"
 
 export const authRoutes = [
     {
@@ -41,6 +42,10 @@ export const authRoutes = [
     {
         path: ADD_USER,
         Component: AddUserPage
+    },
+    {
+        path: REQUESTS_ROUTE,
+        Component: PhoneRequests
     }
 ]
 
