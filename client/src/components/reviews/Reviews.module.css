@@ -15,7 +15,7 @@
 .item{
     border: 1px solid rgb(165, 255, 165);
     background-color: white;
-    box-shadow: 0 10px 16px rgba(87, 87, 87, 0.63);
+    box-shadow: 0 10px 4px rgba(87, 87, 87, 0.63);
     padding: 10px;
     border-radius: 10px;
     max-width: 300px;
@@ -58,7 +58,7 @@
     width: 100%;
     overflow-x: hidden;
     gap: 20px;
-    padding: 20px 0;
+    padding: 20px 10px;
 }
 .carousel{
     position: relative;
@@ -66,21 +66,54 @@
 .next_btn, .prev_btn{
     position: absolute;
     height: 100%;
-    width: 300px;
-    font-size: 40px;
+    width: 200px;
+    font-size: 60px;
     font-weight: bold;
     padding: 10px;
-    color: white;
+    color: rgb(225, 255, 241);
+    text-shadow: 0 0 6px rgba(102, 105, 103, 0.322);
     z-index: 2;
     cursor: pointer;
+    transition: .3s;
+}
+.next_btn::before, .prev_btn::before{
+    content: '';
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    position: absolute;
+    transition: .2s;
+    z-index: -1;
+}
+.prev_btn::before{
+    background: linear-gradient(90deg, rgb(178, 219, 203), transparent);
+    border-radius: 16px 0 0 16px;
+}
+.next_btn::before{
+    background: linear-gradient(270deg, rgb(178, 219, 203), transparent);
+    border-radius: 0px 16px 16px 0;
+}
+.next_btn:hover::before, .prev_btn:hover::before{
+    opacity: 1;
+}
+.next_btn:hover, .prev_btn:hover{
+    color: rgb(255, 255, 255);
+    transform: scale(1.01);
+}
+.prev_btn{
+    background: linear-gradient(90deg, rgb(192, 216, 192), transparent);
+    border-radius: 16px 0 0 16px;
 }
 .next_btn{
     right: 0;
     text-align: end;
-    background: linear-gradient(270deg, rgb(160, 184, 160), transparent);
+    background: linear-gradient(270deg, rgb(192, 216, 192), transparent);
     border-radius: 0px 16px 16px 0;
 }
-.prev_btn{
-    background: linear-gradient(90deg, rgb(160, 184, 160), transparent);
-    border-radius: 16px 0 0 16px;
+
+.hide{
+    visibility: hidden;
+    opacity: 0;
 }

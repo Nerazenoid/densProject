@@ -1,27 +1,44 @@
 import styles from './Reviews.module.css';
 import Review from './Review';
 import grey from '../grey.jpg'
-import { useRef } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 
-function Reviews() {
+const Reviews = () => {
     const listRef = useRef(null)
+    const next = useRef(null)
+    const prev = useRef(null)
+
 
     const scroll = (toRight) => {
-        listRef.current.scrollBy({
-            left: 400 * (toRight ? 1 : -1),
-            behavior: "smooth"
-        })
-    }
 
-    const onWheel = (e) => {
-        const scrollAmount = e.deltaY * 4
+        const scrollAmount = 320 * (toRight ? 1 : -1)
+        const scrollPoint = listRef.current.scrollLeft + scrollAmount
+        console.log(listRef.current.scrollWidth)
+        console.log(scrollPoint)
 
         listRef.current.scrollTo({
-            top: 0,
-            left: listRef.current.scrollLeft + scrollAmount,
+            left: scrollPoint,
             behavior: 'smooth'
         })
+        if (scrollPoint <= 0) {
+            prev.current.classList.add(styles.hide)
+        }
+        else {
+            prev.current.classList.remove(styles.hide)
+        }
+        if (scrollPoint + listRef.current.offsetWidth >= listRef.current.scrollWidth) {
+            next.current.classList.add(styles.hide)
+        }
+        else {
+            next.current.classList.remove(styles.hide)
+        }
+    }
+
+    //Да, я просто засунул условие направления скролла в параметр. И что мне за это сделаете?
+    const onWheel = (e) => {
+        console.log(e.deltaY)
+        scroll(e.deltaY > 0)
     }
 
     const preventDefault = (e) => {
@@ -42,8 +59,8 @@ function Reviews() {
 
                     onWheel={(e) => onWheel(e)}>
                     <div>
-                        <button className={styles.next_btn} onClick={() => scroll(true)}>&gt;</button>
-                        <button className={styles.prev_btn} onClick={() => scroll(false)}>&lt;</button>
+                        <button ref={prev} className={`${styles.prev_btn} ${styles.hide}`} onClick={() => scroll(false)}>&lt;</button>
+                        <button ref={next} className={styles.next_btn} onClick={() => scroll(true)}>&gt;</button>
                     </div>
                     <div className={styles.reviews_list}
                         ref={listRef}>
@@ -118,5 +135,4 @@ function Reviews() {
         </div>
     );
 }
-
 export default Reviews;

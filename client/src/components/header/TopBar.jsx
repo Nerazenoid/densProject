@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './Header.module.css';
 import NavMenu from './NavMenu.jsx';
 import Logo from './Logo.jsx';
-import Contacts from './Contacts.jsx';
+import HeaderContacts from './headerContacts.jsx';
 
 function TopBar() {
 
@@ -20,7 +20,7 @@ function TopBar() {
       <header className={styles.header_wrap}>
         <div className={styles.header}>
           <Logo />
-          <Contacts />
+          <HeaderContacts />
         </div>
         <NavMenu />
       </header>
