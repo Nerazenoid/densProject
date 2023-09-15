@@ -36,6 +36,9 @@ const Contacts = () => {
                     </div>
                     <div>
                         <div className={styles.item}>
+                            <div className={styles.img_block}>
+                                <img src={process.env.REACT_APP_API_URL + 'grey.jpg'} />
+                            </div>
                         </div>
                     </div>
                 </div>

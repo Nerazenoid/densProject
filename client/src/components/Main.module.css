@@ -106,3 +106,7 @@
 .submit_btn:hover::before{
     opacity: 1;
 }
+.btn_block{
+    display: flex;
+    justify-content: center;
+}

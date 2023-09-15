@@ -1,5 +1,4 @@
 import styles from './Reviews.module.css';
-import gray from '../grey.jpg'
 
 function Review(props) {
 

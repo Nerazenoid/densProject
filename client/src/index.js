@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import UserStore from './store/UserStore';
 import AppointmentStore from "./store/AppointmentStore";
 import ComponentsStore from './store/ComponentStore';
+import RequestStore from './store/RequestStore';
 
 export const Context = createContext(null)
 
@@ -15,7 +16,8 @@ root.render(
     <Context.Provider value={{
         user: new UserStore(),
         appointment: new AppointmentStore(),
-        component: new ComponentsStore()
+        component: new ComponentsStore(),
+        request: new RequestStore()
     }}>
         <App/>
     </Context.Provider>
