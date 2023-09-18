@@ -8,3 +8,8 @@ export const getRequests = async(page, limit = 10) => {
     const {data} = await $host.get('/api/request/getrequests', {params: {page,limit}})
     return data
 }
+
+export const getRequest = async(id) => {
+    const {data} = await $host.get('/api/request/getrequest/' + id)
+    return data
+}

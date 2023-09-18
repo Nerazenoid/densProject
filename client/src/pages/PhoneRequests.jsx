@@ -4,6 +4,7 @@ import Request from '../components/request'
 import { Context } from '..'
 import { getRequests } from '../http/requestAPI'
 import { observer } from 'mobx-react-lite'
+import Pagination from '../components/pagination'
 
 const PhoneRequests = observer(() => {
 
@@ -18,8 +19,9 @@ const PhoneRequests = observer(() => {
         getRequests(component.page, component.limit)
             .then(data => {
                 request.setRequests(data.rows)
+                component.setTotalCount(data.count)
             })
-    }, [])
+    }, [component.page])
 
     return (
         <div className={styles.page}>
@@ -34,6 +36,7 @@ const PhoneRequests = observer(() => {
                 {request.requests.map(item =>
                     <Request key={item.id} request={item} />)
                 }
+                <Pagination />
             </div>
         </div>
     )

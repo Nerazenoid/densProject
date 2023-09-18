@@ -20,5 +20,11 @@ class requestController {
         })
         res.json(requests)
     }
+
+    async getRequest(req,res) {
+        const {id} = req.params
+        const request = await Request.findByPk(id)
+        res.json(request)
+    }
 }
 module.exports = new requestController()

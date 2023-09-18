@@ -263,3 +263,23 @@
     font-weight: 400;
     color: rgb(97, 129, 110);
 }
+.phone{
+    color: rgb(5, 80, 51);
+    margin-bottom: 4px;
+    position: relative;
+    margin-left: 20px;
+}
+.phone::before, .age::before{
+    content: '';
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    width: 20px;
+    height: 20px;
+    left: -24px;
+    top: 0;
+    filter: brightness(0) saturate(100%) invert(23%) sepia(21%) saturate(2267%) hue-rotate(112deg) brightness(93%) contrast(96%);
+}
+.phone::before{
+    background-image: url('../components/phone_icon_small.svg');
+}

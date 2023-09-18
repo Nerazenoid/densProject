@@ -9,6 +9,7 @@ import UsersPage from "./pages/UsersPage"
 import User from "./pages/User"
 import AddUserPage from "./pages/AddUser"
 import PhoneRequests from "./pages/PhoneRequests"
+import RequestPage from "./pages/RequestPage"
 
 export const authRoutes = [
     {
@@ -46,6 +47,10 @@ export const authRoutes = [
     {
         path: REQUESTS_ROUTE,
         Component: PhoneRequests
+    },
+    {
+        path: REQUESTS_ROUTE + '/:request_id',
+        Component: RequestPage
     }
 ]
 

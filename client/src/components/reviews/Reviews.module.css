@@ -59,6 +59,7 @@
     overflow-x: hidden;
     gap: 20px;
     padding: 20px 10px;
+    border-radius: 16px;
 }
 .carousel{
     position: relative;

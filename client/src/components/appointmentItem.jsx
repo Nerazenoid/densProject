@@ -19,21 +19,21 @@ const AppointmentItem = ({ info }) => {
     const date = new Date(info.date)
     return (
         <div className={styles.row}
-        style={{borderColor : colors[info.status]}} 
-        onClick={() => navigate(APPOINTMENTS_LIST_ROUTE + '/' + info.id)}>
-            <div style={{borderColor: colors[info.status]}}>
+            style={{ borderColor: colors[info.status] }}
+            onClick={() => navigate(APPOINTMENTS_LIST_ROUTE + '/' + info.id)}>
+            <div style={{ borderColor: colors[info.status] }}>
                 {info.id}
             </div>
-            <div style={{borderColor: colors[info.status]}}>
+            <div style={{ borderColor: colors[info.status] }}>
                 {doctor.user.lastName} {doctor.user.firstName} {doctor.user.patronymic}
             </div>
-            <div style={{borderColor: colors[info.status]}}>
+            <div style={{ borderColor: colors[info.status] }}>
                 {user.lastName} {user.firstName} {user.patronymic}
             </div>
             <div>
-                {date.toLocaleString('ru', {day: 'numeric', month:'long', year: 'numeric', hour: 'numeric', minute: 'numeric'})}
+                {date.toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric' })}
             </div>
-            <div style={{background: colors[info.status]}}>
+            <div style={{ background: colors[info.status] }}>
                 {getStatus(info.status)}
             </div>
         </div>
