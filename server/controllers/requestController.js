@@ -26,5 +26,15 @@ class requestController {
         const request = await Request.findByPk(id)
         res.json(request)
     }
+
+    async updateRequest(req,res) {
+        const {status, id} = req.body
+        await Request.update({status}, {
+            where: {
+                id
+            }
+        })
+        res.send(true)
+    }
 }
 module.exports = new requestController()

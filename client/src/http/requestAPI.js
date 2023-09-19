@@ -13,3 +13,7 @@ export const getRequest = async(id) => {
     const {data} = await $host.get('/api/request/getrequest/' + id)
     return data
 }
+
+export const updateRequest = async(id, status) => {
+    await $host.post('/api/request/update', {id,status})
+}

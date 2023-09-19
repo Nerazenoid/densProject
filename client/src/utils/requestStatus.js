@@ -1,12 +1,12 @@
 export const getRequestStatus = (code) => {
     switch (code) {
         case 'inProgress':
-            return 'Запись создана'
-        case 'awaitPayment':
-            return 'Ожидает оплаты'
+            return 'Заявка отправлена'
+        case 'callback':
+            return 'Просили перезвонить'
         case 'complete':
-            return 'Прием окончен'
+            return 'Записались на прием'
         default:
-            return 'Отказ'
+            return 'Отказались'
     }
 }
