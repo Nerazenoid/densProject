@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import Logo from "./header/Logo";
-import { APPOINTMENTS_LIST_ROUTE, LANDING_ROUTE, LOGIN_ROUTE, NEW_APPOINTMENT_ROUTE, REQUESTS_ROUTE, TEST_ROUTE, USER_ROUTE } from "../utils/consts";
+import { APPOINTMENTS_LIST_ROUTE, LANDING_ROUTE, LOGIN_ROUTE, NEW_APPOINTMENT_ROUTE, REQUESTS_ROUTE, TEST, TEST_ROUTE, USER_ROUTE } from "../utils/consts";
 import { useContext, useEffect } from "react";
 import Modal from "./modal";
 import style from './mainLayuout.module.css'
@@ -49,6 +49,7 @@ function MainLayout() {
                     {user.isAuth === true && user.user.role === 'ADMIN' ?
                         <NavLink to={REQUESTS_ROUTE}>Заявки на звонок</NavLink> :
                         null}
+                        <NavLink to={TEST}>Тест</NavLink>
                 </div>
                 {user.isAuth ?
                     <div className={style.auth_block}>

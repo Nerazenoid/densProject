@@ -27,7 +27,7 @@ const PhoneRequests = observer(() => {
         <div className={styles.page}>
             <div className={styles.table}>
                 <div className={styles.header}>
-                    <div>Номер заявки</div>
+                    <div>ID</div>
                     <div>Номер телефона</div>
                     <div>ФИО</div>
                     <div>Время создания</div>
@@ -36,8 +36,8 @@ const PhoneRequests = observer(() => {
                 {request.requests.map(item =>
                     <Request key={item.id} request={item} />)
                 }
-                <Pagination />
             </div>
+            <Pagination />
         </div>
     )
 })

@@ -7,3 +7,5 @@ export const APPOINTMENTS_LIST_ROUTE = '/appointments'
 export const USER_ROUTE = '/users'
 export const REQUESTS_ROUTE = '/requests'
 export const ADD_USER = '/adduser'
+
+export const TEST = '/test'

@@ -3,7 +3,7 @@ export const getRequestStatus = (code) => {
         case 'inProgress':
             return 'Заявка отправлена'
         case 'callback':
-            return 'Просили перезвонить'
+            return 'Не дозвонились'
         case 'complete':
             return 'Записались на прием'
         default:

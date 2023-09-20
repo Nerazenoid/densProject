@@ -1,3 +1,4 @@
+const { Sequelize } = require("../db")
 const { Request } = require("../models/models")
 
 class requestController {
@@ -16,7 +17,10 @@ class requestController {
         const requests = await Request.findAndCountAll({
             offset,
             limit,
-            attributes: ['id','phone','fullname','status','createdAt']
+            attributes: ['id','phone','fullname','status','createdAt'],
+            order: [
+                Sequelize.literal("status='deny', status='complete', status='callback', status='inProgress'")
+            ]
         })
         res.json(requests)
     }

@@ -10,7 +10,7 @@ const Request = ({ request }) => {
 
     const colors = {
         inProgress: '#ddad00',
-        awaitPayment: '#5bcdc7',
+        callback: '#fb8710',
         complete: '#57c314',
         deny: '#740000'
     }

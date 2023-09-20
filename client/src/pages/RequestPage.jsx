@@ -10,16 +10,27 @@ const RequestPage = observer(() => {
     const { request_id } = useParams()
 
     const [record, setRecord] = useState({})
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        getRequest(request_id)
-            .then(data =>
-                setRecord(data))
-    }, [])
+        //Костыль чтоб два раза запрос не отправлялся
+        if (loading) {
+            getRequest(request_id)
+                .then(data =>
+                    setRecord(data))
+                .finally(() =>
+                    setLoading(false))
+            console.log(record.status)
+        }
+    }, [loading])
 
     const Update = (status) => {
-        updateRequest(request_id, status).then(
-        )
+        updateRequest(request_id, status)
+        .finally(() => setLoading(true))
+    }
+
+    if (loading) {
+        return ('Загрузка')
     }
 
     return (
@@ -29,22 +40,23 @@ const RequestPage = observer(() => {
                 <div className={style.block}>
                     <p className={style.string}><b>ФИО:</b>{record.fullname}</p>
                     <p className={`${style.string} ${style.phone}`}>{record.phone}</p>
-                    <p className={style.string}>{record.createdAt}</p>
-                    <p className={style.string}>{getRequestStatus(record.status)}</p>
+                    <p className={style.string}><b>Время создания: </b>{new Date(record.createdAt).toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'})}</p>
+                    <p className={style.string}><b>Последнее изменение: </b>{new Date(record.updatedAt).toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'})}</p>
+                    <p className={style.string}><b>Статус: </b>{getRequestStatus(record.status)}</p>
                 </div>
             </div>
             {record.status !== 'complete' && record.status !== 'deny' ?
                 <div>
                     <button
-                        className={style.submit_btn}
-                        onClick={() => Update('callback')}>Просили перезвонить
+                        className={style.request_btn}
+                        onClick={() => Update('callback')}>Не дозвонились
                     </button>
                     <button
-                        className={style.submit_btn}
+                        className={style.request_btn}
                         onClick={() => Update('complete')}>Записались
                     </button>
                     <button
-                        className={style.submit_btn}
+                        className={style.request_btn}
                         onClick={() => Update('deny')}>Отказались
                     </button>
                 </div>

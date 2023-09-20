@@ -256,10 +256,10 @@ const AppointmentInfo = () => {
                             )}
                             <p className={style.total_price}>Итого:
                                 {appointment.appointment_info.discount !== null ?
-                                    <p className={style.total_discount_block}>
+                                    <span className={style.total_discount_block}>
                                         <s>{appointment.appointment_info.total}-{appointment.appointment_info.discount}%= </s>
                                         {appointment.appointment_info.total - (appointment.appointment_info.total / 100 * appointment.appointment_info.discount)}
-                                    </p> :
+                                    </span> :
                                     appointment.appointment_info.total
                                 }
                             </p>
