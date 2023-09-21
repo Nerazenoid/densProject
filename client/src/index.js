@@ -8,6 +8,7 @@ import UserStore from './store/UserStore';
 import AppointmentStore from "./store/AppointmentStore";
 import ComponentsStore from './store/ComponentStore';
 import RequestStore from './store/RequestStore';
+import DenitionStore from './store/DentitionStore';
 
 export const Context = createContext(null)
 
@@ -17,7 +18,8 @@ root.render(
         user: new UserStore(),
         appointment: new AppointmentStore(),
         component: new ComponentsStore(),
-        request: new RequestStore()
+        request: new RequestStore(),
+        dentition: new DenitionStore()
     }}>
         <App/>
     </Context.Provider>
