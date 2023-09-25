@@ -4,10 +4,13 @@ import Surface from './Surface'
 import Tooth from './Tooth'
 import { Context } from '../..'
 import { observer } from 'mobx-react-lite'
+import DentitionDropdown from './DentitionDropdown'
 
 
 const Dentition = observer(() => {
     const { dentition } = useContext(Context)
+
+    
     console.log(dentition.list)
     return (
         <div className={style.main}>
@@ -26,6 +29,7 @@ const Dentition = observer(() => {
             <div className={style.block}></div>
             <div className={style.block}></div>
             <div className={style.block}></div>
+            <DentitionDropdown />
         </div>
     )
 })

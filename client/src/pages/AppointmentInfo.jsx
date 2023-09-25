@@ -173,6 +173,7 @@ const AppointmentInfo = () => {
                     services: Object.values(arr.services).map(item =>
                         item.id === service_id ? { ...item, amount: amount } : item)
                 }
+
             })
         )
         CountTotal()
