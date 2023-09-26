@@ -1,32 +1,52 @@
 import { useContext } from 'react'
 import style from './Dentition.module.css'
 import { ReactComponent as PartCircle } from './img/part_circle.svg'
+import { ReactComponent as Circle } from './img/circle.svg'
 import { Context } from '../..'
-const Surface = ({ toothId }) => {
+const Surface = ({ side, toothId }) => {
     const { dentition } = useContext(Context)
 
     const colors = {
-        'В' : 'white',
-        'К' : 'brown',
-        'Л' : 'aqua',
-        '': 'white'
+        '': 'white',
+        'К': 'brown',
+        'Л': 'aqua',
+        'Ж': 'green',
+        'Ф': 'gold'
     }
 
     return (
         <div className={style.surface}>
-            {Object.keys(dentition.list[toothId]).map(item =>
+            {Object.keys(dentition.list[side][toothId]).map(item =>
                 item === '5' ?
-                    <div> ТУТ БУДЕТ КРУГ ДЛЯ ЦЕНТРА </div>
-                    :
-                    <div className={style.wrap_part} key={item} >
-                        <p className={style.flag}>{dentition.list[toothId][item]}</p>
-                        <PartCircle
+                    <div className={style.wrap_part} key={item}>
+                        <p className={style.flag}>{dentition.list[side][toothId][item]}</p>
+                        <Circle
                             className={style.part_surface}
                             style={{
-                                color: colors[dentition.list[toothId][item]]
+                                color: colors[dentition.list[side][toothId][item]]
                             }}
                             onClick={(e) => {
                                 dentition.openDropdown()
+                                dentition.setSelectedSide(side)
+                                dentition.setSelectedTooth(toothId)
+                                dentition.setSelectedSurf(item)
+                                dentition.setX(e.clientX)
+                                dentition.setY(e.clientY)
+                            }} />
+                    </div>
+                    :
+                    <div className={style.wrap_part} key={item} >
+                        <p className={style.flag}>{dentition.list[side][toothId][item]}</p>
+                        <PartCircle
+                            className={style.part_surface}
+                            style={{
+                                color: colors[dentition.list[side][toothId][item]]
+                            }}
+                            onClick={(e) => {
+                                dentition.openDropdown()
+                                dentition.setSelectedSide(side)
+                                dentition.setSelectedTooth(toothId)
+                                dentition.setSelectedSurf(item)
                                 dentition.setX(e.clientX)
                                 dentition.setY(e.clientY)
                                 /*
@@ -37,15 +57,9 @@ const Surface = ({ toothId }) => {
                                 свойства, но изменяю флаг для стороны зуба. То есть значение
                                 Номер стороны хранится в переменной item. Ну как то так
                                 P.S. Ладно. Оно не сработало опять из за тупой разницы в массивах и объектах
-                                Но было красиво*/
+                                Но было красиво
 
-                                //Наконец то. Что то рабочее *смайлик клоуна*
-                                dentition.setList(
-                                    dentition.list.map(tooth => 
-                                        dentition.list.indexOf(tooth) === toothId ?
-                                        {...tooth, [item]: 'Л'} : tooth
-                                    )
-                                )
+                                //Наконец то. Что то рабочее *смайлик клоуна* */
 
                                 console.log(dentition.list)
                             }

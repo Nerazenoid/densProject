@@ -10,25 +10,24 @@ import DentitionDropdown from './DentitionDropdown'
 const Dentition = observer(() => {
     const { dentition } = useContext(Context)
 
-    
+
     console.log(dentition.list)
     return (
         <div className={style.main}>
-            <div className={style.block}>
-                {
-                    dentition.list.map((record) =>
-                        <div
-                            className={style.tooth_block}
-                            key={dentition.list.indexOf(record)}>
-                            <Tooth />
-                            <Surface key={dentition.list.indexOf(record)} toothId={dentition.list.indexOf(record)} />
-                        </div>
-                    )
-                }
-            </div>
-            <div className={style.block}></div>
-            <div className={style.block}></div>
-            <div className={style.block}></div>
+            {
+                Object.keys(dentition.list).map((side) =>
+                    <div className={style.block}>
+                        {Object.keys(dentition.list[side]).map((tooth) =>
+                            <div
+                                className={style.tooth_block}
+                                key={tooth}>
+                                <Tooth key={side+tooth} name={side+tooth}/>
+                                <Surface key={tooth} side={side} toothId={tooth} />
+                            </div>
+                        )}
+                    </div>
+                )
+            }
             <DentitionDropdown />
         </div>
     )
