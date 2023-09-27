@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 
 const DentitionDropdown = observer(() => {
     const { dentition } = useContext(Context)
-    
+
     const flags = {
         '': {
             name: 'Нет',
@@ -69,7 +69,7 @@ const DentitionDropdown = observer(() => {
                     }
                     }>
                     <i className={style.color_tip} style={{ backgroundColor: flags[flag].color }}></i>
-                    {flags[flag].name}
+                    {flag + ' – ' + flags[flag].name}
                 </div>)}
         </div>
     )
