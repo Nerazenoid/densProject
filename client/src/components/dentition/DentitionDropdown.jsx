@@ -5,27 +5,31 @@ import { observer } from 'mobx-react-lite'
 
 const DentitionDropdown = observer(() => {
     const { dentition } = useContext(Context)
-
+    
     const flags = {
         '': {
             name: 'Нет',
             color: 'white'
         },
-        'К': {
+        'П': {
+            name: 'Пломба',
+            color: '#F9F6BB'
+        },
+        'C': {
             name: 'Кариес',
-            color: 'brown'
+            color: '#834e3a'
         },
-        'Л': {
-            name: 'Вылечен',
-            color: 'aqua'
+        'P': {
+            name: 'Пульпит',
+            color: '#ff5c5c'
         },
-        'Ж': {
-            name: 'Вариант 3',
-            color: 'green'
+        'Pt': {
+            name: 'Периодонтит',
+            color: '#d342d3'
         },
-        'Ф': {
-            name: 'Вариант 4',
-            color: 'gold'
+        'R' : {
+            name: 'Корень',
+            color: '#ffa464'
         }
     }
 

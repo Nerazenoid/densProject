@@ -16,14 +16,14 @@ const Dentition = observer(() => {
         <div className={style.main}>
             {
                 Object.keys(dentition.list).map((side) =>
-                    <div className={style.block}>
+                    <div
+                    className={style.block}
+                    style={side === '1' || side === '4'? {flexDirection: "row-reverse"} : side === '3' ? {order: 4} : null}>
                         {Object.keys(dentition.list[side]).map((tooth) =>
-                            <div
-                                className={style.tooth_block}
-                                key={tooth}>
-                                <Tooth key={side+tooth} name={side+tooth}/>
-                                <Surface key={tooth} side={side} toothId={tooth} />
-                            </div>
+                                <Tooth
+                                key={side+tooth}
+                                side={side}
+                                toothId={tooth}/>
                         )}
                     </div>
                 )

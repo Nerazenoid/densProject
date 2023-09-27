@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import style from './appointmentInfo.module.css'
 import { getStatus } from "../utils/status";
 import { Context } from "..";
+import Dentition from "../components/dentition/Dentition";
 
 const AppointmentInfo = () => {
 
@@ -183,6 +184,15 @@ const AppointmentInfo = () => {
         return (<p>Загрузка</p>)
     }
 
+    if(page==='DENTITION'){
+        return (
+            <div className={style.page}>
+                <Dentition />
+                <button className={style.submit_btn} onClick={startAppointments}>К перечню услуг</button>
+            </div>
+        )
+    }
+
     if (page === 'DOCTOR') {
         return (
             <div className={style.page}>
@@ -270,7 +280,7 @@ const AppointmentInfo = () => {
             </div>
 
             {appointment.status === 'inProgress' && user.user.role === 'DOCTOR' ?
-                <button className={style.submit_btn} onClick={startAppointments}>Начать прием</button> : null}
+                <button className={style.submit_btn} onClick={() => setPage('DENTITION')}>Начать прием</button> : null}
             {appointment.status === 'awaitPayment' && user.user.role === 'ADMIN' ?
                 <div className={style.submit_block}>
                     <div>
