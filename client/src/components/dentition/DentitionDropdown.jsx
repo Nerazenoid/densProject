@@ -7,8 +7,8 @@ const DentitionDropdown = observer(() => {
     const { dentition } = useContext(Context)
 
     const flags = {
-        '': {
-            name: 'Нет',
+        "": {
+            name: 'Не выбрано',
             color: 'white'
         },
         'П': {

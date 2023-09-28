@@ -56,7 +56,8 @@ const AppointmentInfo = sequelize.define('appointment_info',
     {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
         total: { type: DataTypes.INTEGER },
-        discount: { type: DataTypes.INTEGER }
+        discount: { type: DataTypes.INTEGER },
+        dentition: {type: DataTypes.JSON}
     })
 
 const Request = sequelize.define('requests',

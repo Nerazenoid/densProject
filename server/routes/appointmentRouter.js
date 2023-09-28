@@ -13,6 +13,7 @@ router.post('/addservices', appointmentController.applyServices)
 router.post('/approvepayment', appointmentController.approvePayment)
 router.post('/cancelappointment', appointmentController.cancelAppointment)
 router.get('/providedservices/:appt_id', appointmentController.getProvidedServices)
+router.get('/getdentition', appointmentController.getDentition)
 
 router.get('/test', appointmentController.test)
 

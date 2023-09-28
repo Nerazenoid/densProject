@@ -49,7 +49,6 @@ function MainLayout() {
                     {user.isAuth === true && user.user.role === 'ADMIN' ?
                         <NavLink to={REQUESTS_ROUTE}>Заявки на звонок</NavLink> :
                         null}
-                        <NavLink to={TEST}>Тест</NavLink>
                 </div>
                 {user.isAuth ?
                     <div className={style.auth_block}>

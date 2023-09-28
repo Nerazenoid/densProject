@@ -15,8 +15,8 @@ export const createAppointment = async (date, doctor_id, user_id) => {
     await $host.post('/api/appointment/create', { date, doctor_id, user_id })
 }
 
-export const createProvidedServices = async(services, appt_id) => {
-    await $host.post('/api/appointment/addservices', {services, appt_id})
+export const createProvidedServices = async(services, appt_id, dentition) => {
+    await $host.post('/api/appointment/addservices', {services, appt_id, dentition})
 }
 
 export const getDoctors = async () => {
@@ -54,5 +54,10 @@ export const cancelAppointment = async(appt_id) => {
 
 export const getProvidedServices = async(appt_id) => {
     const {data} = await $host.get('api/appointment/providedservices/' + appt_id)
+    return data
+}
+
+export const getDentition = async(user_id) => {
+    const {data} = await $host.get('api/appointment/getdentition', {params: {user_id}})
     return data
 }

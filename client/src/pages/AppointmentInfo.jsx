@@ -8,7 +8,7 @@ import Dentition from "../components/dentition/Dentition";
 
 const AppointmentInfo = () => {
 
-    const { user } = useContext(Context)
+    const { user, dentition } = useContext(Context)
     const [page, setPage] = useState('USER')
     const [appointment, setAppointment] = useState()
     const [loading, setLoading] = useState(true)
@@ -118,7 +118,7 @@ const AppointmentInfo = () => {
         })
 
         console.log(providedServices)
-        createProvidedServices(providedServices, appointment_id)
+        createProvidedServices(providedServices, appointment_id, JSON.stringify(dentition.list))
             .then(() => {
                 setPage('USER')
                 setLoading(false)
@@ -184,11 +184,14 @@ const AppointmentInfo = () => {
         return (<p>Загрузка</p>)
     }
 
-    if(page==='DENTITION'){
+    if (page === 'DENTITION') {
         return (
             <div className={style.page}>
-                <Dentition />
-                <button className={style.submit_btn} onClick={startAppointments}>К перечню услуг</button>
+                <p className={style.title}>Зубная формула пациента {appointment.user.lastName} {appointment.user.firstName} {appointment.user.patronymic}</p>
+                <div className={style.dentition_wrap}>
+                    <Dentition user_id={appointment.user.id} />
+                </div>
+                <button className={style.submit_btn} onClick={startAppointments}>Перейти к оформлению услуг</button>
             </div>
         )
     }
