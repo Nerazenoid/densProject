@@ -295,11 +295,9 @@
 .phone::before{
     background-image: url('../components/phone_icon_small.svg');
 }
-.dentition_wrap{
-    padding: 10px;
-    width: fit-content;
-    margin: 0 auto;
-    background-color: white;
-    border-radius: 10px;
-    margin-bottom: 40px;
+.fLarge{
+    font-size: 34px;
+}
+.fSmall{
+    font-size: 24px;
 }

@@ -132,3 +132,16 @@
 .additional_info{
     flex-grow: 1;
 }
+.dentition{
+    width: fit-content;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.fSmall{
+    font-size: 20px;
+}
+.top_block{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

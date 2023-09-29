@@ -1,5 +1,5 @@
 const { Appointment, User, Doctor, Service, ProvidedService, AppointmentInfo, Category } = require('../models/models')
-const { Op, Model, Sequelize } = require("sequelize");
+const { Op, Model, Sequelize, where } = require("sequelize");
 
 class AppointmentController {
 
@@ -358,16 +358,21 @@ class AppointmentController {
     }
 
     async getDentition(req, res) {
-        const { user_id } = req.query
+        const { user_id, appointment_id } = req.query
+        let whereStatement = {};
+        if (user_id) {
+            whereStatement.userId = user_id
+        }
+        if(appointment_id) {
+            whereStatement.id = appointment_id
+        }
         let dentition = await AppointmentInfo.findOne({
             order: [['createdAt', 'DESC']],
             attributes: ['dentition'],
             include: {
                 model: Appointment,
                 attributes: [],
-                where: {
-                    userId: user_id
-                }
+                where: whereStatement
             }
         })
         if (!dentition || dentition.dentition === null) {

@@ -188,7 +188,7 @@ const AppointmentInfo = () => {
         return (
             <div className={style.page}>
                 <p className={style.title}>Зубная формула пациента {appointment.user.lastName} {appointment.user.firstName} {appointment.user.patronymic}</p>
-                <div className={style.dentition_wrap}>
+                <div className={style.fLarge}>
                     <Dentition user_id={appointment.user.id} />
                 </div>
                 <button className={style.submit_btn} onClick={startAppointments}>Перейти к оформлению услуг</button>
@@ -281,6 +281,11 @@ const AppointmentInfo = () => {
                     </div> :
                     null}
             </div>
+            {user.user.role === 'DOCTOR' && (appointment.status === 'complete' || appointment.status === 'awaitPayment') ?
+                <div className={style.fSmall}>
+                    <Dentition appointment_id={appointment.id} isClickable={false} />
+                </div> :
+                null}
 
             {appointment.status === 'inProgress' && user.user.role === 'DOCTOR' ?
                 <button className={style.submit_btn} onClick={() => setPage('DENTITION')}>Начать прием</button> : null}

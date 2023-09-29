@@ -2,10 +2,15 @@
     background-color: rgb(255, 255, 255);
     margin: 0 auto;
     width: fit-content;
-    height: 310px;
+    height: fit-content;
+    border-radius: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6px;
+    padding: 0.3em;
+    margin-bottom: 20px;
+    min-width: 300px;
+    line-height: 0;
 }
 .block{
     background-color: rgb(252, 252, 252);
@@ -31,8 +36,8 @@
 .wrap_part{
     position: absolute;
     transition: 0.2s;
-    width: 34px;
-    height: 34px;
+    width: 1em;
+    height: 1em;
 }
 
 .wrap_part:has(.part_surface path:hover){
@@ -41,7 +46,7 @@
 }
 .wrap_part:nth-of-type(1){
     right: 0;
-    top: calc(50% - 34px/2);
+    top: calc(50% - 1em/2);
 }
 .wrap_part:nth-of-type(1) .part_surface{
     transform: rotate(45deg);
@@ -49,7 +54,7 @@
 
 .wrap_part:nth-of-type(2){
     bottom: 0;
-    right: calc(50% - 34px/2);
+    right: calc(50% - 1em/2);
 }
 .wrap_part:nth-of-type(2) .part_surface{
     transform: rotate(135deg);
@@ -57,7 +62,7 @@
 
 .wrap_part:nth-of-type(3){
     left: 0;
-    top: calc(50% - 34px/2);
+    top: calc(50% - 1em/2);
 }
 .wrap_part:nth-of-type(3) .part_surface{
     transform: rotate(225deg);
@@ -65,18 +70,18 @@
 
 .wrap_part:nth-of-type(4){
     top: 0;
-    right: calc(50% - 34px/2);
+    right: calc(50% - 1em/2);
 }
 .wrap_part:nth-of-type(4) .part_surface{
     transform: rotate(315deg);
 }
 
 .wrap_part:nth-of-type(5){
-    width: 28px;
-    height: 28px;
+    width: 0.85em;
+    height: 0.85em;
     z-index: 5;
-    top: calc(50% - 28px/2);
-    right: calc(50% - 28px/2);
+    top: calc(50% - 0.85em/2);
+    right: calc(50% - 0.85em/2);
 }
 .part_surface{
     pointer-events: none;
@@ -90,30 +95,32 @@
 .tooth{
     display: grid;
     grid-template-rows: 1fr 1fr;
-    width: 76px;
+    width: 2.25em;
     background-color: rgb(243, 183, 183);
     border-radius: 10px;
 }
 .tooth_block{
+    width: 2.25em;
+    height: 2.25em;
     position: relative;
     transition: 0.2s;
     pointer-events: none;
+    margin: 0 auto;
 }
 .tooth_block:hover{
     transform: scale(1.1);
 }
 .tooth_tip{
     position: absolute;
-    max-width: 20px;
-    width: 100%;
+    width: 1em;
     text-align: center;
-    top: calc(50% - 44px/2);
-    left: calc(50% - 20px/2);
+    top: calc(50% - 1.3em/2);
+    left: calc(50% - 1em/2);
     z-index: 4;
 }
 .surface{
-    width: 76px;
-    height: 76px;
+    width: 2.25em;
+    height: 2.25em;
     border-radius: 100%;
     margin: 0 auto;
     position: relative;
@@ -135,14 +142,15 @@
 .flag{
     position: absolute;
     z-index: 2;
-    top: calc(50% - 20px/2);
-    left: calc(50% - 20px/2);
-    font-size: 14px;
+    top: calc(50% - 1.5em/2);
+    left: calc(50% - 1.5em/2);
+    font-size: 0.4em;
     font-weight: 600;
     cursor: pointer;
     pointer-events: none;
     text-align: center;
-    width: 20px;
+    width: 1.5em;
+    line-height: 1.4em;
 }
 .color_tip{
     display: block;
@@ -159,6 +167,7 @@
     padding: 4px;
     align-items: center;
     border-radius: 4px;
+    font-size: 16px;
 }
 .flag_element:hover{
     background-color: rgb(170, 235, 222);
@@ -166,6 +175,9 @@
 .tooth_name{
     font-weight: bold;
     width: 100%;
-    line-height: 14px;
-    font-size: 12px;
+    line-height: 1em;
+    font-size: 0.4em;
+}
+.tooth.disabled path{
+    pointer-events: none;
 }

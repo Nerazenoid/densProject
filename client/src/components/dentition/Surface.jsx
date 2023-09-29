@@ -3,7 +3,7 @@ import style from './Dentition.module.css'
 import { ReactComponent as PartCircle } from './img/part_circle.svg'
 import { ReactComponent as Circle } from './img/circle.svg'
 import { Context } from '../..'
-const Surface = ({ side, toothId }) => {
+const Surface = ({ side, toothId, isClickable }) => {
     const { dentition } = useContext(Context)
 
     const colors = {
@@ -12,12 +12,12 @@ const Surface = ({ side, toothId }) => {
         'C': '#834e3a',
         'P': '#ff5c5c',
         'Pt': '#d342d3',
-        'R' : '#ffa464'
+        'R': '#ffa464'
     }
 
     return (
         <div className={style.surface}
-        style={side==='4' || side==='3' ?{order:-1}: null}>
+            style={side === '4' || side === '3' ? { order: -1 } : null}>
             {Object.keys(dentition.list[side][toothId]).map(item =>
                 item === '0' ? null :
                     item === '5' ?
@@ -28,14 +28,15 @@ const Surface = ({ side, toothId }) => {
                                 style={{
                                     color: colors[dentition.list[side][toothId][item]]
                                 }}
-                                onClick={(e) => {
-                                    dentition.openDropdown()
-                                    dentition.setSelectedSide(side)
-                                    dentition.setSelectedTooth(toothId)
-                                    dentition.setSelectedSurf(item)
-                                    dentition.setX(e.clientX)
-                                    dentition.setY(e.clientY)
-                                }} />
+                                onClick={(e) => isClickable ?
+                                    [dentition.openDropdown(),
+                                    dentition.setSelectedSide(side),
+                                    dentition.setSelectedTooth(toothId),
+                                    dentition.setSelectedSurf(item),
+                                    dentition.setX(e.clientX),
+                                    dentition.setY(e.clientY)] :
+                                    null
+                                } />
                         </div>
                         :
                         <div className={style.wrap_part} key={item} >

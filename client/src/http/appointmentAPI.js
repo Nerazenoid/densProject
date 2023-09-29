@@ -57,7 +57,7 @@ export const getProvidedServices = async(appt_id) => {
     return data
 }
 
-export const getDentition = async(user_id) => {
-    const {data} = await $host.get('api/appointment/getdentition', {params: {user_id}})
+export const getDentition = async(user_id, appointment_id) => {
+    const {data} = await $host.get('api/appointment/getdentition', {params: {user_id, appointment_id}})
     return data
 }
