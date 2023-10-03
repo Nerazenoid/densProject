@@ -1,0 +1,23 @@
+.wrap{
+    height: 200px;
+    width: 100%;
+    background: rgb(19, 48, 19);
+    padding: 20px;
+}
+.main{
+    max-width: 1500px;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.footer_img{
+    filter: brightness(100);
+    width: 180px;
+}
+.title{
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+}

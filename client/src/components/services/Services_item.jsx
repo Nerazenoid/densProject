@@ -3,7 +3,7 @@ import styles from './Services.module.css';
 function ServicesItem(props) {
   const list = props.list;
   const listItems = list.map((item) =>
-    <li className={styles.item_element}>{item.name}</li>
+    <li key={item.name} className={styles.item_element}>{item.name}</li>
   );
 
   return (

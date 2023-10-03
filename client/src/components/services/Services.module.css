@@ -45,6 +45,7 @@
     bottom: 0;
     right: 0;
     z-index: 1;
+    border-radius: 6px 10px 0px 0px;
 }
 
 .title {
@@ -61,7 +62,7 @@
 .item_top img {
     position: absolute;
     width: 100%;
-    object-fit: cover;
+    height: 100%;
     border-radius: 6px 10px 0px 0px;
 }
 

@@ -1,10 +1,10 @@
 import styles from './Reviews.module.css';
 import Review from './Review';
 import grey from '../grey.jpg'
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
-const Reviews = () => {
+const Reviews = forwardRef((props, ref) => {
     const listRef = useRef(null)
     const next = useRef(null)
     const prev = useRef(null)
@@ -46,7 +46,7 @@ const Reviews = () => {
     }
 
     return (
-        <div className={styles.wrap}>
+        <div className={styles.wrap} ref={ref}>
             <div className={styles.block}>
                 <p className={styles.main_title}>Отзывы наших пациентов</p>
                 <div className={styles.carousel}
@@ -134,5 +134,5 @@ const Reviews = () => {
             </div>
         </div>
     );
-}
+})
 export default Reviews;

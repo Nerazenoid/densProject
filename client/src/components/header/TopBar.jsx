@@ -4,7 +4,7 @@ import NavMenu from './NavMenu.jsx';
 import Logo from './Logo.jsx';
 import HeaderContacts from './headerContacts.jsx';
 
-function TopBar() {
+const TopBar = ({mainRef, serviceRef, reviewRef, contactRef}) => {
 
   //Проверка положения окна
   const [scroll, setScroll] = useState(false);
@@ -22,7 +22,7 @@ function TopBar() {
           <Logo />
           <HeaderContacts />
         </div>
-        <NavMenu />
+        <NavMenu mainRef={mainRef} serviceRef={serviceRef} reviewRef={reviewRef} contactRef={contactRef}/>
       </header>
     </div>
   );
