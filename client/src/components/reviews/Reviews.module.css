@@ -8,21 +8,29 @@
 }
 .main_title{
     text-align: center;
-    font-size: 32px;
+    font-size: 46px;
     font-weight: bold;
-    margin-bottom: 40px;
+    color: rgb(1, 49, 41);
+    margin-bottom: 80px;
 }
 .item{
-    border: 1px solid rgb(165, 255, 165);
+    border: 1px solid #90bf76;
     background-color: white;
     box-shadow: 0 10px 4px rgba(87, 87, 87, 0.63);
     padding: 10px;
     border-radius: 10px;
-    max-width: 300px;
-    width: 100%;
+    width: 300px;
     min-width: 300px;
     z-index: 1;
     transition: 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+.body{
+    flex-grow: 1;
+    padding: 6px;
+    font-size: 14px;
+    color: rgb(58, 58, 58);
 }
 .item_img img{
     width: 60px;

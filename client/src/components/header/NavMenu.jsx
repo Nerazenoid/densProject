@@ -13,13 +13,22 @@ const NavMenu = observer(({mainRef, serviceRef, reviewRef, contactRef}) => {
 
   console.log(user.isAuth)
 
+  const scrollToBlock = (block) => {
+    let offset = 80
+    let scroll = block.offsetTop - offset;
+    window.scrollTo({
+      top: scroll,
+      behavior: 'smooth'
+    })
+  }
+
   return (
     <nav className={styles.main}>
       <ul className={styles.nav_menu}>
-        <li className={styles.nav_item} onClick={() => mainRef.current.scrollIntoView({behavior: 'smooth'})}>О нас</li>
-        <li className={styles.nav_item} onClick={() => serviceRef.current.scrollIntoView({behavior: 'smooth'})}>Услуги</li>
-        <li className={styles.nav_item} onClick={() => reviewRef.current.scrollIntoView({behavior: 'smooth'})}>Отзывы</li>
-        <li className={styles.nav_item} onClick={() => contactRef.current.scrollIntoView({behavior: 'smooth'})}>Контакты</li>
+        <li className={styles.nav_item} onClick={() => scrollToBlock(mainRef.current)}>О нас</li>
+        <li className={styles.nav_item} onClick={() => scrollToBlock(serviceRef.current)}>Услуги</li>
+        <li className={styles.nav_item} onClick={() => scrollToBlock(reviewRef.current)}>Отзывы</li>
+        <li className={styles.nav_item} onClick={() => scrollToBlock(contactRef.current)}>Контакты</li>
       </ul>
       <div>
         <button className={styles.appointment_btn}

@@ -1,9 +1,10 @@
+import { forwardRef } from 'react'
 import styles from './Contacts.module.css'
 import { YMaps, Map, FullscreenControl, ZoomControl, TypeSelector, Placemark } from '@pbe/react-yandex-maps'
 
-const Contacts = () => {
+const Contacts = forwardRef((props,ref) => {
     return (
-        <div className={styles.wrap}>
+        <div className={styles.wrap} ref={ref}>
             <div className={styles.block}>
                 <div className={styles.main_block}>
                     <div className={styles.map}>
@@ -45,5 +46,5 @@ const Contacts = () => {
             </div>
         </div>
     )
-}
+})
 export default Contacts

@@ -9,10 +9,10 @@ function Advantages() {
       <div className={styles.block}>
         <p className={styles.main_title}>Наши преимущества</p>
         <div className={styles.list}>
-          <AdvanceItem title="Преимущество 1" description="Описание 1 Описание 1 Описание 1 Описание 1 Описание 1 Описание 1" img_url={grey} />
-          <AdvanceItem title="Преимущество 2" description="Описание 1" img_url={grey} />
-          <AdvanceItem title="Преимущество 3" description="Описание 1" img_url={grey} />
-          <AdvanceItem title="Преимущество 4" description="Описание 1" img_url={grey} />
+          <AdvanceItem title="Удобное расположение" description="Описание 1 Описание 1 Описание 1 Описание 1 Описание 1 Описание 1" img_url={grey} />
+          <AdvanceItem title="Постоянные акции" description="Описание 1" img_url={grey} />
+          <AdvanceItem title="Опытные специалисты" description="Описание 1" img_url={grey} />
+          <AdvanceItem title="Низкие цены" description="Описание 1" img_url={grey} />
         </div>
       </div>
     </div >

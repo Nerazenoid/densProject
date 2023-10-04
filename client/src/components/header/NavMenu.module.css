@@ -8,8 +8,8 @@
 .nav_menu{
     display: flex;
     list-style: none;
-    width: 46%;
-    justify-content: flex-end;
+    flex-grow: 1;
+    padding-left: 16%;
 }
 .nav_item{
     padding-right: 28px;

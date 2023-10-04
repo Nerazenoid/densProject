@@ -8,6 +8,7 @@ import { Context } from '../index.js';
 import MainModal from '../components/mainModal.jsx';
 import Contacts from '../components/contactsLanding/Contacts.jsx';
 import Footer from '../components/Footer/Footer.jsx';
+import About from '../components/about/About.jsx';
 
 const Landing = () => {
   const mainRef = useRef();
@@ -28,6 +29,7 @@ const Landing = () => {
         />
         <div className='main_content'>
           <MainSlider ref={mainRef} />
+          <About />
           <Advantages />
           <Services ref={serviceRef} />
           <Reviews ref={reviewRef} />

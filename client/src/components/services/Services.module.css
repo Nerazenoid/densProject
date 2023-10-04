@@ -10,6 +10,14 @@
     border: 1px solid rgb(67 84 71 / 20%);
     border-left: 6px solid #04701b;
     background-color: #f4fbf7;
+    transition: 0.2s;
+    box-shadow: 0 0 0;
+}
+.item:hover{
+    transform: scale(1.025);
+    box-shadow: 0 4px 10px rgba(44, 44, 44, 0.651);
+    border-color: #33ad57;
+
 }
 
 .block {
@@ -20,9 +28,10 @@
 
 .main_title {
     text-align: center;
-    font-size: 32px;
+    font-size: 46px;
     font-weight: bold;
-    margin-bottom: 40px;
+    color: rgb(1, 49, 41);
+    margin-bottom: 80px;
 }
 
 .services_list {
@@ -55,8 +64,13 @@
     left: 16px;
     font-size: 32px;
     font-weight: 600;
-    color: #b7f5c1;
+    color: #d8ffed;
     text-shadow: 0px 0px 4px #012807;
+    transition: 0.2s;
+}
+
+.item:hover > .item_top > .title {
+    color: white;
 }
 
 .item_top img {
@@ -79,10 +93,15 @@
 
 .item_element {
     font-size: 18px;
-    margin-left: 20px;
+    margin-left: 16px;
     line-height: 30px;
     font-weight: 600;
-    color: #012807;
+    color: #04430d;
+}
+.item_element::before{
+    content: '✓';
+    padding-right: 10px;
+    color: rgb(30, 163, 30);
 }
 
 .btn_wrap {
@@ -101,8 +120,9 @@
     cursor: pointer;
     max-width: 160px;
     font-size: 20px;
+    transition: 0.2s;
 }
 
 .btn:hover {
-    background-color: #65b376;
+    background-color: rgb(60 183 86);
 }
