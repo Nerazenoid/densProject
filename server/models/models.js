@@ -25,7 +25,8 @@ const Appointment = sequelize.define('appointment',
     {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
         date: { type: DataTypes.DATE },
-        status: { type: DataTypes.STRING, defaultValue: 'inProgress' }
+        status: { type: DataTypes.STRING, defaultValue: 'inProgress' },
+        comment: {type: DataTypes.TEXT, defaultValue: '' },
     })
 
 const Category = sequelize.define('category',
@@ -57,7 +58,8 @@ const AppointmentInfo = sequelize.define('appointment_info',
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
         total: { type: DataTypes.INTEGER },
         discount: { type: DataTypes.INTEGER },
-        dentition: {type: DataTypes.JSON}
+        dentition: {type: DataTypes.JSON},
+        comment: {type: DataTypes.TEXT, defaultValue: ''}
     })
 
 const Request = sequelize.define('requests',

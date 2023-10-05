@@ -15,6 +15,7 @@ const AppointmentInfo = () => {
     const [services, setServices] = useState([])
     const [discount, setDiscount] = useState(0)
     const [total, setTotal] = useState(0)
+    const [comment, setComment] = useState('')
     const [userServices, setUserServices] = useState([])
 
     const { appointment_id } = useParams()
@@ -118,7 +119,7 @@ const AppointmentInfo = () => {
         })
 
         console.log(providedServices)
-        createProvidedServices(providedServices, appointment_id, JSON.stringify(dentition.list))
+        createProvidedServices(providedServices, appointment_id, JSON.stringify(dentition.list), comment)
             .then(() => {
                 setPage('USER')
                 setLoading(false)
@@ -231,6 +232,7 @@ const AppointmentInfo = () => {
                         </div>
                     )}
                 </div>
+                <textarea className={style.textarea} placeholder='Комментарий врача (необязательно)' value={comment} onChange={e => setComment(e.target.value)}/>
                 <p className={style.total}>Итого: {total}</p>
                 <button className={style.submit_btn} onClick={applyProvidedServices}>Сохранить</button>
             </div>
@@ -246,6 +248,16 @@ const AppointmentInfo = () => {
                         <p className={style.string_creation}><b>Дата создания:</b> {new Date(appointment.createdAt).toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })} </p>
                         <p className={style.string}><b>Время приема:</b> {new Date(appointment.date).toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric' })} </p>
                         <p className={style.string}><b>Статус приема: <i style={{ color: colors[appointment.status] }}>{getStatus(appointment.status)}</i></b></p>
+                        <div className={style.comments_block}>
+                            <p className={style.comment_title}><b>Комментарий администратора:</b></p>
+                            <p className={style.comment}>{appointment.comment}</p>
+                        </div>
+                        {user.user.role === 'DOCTOR' && (appointment.status === 'complete' || appointment.status === 'awaitPayment') ?
+                            <div className={style.comments_block}>
+                                <p className={style.comment_title}><b>Комментарий врача:</b></p>
+                                <p className={style.comment}>{appointment.appointment_info.comment}</p>
+                            </div> :
+                            null}
                     </div>
                     <div className={style.flex}>
                         <div className={style.block}>
@@ -271,10 +283,10 @@ const AppointmentInfo = () => {
                             <p className={style.total_price}>Итого:
                                 {appointment.appointment_info.discount !== null ?
                                     <span className={style.total_discount_block}>
-                                        <s>{appointment.appointment_info.total}-{appointment.appointment_info.discount}%= </s>
-                                        {appointment.appointment_info.total - (appointment.appointment_info.total / 100 * appointment.appointment_info.discount)}
+                                        <s>{appointment.appointment_info.total}₽ -{appointment.appointment_info.discount}%= </s>
+                                        {appointment.appointment_info.total - (appointment.appointment_info.total / 100 * appointment.appointment_info.discount)}₽
                                     </span> :
-                                    appointment.appointment_info.total
+                                    (appointment.appointment_info.total + '₽' )
                                 }
                             </p>
                         </div>
@@ -298,7 +310,7 @@ const AppointmentInfo = () => {
                                 value={discount}
                                 onChange={e => setDiscount(e.target.value)}
                             >
-                            </input>%
+                            </input>% – c учетом скидки итого: {appointment.appointment_info.total - (appointment.appointment_info.total / 100) * discount}₽
                         </p>
                     </div>
                     <button className={style.submit_btn} onClick={approvePayment}>Оплата подтверждена</button>

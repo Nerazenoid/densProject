@@ -43,11 +43,12 @@
     justify-content: center;
     border-radius: 10px;
 }
-.description:nth-of-type(2n + 1){
+.about_row:nth-of-type(2n + 1) > .description{
     border-left: 4px solid rgb(69, 136, 92);
 }
-.description:nth-of-type(2n){
+.about_row:nth-of-type(2n) > .description{
     border-right: 4px solid rgb(69, 136, 92);
+    order: 2;
 }
 .text{
     text-align: center;

@@ -64,7 +64,7 @@
     display: flex;
     justify-content: center;
 }
-.input{
+.input, .textarea{
     padding: 4px 10px;
     border-radius: 10px;
     box-shadow: inset 0px 0px 4px #5e5e5e;
@@ -73,6 +73,10 @@
     width: 100%;
     background-color: white;
 }
-.input::placeholder{
+.textarea{
+    height: 100px;
+    overflow-wrap: break-word;
+}
+.input::placeholder, .textarea::placeholder{
     color: gray;
 }

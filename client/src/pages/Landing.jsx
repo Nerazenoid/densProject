@@ -28,8 +28,8 @@ const Landing = () => {
         contactRef={contactRef}
         />
         <div className='main_content'>
-          <MainSlider ref={mainRef} />
-          <About />
+          <MainSlider/>
+          <About  ref={mainRef} />
           <Advantages />
           <Services ref={serviceRef} />
           <Reviews ref={reviewRef} />

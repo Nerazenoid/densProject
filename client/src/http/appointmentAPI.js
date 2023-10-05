@@ -11,12 +11,12 @@ export const getDays = async () => {
     return data
 }
 
-export const createAppointment = async (date, doctor_id, user_id) => {
-    await $host.post('/api/appointment/create', { date, doctor_id, user_id })
+export const createAppointment = async (date, doctor_id, user_id, comment) => {
+    await $host.post('/api/appointment/create', { date, doctor_id, user_id, comment })
 }
 
-export const createProvidedServices = async(services, appt_id, dentition) => {
-    await $host.post('/api/appointment/addservices', {services, appt_id, dentition})
+export const createProvidedServices = async(services, appt_id, dentition, comment) => {
+    await $host.post('/api/appointment/addservices', {services, appt_id, dentition, comment})
 }
 
 export const getDoctors = async () => {

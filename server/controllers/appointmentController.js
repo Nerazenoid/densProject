@@ -5,11 +5,12 @@ class AppointmentController {
 
     async createAppointment(req, res) {
         try {
-            const { date, doctor_id, user_id } = req.body
+            const { date, doctor_id, user_id, comment } = req.body
             await Appointment.create({
-                date: date,
+                date,
                 doctorId: doctor_id,
-                userId: user_id
+                userId: user_id,
+                comment
             })
             return res.send(true)
         }
@@ -23,7 +24,7 @@ class AppointmentController {
         console.log('id: ' + appt_id)
         const fullAppointmentInfo = await Appointment.findOne({
             where: { id: appt_id },
-            attributes: ['id', 'date', 'createdAt', 'status', 'userId', 'doctorId'],
+            attributes: ['id', 'date', 'createdAt', 'status', 'userId', 'doctorId', 'comment'],
             include: [{
                 model: User,
                 attributes: ['id', 'firstName', 'lastName', 'patronymic', 'phone']
@@ -38,7 +39,7 @@ class AppointmentController {
             },
             {
                 model: AppointmentInfo,
-                attributes: ['total', 'discount']
+                attributes: ['total', 'discount', 'comment']
             }]
         })
         return res.json(fullAppointmentInfo)
@@ -124,7 +125,7 @@ class AppointmentController {
 
 
     async applyServices(req, res) {
-        const { services, appt_id, dentition } = req.body
+        const { services, appt_id, dentition, comment } = req.body
 
         await ProvidedService.bulkCreate(services)
 
@@ -153,7 +154,8 @@ class AppointmentController {
         await AppointmentInfo.create({
             appointmentId: appt_id,
             total: price,
-            dentition: JSON.parse(dentition)
+            dentition: JSON.parse(dentition),
+            comment
         })
 
         return res.json(true)
@@ -178,6 +180,9 @@ class AppointmentController {
                     date: {
                         [Op.gt]: selectedDay,
                         [Op.lt]: nextDay
+                    },
+                    status: {
+                        [Op.not] : 'deny'
                     }
                 },
                 attributes: ['date'],

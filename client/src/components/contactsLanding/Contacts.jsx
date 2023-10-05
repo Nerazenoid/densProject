@@ -14,7 +14,7 @@ const Contacts = forwardRef((props,ref) => {
                                 height={'100%'}
                                 defaultState={{
                                     center: [53.198393, 45.012920],
-                                    zoom: 13
+                                    zoom: 14
                                 }}>
                                 <FullscreenControl />
                                 <ZoomControl />
@@ -24,7 +24,6 @@ const Contacts = forwardRef((props,ref) => {
                                     properties={
                                         {
                                             iconCaption: 'DENS-Стоматология',
-                                            balloonContent: '<img src="https://dens-stomat.ru/assets/img/photo.jpg" />'
                                         }
                                     }
                                     options={{
@@ -35,11 +34,8 @@ const Contacts = forwardRef((props,ref) => {
                             </Map>
                         </YMaps>
                     </div>
-                    <div>
+                    <div className={styles.grid}>
                         <div className={styles.item}>
-                            <div className={styles.img_block}>
-                                <img src={process.env.REACT_APP_API_URL + 'grey.jpg'} />
-                            </div>
                         </div>
                     </div>
                 </div>

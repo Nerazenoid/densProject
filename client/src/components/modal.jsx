@@ -15,24 +15,27 @@ const Modal = observer(() => {
 
     const [usersList, setUsersList] = useState([])
     const [search, setSearch] = useState('');
+    const [comment, setComment] = useState('');
     const [selectedUser, setSelectedUser] = useState('')
 
     const create = async () => {
-        await createAppointment(appointment.selectedTime, doctor_id, user.user.id)
+        await createAppointment(appointment.selectedTime, doctor_id, user.user.id, '')
         appointment.setSelectedTime(null)
         component.closeModal()
     }
 
     const createByAdmin = async () => {
-        await createAppointment(appointment.selectedTime, doctor_id, selectedUser)
+        await createAppointment(appointment.selectedTime, doctor_id, selectedUser, comment)
         appointment.setSelectedTime(null)
         setSearch('')
         setSelectedUser('')
+        setComment('')
         component.closeModal()
     }
 
     const denyButton = () => {
         setSearch('')
+        setComment('')
         setSelectedUser('')
         component.closeModal()
     }
@@ -71,6 +74,9 @@ const Modal = observer(() => {
                         <div className={styles.search_block}>
                             <input className={styles.input} type='text' placeholder='Поиск' value={search} onChange={e => findUsers(e.target.value)}></input>
                             <DropDown users={usersList} selectedUserName={(query) => setSearch(query)} selectedUserId={(id) => setSelectedUser(id)}/>
+                        </div>
+                        <div className={styles.search_block}>
+                            <textarea className={styles.textarea} type='text' value={comment} onChange={e=> setComment(e.target.value)} placeholder='Здесь можно описать жалобы или пожелания пациента (необязательно)'></textarea>
                         </div>
                         <div className={styles.buttons}>
                             <button className={styles.deny} onClick={denyButton}>Отмена</button>

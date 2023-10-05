@@ -10,6 +10,7 @@
     list-style: none;
     flex-grow: 1;
     padding-left: 16%;
+    max-width: 1900px;
 }
 .nav_item{
     padding-right: 28px;
