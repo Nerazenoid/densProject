@@ -9,6 +9,7 @@ import MainModal from '../components/mainModal.jsx';
 import Contacts from '../components/contactsLanding/Contacts.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 import About from '../components/about/About.jsx';
+import LandingLast from '../components/last/LandingLast.jsx';
 
 const Landing = () => {
   const mainRef = useRef();
@@ -34,6 +35,7 @@ const Landing = () => {
           <Services ref={serviceRef} />
           <Reviews ref={reviewRef} />
           <Contacts ref={contactRef}/>
+          <LandingLast />
           <Footer />
         </div>
         <MainModal />
