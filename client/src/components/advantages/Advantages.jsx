@@ -1,6 +1,10 @@
 import styles from './Advantages.module.css';
 import AdvanceItem from './Advantages_item.jsx';
-import grey from '../grey.jpg'
+import grey from '../grey.jpg';
+import rass from '../img/0percent_icon.jpg';
+import discount from '../img/discount_icon.jpg';
+import location from '../img/location_icon.jpg'
+import dentist from '../img/dentist_icon.jpg'
 
 const Advantages = () => {
 
@@ -8,22 +12,22 @@ const Advantages = () => {
     {
       title: 'Расположение',
       description: 'Наша клиника находится в самом центре города. Добраться до нас не составит труда',
-      img: grey
+      img: location
     },
     {
       title: 'Акции',
       description: 'Мы регулярно проводим акции, которые позволяют получить лечение по низким ценам',
-      img: grey
+      img: discount
     },
     {
       title: 'Специалисты',
       description: 'В нашей клинике работают профессионалы с многолетним стажем',
-      img: grey
+      img: dentist
     },
     {
       title: 'Рассрочка',
       description: 'Мы предоставляем возможность оплачивать лечение по частям, а не сразу',
-      img: grey
+      img: rass
     }
   ]
 

@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import styles from './Main.module.css';
-import slide from './Slideplaceholder.png'
+import slide from './img/main.jpg'
 
 const MainSlider = () => {
 
