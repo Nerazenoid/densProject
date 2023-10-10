@@ -1,8 +1,7 @@
 .header{
     display: flex;
-    background-color: #baebd4;
-    padding: 10px;
-    padding-right: 50px;
+    background-color: rgb(95, 190, 167);
+    padding: 10px 40px;
     position: fixed;
     width: 100%;
     align-items: flex-end;
@@ -12,7 +11,7 @@
 .header a{
     margin: 0 10px;
     font-weight: 600;
-    color: rgb(1, 65, 1);
+    color: white;
 }
 .body{
     padding-top: 160px;
@@ -37,11 +36,16 @@
 .username{
     font-weight: 600;
     font-size: 18px;
-    color: rgb(10, 82, 64);
+    /*color: rgb(10, 82, 64);*/
+    color: white;
 }
 .footer{
     background-color: green;
 }
 .auth_block{
     display: flex;
+}
+.logo_wrap{
+    width: 200px;
+    margin-right: 20px;
 }

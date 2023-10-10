@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import Logo from "./header/Logo";
+import logo from './img/logoText_white.png'
 import { APPOINTMENTS_LIST_ROUTE, LANDING_ROUTE, LOGIN_ROUTE, NEW_APPOINTMENT_ROUTE, REQUESTS_ROUTE, TEST, TEST_ROUTE, USER_ROUTE } from "../utils/consts";
 import { useContext, useEffect } from "react";
 import Modal from "./modal";
@@ -29,7 +29,11 @@ function MainLayout() {
         <div>
             <div className={style.header}>
                 <div className={style.links_wrap}>
-                    <NavLink to='/'><Logo /></NavLink>
+                    <NavLink to='/'>
+                        <div className={style.logo_wrap}>
+                            <img src={logo} />
+                        </div>
+                    </NavLink>
 
                     {user.isAuth === true && user.user.role === 'ADMIN' ?
                         <NavLink to={NEW_APPOINTMENT_ROUTE}>Создать запись</NavLink> :

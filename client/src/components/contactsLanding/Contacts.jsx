@@ -54,7 +54,7 @@ const Contacts = forwardRef((props, ref) => {
                             </div>
                             <div className={styles.row}>
                                 <MailImg />
-                                <p className={styles.text}>dens-stoma@inbox.ru</p>
+                                <a href='mailto:dens-stoma@inbox.ru' className={styles.text}>dens-stoma@inbox.ru</a>
                             </div>
                         </div>
                         <div className={styles.item}>
