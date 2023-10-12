@@ -43,3 +43,9 @@
     display: flex;
     justify-content: space-between;
 }
+
+@media (max-width: 425px){
+    .list{
+        flex-wrap: wrap;
+    }
+}

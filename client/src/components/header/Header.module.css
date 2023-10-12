@@ -64,7 +64,7 @@
     font-weight: 600;
     font-size: 24px;
     color: white;
-    text-shadow: 1px 1px 0px #484848;
+    text-shadow: 1px 1px 0 #484848;
 }
 .contacts_phone::before{
     content: '';
@@ -122,4 +122,9 @@
     opacity: 0;
     transition: all 0.2s ease-in 0.2s,  width 0.15s 0s, opacity 1s ease-out 0.3s;
     width: 72px;
+}
+@media (max-width: 425px){
+    .topbar_wrap{
+        visibility: hidden;
+    }
 }
