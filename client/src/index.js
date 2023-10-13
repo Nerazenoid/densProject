@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import './reset.css';
@@ -14,15 +14,17 @@ export const Context = createContext(null)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Context.Provider value={{
-        user: new UserStore(),
-        appointment: new AppointmentStore(),
-        component: new ComponentsStore(),
-        request: new RequestStore(),
-        dentition: new DenitionStore()
-    }}>
-        <App/>
-    </Context.Provider>
+    <React.StrictMode>
+        <Context.Provider value={{
+            user: new UserStore(),
+            appointment: new AppointmentStore(),
+            component: new ComponentsStore(),
+            request: new RequestStore(),
+            dentition: new DenitionStore()
+        }}>
+            <App />
+        </Context.Provider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

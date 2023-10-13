@@ -8,11 +8,10 @@ import style from '../components/createAppointment.module.css'
 
 const NewAppointment = observer(() => {
 
-    const { appointment, user } = useContext(Context)
+    const { appointment} = useContext(Context)
 
     const [loading, setLoading] = useState(true)
 
-    console.log(user)
 
     useEffect(() => {
         getDoctors().then(data => appointment.setDoctors(data))

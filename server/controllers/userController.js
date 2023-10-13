@@ -9,7 +9,7 @@ const generateJwt = (id, login, role) => {
     return jwt.sign(
         { id, login, role },
         process.env.SECRET_KEY,
-        { expiresIn: '48h' })
+        { expiresIn: '30d' })
 }
 
 class UserController {
@@ -105,7 +105,7 @@ class UserController {
     }
 
     async addUser(req,res) {
-        const {phone, fullname} = req.body
+        const {phone, fullname, birthday} = req.body
         const login = 'user' + new Date().getTime()
         await User.create({
             login,
@@ -114,6 +114,7 @@ class UserController {
             firstName: fullname.firstName,
             lastName: fullname.lastName,
             patronymic: fullname.patronymic,
+            birthday
         })
         res.json(login)
     }

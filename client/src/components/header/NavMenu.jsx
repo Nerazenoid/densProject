@@ -11,7 +11,6 @@ const NavMenu = observer(({mainRef, serviceRef, reviewRef, contactRef}) => {
 
   const { user, component } = useContext(Context)
 
-  console.log(user.isAuth)
 
   const scrollToBlock = (block) => {
     let offset = 80

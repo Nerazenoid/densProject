@@ -8,8 +8,8 @@ const UserItem = ({ user }) => {
 
     const regDate = new Date(user.createdAt)
 
-    const birthday = new Date(user.birthday)
-    const age = new Date(new Date() - birthday).getUTCFullYear() - 1970
+    const birthday = user.birthday !== null ? new Date(user.birthday) : 'Не указан'
+    const age = birthday !== 'Не указан'? new Date(new Date() - birthday).getUTCFullYear() - 1970  + ' лет': 'Не указан'
 
     return (
         <div className={styles.wrap}>
@@ -19,7 +19,7 @@ const UserItem = ({ user }) => {
                     {`${user.lastName} ${user.firstName} ${user.patronymic}`}
                 </p>
                 <div className={styles.additional_info}>
-                    <p className={styles.age}>{age} лет</p>
+                    <p className={styles.age}>{age}</p>
                     <p className={styles.phone}>{user.phone || 'Не указан'}</p>
                 </div>
                 <p className={styles.reg_info}>Зарегистрирован с {regDate.toLocaleDateString('ru')}</p>

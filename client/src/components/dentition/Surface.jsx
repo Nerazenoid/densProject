@@ -65,7 +65,6 @@ const Surface = ({ side, toothId, isClickable }) => {
     
                                     //Наконец то. Что то рабочее *смайлик клоуна* */
 
-                                    console.log(dentition.list)
                                 }
                                 }
                             />

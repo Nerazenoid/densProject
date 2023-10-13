@@ -20,7 +20,6 @@ const RequestPage = observer(() => {
                     setRecord(data))
                 .finally(() =>
                     setLoading(false))
-            console.log(record.status)
         }
     }, [loading])
 

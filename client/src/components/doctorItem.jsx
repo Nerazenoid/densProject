@@ -5,7 +5,6 @@ import { NEW_APPOINTMENT_ROUTE } from '../utils/consts'
 const DoctorItem = ({ doctor }) => {
 
     const navigate = useNavigate()
-    console.log(doctor)
     return (
         <div className={styles.block} onClick={() => navigate(NEW_APPOINTMENT_ROUTE + '/' + doctor.id)}>
             <div className={styles.photo}>

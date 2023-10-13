@@ -17,7 +17,6 @@ const App = observer(() => {
       user.setIsAuth(true)
     })
     .catch(e => {
-      console.log(e.message)
       user.setUser(null)
       user.setIsAuth(false)
     })

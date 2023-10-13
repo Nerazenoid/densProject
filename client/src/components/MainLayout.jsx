@@ -1,8 +1,7 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import logo from './img/logoText_white.png'
-import { APPOINTMENTS_LIST_ROUTE, LANDING_ROUTE, LOGIN_ROUTE, NEW_APPOINTMENT_ROUTE, REQUESTS_ROUTE, TEST, TEST_ROUTE, USER_ROUTE } from "../utils/consts";
-import { useContext, useEffect } from "react";
-import Modal from "./modal";
+import { APPOINTMENTS_LIST_ROUTE, LANDING_ROUTE, NEW_APPOINTMENT_ROUTE, REQUESTS_ROUTE, USER_ROUTE } from "../utils/consts";
+import { useContext } from "react";
 import style from './mainLayuout.module.css'
 import { Context } from "..";
 
@@ -24,7 +23,6 @@ function MainLayout() {
         }
     }
 
-    console.log(user.isAuth)
     return (
         <div>
             <div className={style.header}>
@@ -66,7 +64,6 @@ function MainLayout() {
                 <Outlet className={style.padding} />
             </div>
             <div className={style.footer}>
-                Футер
             </div>
         </div>
     );

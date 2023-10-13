@@ -44,8 +44,20 @@
     justify-content: space-between;
 }
 
-@media (max-width: 425px){
+@media (max-width: 525px){
     .list{
         flex-wrap: wrap;
+        justify-content: center;
+    }
+    .item{
+        margin-bottom: 50px;
+    }
+    .title{
+        margin-bottom: 10px;
+    }
+}
+@media (max-width: 375px){
+    .main_title{
+        font-size: 38px;
     }
 }

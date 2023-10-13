@@ -1,7 +1,6 @@
 import styles from './Reviews.module.css';
 import Review from './Review';
-import { forwardRef, useEffect, useRef, useState } from 'react';
-import { observer } from 'mobx-react-lite';
+import { forwardRef, useRef} from 'react';
 
 const Reviews = forwardRef((props, ref) => {
     const listRef = useRef(null)
@@ -86,8 +85,6 @@ const Reviews = forwardRef((props, ref) => {
 
         const scrollAmount = 320 * (toRight ? 1 : -1)
         const scrollPoint = listRef.current.scrollLeft + scrollAmount
-        console.log(listRef.current.scrollWidth)
-        console.log(scrollPoint)
 
         listRef.current.scrollTo({
             left: scrollPoint,
@@ -109,7 +106,6 @@ const Reviews = forwardRef((props, ref) => {
 
     //Да, я просто засунул условие направления скролла в параметр. И что мне за это сделаете?
     const onWheel = (e) => {
-        console.log(e.deltaY)
         scroll(e.deltaY > 0)
     }
 

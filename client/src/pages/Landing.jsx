@@ -10,35 +10,38 @@ import Contacts from '../components/contactsLanding/Contacts.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 import About from '../components/about/About.jsx';
 import LandingLast from '../components/last/LandingLast.jsx';
+import TopBarMobile from '../components/header/topbar_mobile/TopBarMobile.jsx';
 
 const Landing = () => {
   const mainRef = useRef();
   const serviceRef = useRef();
   const reviewRef = useRef();
   const contactRef = useRef();
-  const {user} = useContext(Context)
-  console.log(user.isAuth)
-  console.log(localStorage.getItem('token'))
 
   return (
     <div className="App">
-        <TopBar
+      <TopBarMobile
+        mainRef={mainRef}
+        serviceRef={serviceRef}
+        reviewRef={reviewRef}
+        contactRef={contactRef} />
+      <TopBar
         mainRef={mainRef}
         serviceRef={serviceRef}
         reviewRef={reviewRef}
         contactRef={contactRef}
-        />
-        <div className='main_content'>
-          <MainSlider/>
-          <About  ref={mainRef} />
-          <Advantages />
-          <Services ref={serviceRef} />
-          <Reviews ref={reviewRef} />
-          <Contacts ref={contactRef}/>
-          <LandingLast />
-          <Footer />
-        </div>
-        <MainModal />
+      />
+      <div className='main_content'>
+        <MainSlider />
+        <About ref={mainRef} />
+        <Advantages />
+        <Services ref={serviceRef} />
+        <Reviews ref={reviewRef} />
+        <Contacts ref={contactRef} />
+        <LandingLast />
+        <Footer />
+      </div>
+      <MainModal />
     </div>
   );
 }
