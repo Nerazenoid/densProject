@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { Context } from '..';
 import styles from './modal.module.css';
-import { useContext, useEffect, useState, } from 'react';
+import { useContext, useState, } from 'react';
 import { createAppointment } from "../http/appointmentAPI";
 import { useParams } from 'react-router-dom';
 import DropDown from './dropdown';
@@ -11,7 +11,6 @@ import { getUsers } from '../http/userAPI';
 const Modal = observer(() => {
     const { doctor_id } = useParams()
     const { appointment, component, user } = useContext(Context)
-    console.log(component.active)
 
     const [usersList, setUsersList] = useState([])
     const [search, setSearch] = useState('');
@@ -51,7 +50,7 @@ const Modal = observer(() => {
     const message = `Вы действительно хотите записаться на ${new Date(appointment.selectedTime).toLocaleString()}?`
 
     if (appointment.selectedTime != null) {
-        if (user.user.role == 'USER') {
+        if (user.user.role === 'USER') {
             return (
                 <div className={component.active ? `${styles.wrap} ${styles.active}` : styles.wrap}
                     onClick={() => component.closeModal()}>
@@ -65,7 +64,7 @@ const Modal = observer(() => {
                 </div>
             )
         }
-        if (user.user.role == 'ADMIN') {
+        if (user.user.role === 'ADMIN') {
             return (
                 <div className={component.active ? `${styles.wrap} ${styles.active}` : styles.wrap}
                     onClick={denyButton}>

@@ -15,8 +15,8 @@ export const doLogin = async (login, password) => {
     return jwt_decode(data.token)
 }
 
-export const addUser = async (fullname, phone) => {
-    await $host.post('api/admin/adduser', { fullname, phone })
+export const addUser = async (fullname, phone, birthday) => {
+    await $host.post('api/admin/adduser', { fullname, phone, birthday })
 }
 
 export const check = async () => {

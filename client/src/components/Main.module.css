@@ -153,14 +153,29 @@
     box-shadow: 0 0 10px rgb(23, 151, 23);
     background-color: rgb(67, 168, 67);
 }
-@media (max-width: 425px){
+@media (max-width: 525px){
     .contacts_wrap{
-        height: 600px;
+        height: 750px;
     }
     .contacts_wrap img{
         object-fit: cover;
     }
     .info{
         left: 0;
+    }
+    .text{
+        max-width: 380px;
+    }
+}
+@media (max-width: 375px){
+    .main_title{
+        font-size: 44px;
+    }
+    .text{
+        font-size: 20px;
+        max-width: 340px;
+    }
+    .main_btn{
+        font-size: 24px;
     }
 }

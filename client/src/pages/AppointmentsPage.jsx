@@ -24,25 +24,21 @@ const AppointmentsPage = observer(() => {
             if (user.user.role === 'ADMIN') {
                 getAppointments(component.page, component.limit)
                     .then(data => {
-                        console.log(data.count)
                         appointment.setAppointments(data.rows)
                         component.setTotalCount(data.count)
                     })
             }
             if (user.user.role === 'DOCTOR') {
                 getDoctorAppointments(user.user.id, component.page, component.limit).then(data => {
-                    console.log(data.count)
                     appointment.setAppointments(data.rows)
                     component.setTotalCount(data.count)
                 })
             }
             if (user.user.role === 'USER') {
                 getUserAppointments(user.user.id).then(data => {
-                    console.log(data)
                     appointment.setAppointments(data)
                 })
             }
-            console.log(appointment.appointments)
         }
     }, [component.page, loading])
 

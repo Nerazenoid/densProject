@@ -4,7 +4,6 @@ import { Context } from '..'
 const DropDown = ({ users, selectedUserName, selectedUserId}) => {
 
     const { component } = useContext(Context)
-    console.log(users)
 
     return (
         
@@ -17,7 +16,7 @@ const DropDown = ({ users, selectedUserName, selectedUserId}) => {
                 }}>
                     <p className={style.login}>@{user.login}</p>
                     <p className={style.name}>{user.lastName} {user.firstName} {user.patronymic}</p>
-                    <p className={style.birthday}>Дата рождения: {new Date(user.birthday).toLocaleDateString('ru')}</p>
+                    <p className={style.birthday}>Дата рождения: {user.birthday !== null ? new Date(user.birthday).toLocaleDateString('ru') : 'Не указана'}</p>
                 </div>
             )}
         </div>

@@ -126,3 +126,36 @@
     visibility: hidden;
     opacity: 0;
 }
+@media (max-width: 525px){
+    .next_btn, .prev_btn{
+        width: 60px;
+        padding: 0;
+        color: white;
+    }
+    .next_btn{
+        background: linear-gradient(270deg, rgb(192, 216, 192), transparent);
+    }
+    .prev_btn{
+        background: linear-gradient(90deg, rgb(192, 216, 192), transparent);
+    }
+    .next_btn:hover, .prev_btn:hover{
+        transform: scale(1);
+    }
+    .item:nth-of-type(1){
+        margin-left: 50px;
+    }
+    .item:nth-last-of-type(1){
+        margin-right: 50px;
+    }
+}
+@media (max-width: 375px){
+    .item:nth-of-type(1){
+        margin-left: 30px;
+    }
+    .item:nth-last-of-type(1){
+        margin-right: 30px;
+    }
+    .main_title{
+        font-size: 38px;
+    }
+}

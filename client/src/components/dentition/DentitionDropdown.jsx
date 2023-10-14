@@ -65,7 +65,6 @@ const DentitionDropdown = observer(() => {
                                     { ...tooth, [dentition.selectedSurf]: flag } : tooth
                             )*/
                         )
-                        console.log(dentition.list)
                     }
                     }>
                     <i className={style.color_tip} style={{ backgroundColor: flags[flag].color }}></i>

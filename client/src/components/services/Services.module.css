@@ -126,9 +126,28 @@
 .btn:hover {
     background-color: rgb(60 183 86);
 }
-@media (max-width: 425px){
+@media (max-width: 525px){
     .services_list{
         flex-wrap: wrap;
         gap: 20px;
+        justify-content: center;
+    }
+    .item{
+        border: 1px solid green;
+        width: 350px;
+    }
+    .item_top{
+        width: 100%;
+    }
+}
+@media (max-width: 375px){
+    .main_title{
+        font-size: 38px;
+    }
+    .item{
+        width: 300px;
+    }
+    .item_element{
+        font-size: 16px;
     }
 }

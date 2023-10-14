@@ -9,6 +9,7 @@ export default class ComponentStore {
         this._totalCount = 0
         this._limit = 0
         this._mainShown = false
+        this._mobileNavShown = false
         makeAutoObservable(this)
     }
 
@@ -44,6 +45,18 @@ export default class ComponentStore {
     closeModal = () => {
         this._active = false
         this._body = null
+    }
+
+    openMobileNav = () => {
+        this._mobileNavShown = true
+    }
+
+    closeMobileNav = () => {
+        this._mobileNavShown = false
+    }
+
+    get mobileNavShown() {
+        return this._mobileNavShown
     }
 
     get page() {

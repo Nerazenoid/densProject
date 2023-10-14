@@ -78,7 +78,6 @@ const AppointmentInfo = () => {
                     }
                 }))
 
-                console.log(services)
             }/*setServices(data.map(obj => ({ ...obj, isChecked: false, amount: '' })))*/)
             .finally(() => {
                 setPage('DOCTOR')
@@ -118,7 +117,6 @@ const AppointmentInfo = () => {
             })
         })
 
-        console.log(providedServices)
         createProvidedServices(providedServices, appointment_id, JSON.stringify(dentition.list), comment)
             .then(() => {
                 setPage('USER')

@@ -36,6 +36,7 @@ const UserPage = () => {
 
     const birthday = new Date(selectedUser.birthday)
     const age = new Date(new Date() - birthday).getUTCFullYear() - 1970
+    const birthdayString = selectedUser.birthday !== null ? new Date(selectedUser.birthday).toLocaleDateString('ru') + ' – ' + age + ' лет' : 'Не указана'
 
     return (
         <div className={styles.page}>
@@ -45,7 +46,7 @@ const UserPage = () => {
                     <p className={styles.login}><b>@</b> {selectedUser.login}</p>
                     <p className={styles.subtitle}><b>ФИО:</b> {`${selectedUser.lastName} ${selectedUser.firstName} ${selectedUser.patronymic}`}</p>
                     <p className={`${styles.subtitle} ${styles.phone}`}>{selectedUser.phone || 'Не указан'}</p>
-                    <p className={styles.subtitle}><b>Дата рождения:</b> {new Date(selectedUser.birthday).toLocaleDateString('ru')} – {age} лет</p>
+                    <p className={styles.subtitle}><b>Дата рождения:</b> {birthdayString}</p>
                     <p className={styles.subtitle}><b>Дата регистрации:</b> {new Date(selectedUser.createdAt).toLocaleDateString('ru')}</p>
                 </div>
                 {user.user.role === 'DOCTOR' ?

@@ -59,10 +59,10 @@
     color: rgb(8 33 16);
 }
 
-@media (max-width: 425px) {
+@media (max-width: 525px) {
     .about_row{
         grid-template-columns: 1fr;
-        margin: 0 10px 20px 10px;
+        margin: 0 10px 40px 10px;
     }
     .description{
         padding-bottom: 20px;
@@ -71,5 +71,28 @@
         border: none;
         border-bottom: 4px solid rgb(69, 136, 92);
         order: 2;
+    }
+    .about_row:nth-of-type(2n) > .description{
+        border: none;
+        border-bottom: 4px solid rgb(69, 136, 92);
+    }
+    .title{
+        margin-bottom: 40px;
+    }
+    .photo img{
+        margin-bottom: 20px;
+    }
+    .text{
+        font-size: 16px;
+        line-height: 26px;
+        max-width: 320px;
+    }
+}
+@media (max-width: 375px){
+    .title{
+        font-size: 38px;
+    }
+    .text{
+        max-width: 280px;
     }
 }

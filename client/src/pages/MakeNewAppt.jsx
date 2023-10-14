@@ -12,13 +12,11 @@ import style from './appointmentInfo.module.css'
 const MakeNewAppt = observer(() => {
 
 
-    const { appointment, user } = useContext(Context)
+    const { appointment } = useContext(Context)
 
     const [loading, setLoading] = useState(true) //Проверка загрузки
 
     const { doctor_id } = useParams()
-
-    console.log(user.user)
     useEffect(() => {
         getDays().then(data => {
             appointment.setDays(data);

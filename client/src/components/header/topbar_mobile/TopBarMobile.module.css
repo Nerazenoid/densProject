@@ -1,0 +1,74 @@
+.wrap{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    visibility: hidden;
+}
+.main{
+    background: linear-gradient(110deg, #98eb9b, #6cbd6f);
+    height: 80px;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.37);
+}
+.navbar{
+    background-color: #2e7346;
+    position: absolute;
+    top: -90px;
+    left: 0;
+    right: 0;
+    transition: 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.navbar.opened{
+    transform: translateY(170px);
+}
+.login_btn, .navbar_btn{
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+}
+.login_btn{
+    background-image: url('../../img/profile.svg') ;
+}
+.navbar_btn{
+    background-image: url('../../img/menu.svg')
+}
+.main img{
+    width: 70px;
+    height: 70px;
+}
+.navbar{
+    padding-top: 10px;
+    border-radius: 0 0 10px 10px;
+}
+.navbar li{
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 18px;
+    width: 100%;
+    max-width: 200px;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    /*border-bottom: 1px solid white;*/
+    color: white;
+}
+
+@media (max-width: 525px){
+    .wrap{
+        visibility: visible;
+    }
+}
