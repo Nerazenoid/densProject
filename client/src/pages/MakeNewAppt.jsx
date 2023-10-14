@@ -2,7 +2,7 @@ import { getByDay, getDays } from "../http/appointmentAPI.js";
 import TimePicker from '../components/calendar/timePicker.jsx';
 import { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import DaysPicker from './components/calendar/daysPicker';
+import DaysPicker from '../components/calendar/daysPicker';
 import { Context } from '../index';
 import Modal from '../components/modal.jsx';
 import { useParams } from 'react-router-dom';
