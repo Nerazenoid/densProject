@@ -15,6 +15,14 @@ const AppointmentItem = ({ info }) => {
         deny: '#740000'
     }
 
+    const getFullName = (lastName, firstName, patronymic) => {
+        return `
+                    ${lastName ? lastName[0].toUpperCase() + lastName.substring(1) : ''}
+                    ${firstName ? firstName[0].toUpperCase() + firstName.substring(1) : ''}
+                    ${patronymic ? patronymic[0].toUpperCase() + patronymic.substring(1) : ''}
+                    `
+    }
+
     const { doctor, user } = info
     const date = new Date(info.date)
     return (
@@ -25,10 +33,10 @@ const AppointmentItem = ({ info }) => {
                 {info.id}
             </div>
             <div style={{ borderColor: colors[info.status] }}>
-                {doctor.user.lastName} {doctor.user.firstName} {doctor.user.patronymic}
+                {getFullName(doctor.user.lastName, doctor.user.firstName, doctor.user.patronymic)}
             </div>
             <div style={{ borderColor: colors[info.status] }}>
-                {user.lastName} {user.firstName} {user.patronymic}
+                {getFullName(user.lastName, user.firstName, user.patronymic)}
             </div>
             <div>
                 {date.toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric' })}

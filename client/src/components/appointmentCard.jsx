@@ -12,6 +12,13 @@ const AppointmentCard = ({ data }) => {
         complete: '#57c314',
         deny: '#740000'
     }
+    const getFullName = (lastName, firstName, patronymic) => {
+        return `
+                    ${lastName ? lastName[0].toUpperCase() + lastName.substring(1) : ''}
+                    ${firstName ? firstName[0].toUpperCase() + firstName.substring(1) : ''}
+                    ${patronymic ? patronymic[0].toUpperCase() + patronymic.substring(1) : ''}
+                    `
+    }
 
     return (
         <div
@@ -19,7 +26,7 @@ const AppointmentCard = ({ data }) => {
         style={{borderColor: colors[data.status]}}
         onClick={() => navigate(APPOINTMENTS_LIST_ROUTE + '/' + data.id)}>
             <p className=''>№:{data.id}</p>
-            <p>Врач: {data.doctor.user.lastName} {data.doctor.user.firstName} {data.doctor.user.patronymic}</p>
+            <p>Врач: {getFullName(data.doctor.user.lastName, data.doctor.user.firstName, data.doctor.user.patronymic)}</p>
             <p>{new Date(data.date).toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric' })}</p>
         </div>
     )

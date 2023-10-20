@@ -53,8 +53,8 @@ const UsersPage = observer(() => {
                 }
             </div>
             <div className={styles.grid}>
-                {users.map(user =>
-                    <UserItem key={user.login} user={user} />
+                {users.map(userInfo =>
+                    <UserItem key={userInfo.login} userInfo={userInfo} />
                 )}
             </div>
             <Pagination />

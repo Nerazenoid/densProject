@@ -15,6 +15,13 @@ const UserPage = () => {
     const { user } = useContext(Context)
     const { login } = useParams()
 
+    const getFullName = (lastName, firstName, patronymic) => {
+        return `
+                    ${lastName ? lastName[0].toUpperCase() + lastName.substring(1) : ''}
+                    ${firstName ? firstName[0].toUpperCase() + firstName.substring(1) : ''}
+                    ${patronymic ? patronymic[0].toUpperCase() + patronymic.substring(1) : ''}
+                    `
+    }
 
 
     useEffect(() => {
@@ -44,8 +51,8 @@ const UserPage = () => {
             <div className={styles.top_block}>
                 <div className={styles.info_block}>
                     <p className={styles.login}><b>@</b> {selectedUser.login}</p>
-                    <p className={styles.subtitle}><b>ФИО:</b> {`${selectedUser.lastName} ${selectedUser.firstName} ${selectedUser.patronymic}`}</p>
-                    <p className={`${styles.subtitle} ${styles.phone}`}>{selectedUser.phone || 'Не указан'}</p>
+                    <p className={styles.subtitle}><b>ФИО:</b> {getFullName(selectedUser.lastName, selectedUser.firstName, selectedUser.patronymic)}</p>
+                    {user.user.role !== 'DOCTOR' ? <p className={`${styles.subtitle} ${styles.phone}`}>{selectedUser.phone || 'Не указан'}</p> : null }
                     <p className={styles.subtitle}><b>Дата рождения:</b> {birthdayString}</p>
                     <p className={styles.subtitle}><b>Дата регистрации:</b> {new Date(selectedUser.createdAt).toLocaleDateString('ru')}</p>
                 </div>

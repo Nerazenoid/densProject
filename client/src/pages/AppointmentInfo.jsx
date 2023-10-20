@@ -1,14 +1,21 @@
-import { useContext, useEffect, useState } from "react";
-import { cancelAppointment, createProvidedServices, getAppointmentInfo, getProvidedServices, getServices, updatePayment } from "../http/appointmentAPI";
-import { useParams } from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import {
+    cancelAppointment,
+    createProvidedServices,
+    getAppointmentInfo,
+    getProvidedServices,
+    getServices,
+    updatePayment
+} from "../http/appointmentAPI";
+import {useParams} from "react-router-dom";
 import style from './appointmentInfo.module.css'
-import { getStatus } from "../utils/status";
-import { Context } from "..";
+import {getStatus} from "../utils/status";
+import {Context} from "..";
 import Dentition from "../components/dentition/Dentition";
 
 const AppointmentInfo = () => {
 
-    const { user, dentition } = useContext(Context)
+    const {user, dentition} = useContext(Context)
     const [page, setPage] = useState('USER')
     const [appointment, setAppointment] = useState()
     const [loading, setLoading] = useState(true)
@@ -18,7 +25,7 @@ const AppointmentInfo = () => {
     const [comment, setComment] = useState('')
     const [userServices, setUserServices] = useState([])
 
-    const { appointment_id } = useParams()
+    const {appointment_id} = useParams()
 
     const colors = {
         inProgress: '#ddad00',
@@ -30,16 +37,16 @@ const AppointmentInfo = () => {
     const loadInfo = (appointment_id) => {
         getAppointmentInfo(appointment_id)
             .then(data => {
-                setAppointment(data);
-                if (data.status === 'awaitPayment' ||
-                    data.status === 'complete') {
-                    getProvidedServices(appointment_id).then(
-                        data => {
-                            setUserServices(data)
-                        }
-                    )
+                    setAppointment(data);
+                    if (data.status === 'awaitPayment' ||
+                        data.status === 'complete') {
+                        getProvidedServices(appointment_id).then(
+                            data => {
+                                setUserServices(data)
+                            }
+                        )
+                    }
                 }
-            }
             )
             .finally(() => {
                 setLoading(false)
@@ -73,7 +80,7 @@ const AppointmentInfo = () => {
                     return {
                         ...arr,
                         services: Object.values(arr.services).map(item =>
-                            ({ ...item, isChecked: false, amount: '' })
+                            ({...item, isChecked: false, amount: ''})
                         )
                     }
                 }))
@@ -131,7 +138,7 @@ const AppointmentInfo = () => {
                     return {
                         ...arr,
                         services: Object.values(arr.services).map(item =>
-                            item.id === service_id ? { ...item, isChecked: true, amount: '1' } : item)
+                            item.id === service_id ? {...item, isChecked: true, amount: '1'} : item)
                     }
                 })
 
@@ -141,14 +148,13 @@ const AppointmentInfo = () => {
                 })*/
             )
 
-        }
-        else {
+        } else {
             setServices(
                 services.map(arr => {
                     return {
                         ...arr,
                         services: Object.values(arr.services).map(item =>
-                            item.id === service_id ? { ...item, isChecked: false, amount: '' } : item)
+                            item.id === service_id ? {...item, isChecked: false, amount: ''} : item)
                     }
                 })
             )
@@ -159,7 +165,7 @@ const AppointmentInfo = () => {
 
         const result =
             services.map(arr => {
-                return arr.services.filter(({ isChecked }) =>
+                return arr.services.filter(({isChecked}) =>
                     isChecked === true).reduce((sum, service) => sum + service.price * service.amount, 0)
             }).reduce((total, categorySum) => total + categorySum, 0)
         setTotal(result)
@@ -171,12 +177,20 @@ const AppointmentInfo = () => {
                 return {
                     ...arr,
                     services: Object.values(arr.services).map(item =>
-                        item.id === service_id ? { ...item, amount: amount } : item)
+                        item.id === service_id ? {...item, amount: amount} : item)
                 }
 
             })
         )
         CountTotal()
+    }
+
+    const getFullName = (lastName, firstName, patronymic) => {
+        return `
+                    ${lastName ? lastName[0].toUpperCase() + lastName.substring(1) : ''}
+                    ${firstName ? firstName[0].toUpperCase() + firstName.substring(1) : ''}
+                    ${patronymic ? patronymic[0].toUpperCase() + patronymic.substring(1) : ''}
+                    `
     }
 
     if (loading) {
@@ -186,14 +200,16 @@ const AppointmentInfo = () => {
     if (page === 'DENTITION') {
         return (
             <div className={style.page}>
-                <p className={style.title}>Зубная формула пациента {appointment.user.lastName} {appointment.user.firstName} {appointment.user.patronymic}</p>
+                <p className={style.title}>Зубная формула
+                    пациента {getFullName(appointment.user.lastName, appointment.user.firstName, appointment.user.patronymic)}</p>
                 <div className={style.fLarge}>
-                    <Dentition user_id={appointment.user.id} />
+                    <Dentition user_id={appointment.user.id}/>
                 </div>
                 <button className={style.submit_btn} onClick={startAppointments}>Перейти к оформлению услуг</button>
             </div>
         )
     }
+
 
     if (page === 'DOCTOR') {
         return (
@@ -204,7 +220,9 @@ const AppointmentInfo = () => {
                             <p className={style.subtitle}>{category.name}</p>
                             <div className={style.service_inputs}>
                                 {category.services.map(service =>
-                                    <div className={service.isChecked ? `${style.service_item} ${style.selected}` : `${style.service_item}`} key={service.id}>
+                                    <div
+                                        className={service.isChecked ? `${style.service_item} ${style.selected}` : `${style.service_item}`}
+                                        key={service.id}>
                                         <input
                                             type="checkbox"
                                             className={style.checkbox}
@@ -216,12 +234,14 @@ const AppointmentInfo = () => {
 
                                         {service.isChecked ? <i> x </i> : null}
                                         <input type="number"
-                                            className={style.amount_input}
-                                            disabled={!service.isChecked}
-                                            placeholder=" "
-                                            value={service.amount}
-                                            onBlur={(e) => { if (!e.target.value || e.target.value < 1) ChangeValue(service.id, '1') }}
-                                            onChange={(e) => ChangeValue(service.id, e.target.value)}>
+                                               className={style.amount_input}
+                                               disabled={!service.isChecked}
+                                               placeholder=" "
+                                               value={service.amount}
+                                               onBlur={(e) => {
+                                                   if (!e.target.value || e.target.value < 1) ChangeValue(service.id, '1')
+                                               }}
+                                               onChange={(e) => ChangeValue(service.id, e.target.value)}>
 
                                         </input>
                                     </div>
@@ -230,7 +250,8 @@ const AppointmentInfo = () => {
                         </div>
                     )}
                 </div>
-                <textarea className={style.textarea} placeholder='Комментарий врача (необязательно)' value={comment} onChange={e => setComment(e.target.value)}/>
+                <textarea className={style.textarea} placeholder='Комментарий врача (необязательно)' value={comment}
+                          onChange={e => setComment(e.target.value)}/>
                 <p className={style.total}>Итого: {total}</p>
                 <button className={style.submit_btn} onClick={applyProvidedServices}>Сохранить</button>
             </div>
@@ -238,14 +259,30 @@ const AppointmentInfo = () => {
     }
 
     return (
-        <div className={style.page} style={{ borderColor: colors[appointment.status] }}>
+        <div className={style.page} style={{borderColor: colors[appointment.status]}}>
             <p className={style.title}>Информация о записи №{appointment.id}</p>
             <div className={style.body}>
                 <div className={style.main_info}>
                     <div className={style.block}>
-                        <p className={style.string_creation}><b>Дата создания:</b> {new Date(appointment.createdAt).toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })} </p>
-                        <p className={style.string}><b>Время приема:</b> {new Date(appointment.date).toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric' })} </p>
-                        <p className={style.string}><b>Статус приема: <i style={{ color: colors[appointment.status] }}>{getStatus(appointment.status)}</i></b></p>
+                        <p className={style.string_creation}><b>Дата
+                            создания:</b> {new Date(appointment.createdAt).toLocaleString('ru', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            second: 'numeric'
+                        })} </p>
+                        <p className={style.string}><b>Время
+                            приема:</b> {new Date(appointment.date).toLocaleString('ru', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric'
+                        })} </p>
+                        <p className={style.string}><b>Статус приема: <i
+                            style={{color: colors[appointment.status]}}>{getStatus(appointment.status)}</i></b></p>
                         <div className={style.comments_block}>
                             <p className={style.comment_title}><b>Комментарий администратора:</b></p>
                             <p className={style.comment}>{appointment.comment}</p>
@@ -260,12 +297,19 @@ const AppointmentInfo = () => {
                     <div className={style.flex}>
                         <div className={style.block}>
                             <p className={style.subtitle}>Информация о пациенте</p>
-                            <p className={style.string}><b>ФИО: </b>{appointment.user.lastName} {appointment.user.firstName} {appointment.user.patronymic}</p>
-                            <p className={style.string}><b>Телефон: </b>{appointment.user.phone}</p>
+                            <p className={style.string}>
+                                <b>ФИО: </b>{getFullName(appointment.user.lastName, appointment.user.firstName, appointment.user.patronymic)}
+                            </p>
+                            {user.user.role === 'ADMIN' ?
+                                <p className={style.string}><b>Телефон: </b>{appointment.user.phone}</p> :
+                                null
+                            }
                         </div>
                         <div className={style.block}>
                             <p className={style.subtitle}>Информация о враче</p>
-                            <p className={style.string}><b>ФИО: </b>{appointment.doctor.user.lastName} {appointment.doctor.user.firstName} {appointment.doctor.user.patronymic}</p>
+                            <p className={style.string}>
+                                <b>ФИО: </b>{getFullName(appointment.doctor.user.lastName, appointment.doctor.user.firstName, appointment.doctor.user.patronymic)}
+                            </p>
                             <p className={style.string}><b>Специальность: </b>{appointment.doctor.speciality}</p>
                         </div>
                     </div>
@@ -276,7 +320,8 @@ const AppointmentInfo = () => {
                         <div className={style.US_block}>
                             <p className={style.subtitle}>Перечень оказанных услуг:</p>
                             {userServices.map(item =>
-                                <p key={item.id} className={style.US_string}>{item.service.name} – {item.service.price} x {item.amount || 1} </p>
+                                <p key={item.id}
+                                   className={style.US_string}>{item.service.name} – {item.service.price} x {item.amount || 1} </p>
                             )}
                             <p className={style.total_price}>Итого:
                                 {appointment.appointment_info.discount !== null ?
@@ -284,7 +329,7 @@ const AppointmentInfo = () => {
                                         <s>{appointment.appointment_info.total}₽ -{appointment.appointment_info.discount}%= </s>
                                         {appointment.appointment_info.total - (appointment.appointment_info.total / 100 * appointment.appointment_info.discount)}₽
                                     </span> :
-                                    (appointment.appointment_info.total + '₽' )
+                                    (appointment.appointment_info.total + '₽')
                                 }
                             </p>
                         </div>
@@ -293,7 +338,7 @@ const AppointmentInfo = () => {
             </div>
             {user.user.role === 'DOCTOR' && (appointment.status === 'complete' || appointment.status === 'awaitPayment') ?
                 <div className={style.fSmall}>
-                    <Dentition appointment_id={appointment.id} isClickable={false} />
+                    <Dentition appointment_id={appointment.id} isClickable={false}/>
                 </div> :
                 null}
 
@@ -308,7 +353,8 @@ const AppointmentInfo = () => {
                                 value={discount}
                                 onChange={e => setDiscount(e.target.value)}
                             >
-                            </input>% – c учетом скидки итого: {appointment.appointment_info.total - (appointment.appointment_info.total / 100) * discount}₽
+                            </input>% – c учетом скидки
+                            итого: {appointment.appointment_info.total - (appointment.appointment_info.total / 100) * discount}₽
                         </p>
                     </div>
                     <button className={style.submit_btn} onClick={approvePayment}>Оплата подтверждена</button>
