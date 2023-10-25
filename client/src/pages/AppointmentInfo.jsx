@@ -12,6 +12,7 @@ import style from './appointmentInfo.module.css'
 import {getStatus} from "../utils/status";
 import {Context} from "..";
 import Dentition from "../components/dentition/Dentition";
+import Diagnsosis from "../components/diagnosis/diagnosisPage";
 
 const AppointmentInfo = () => {
 
@@ -62,6 +63,9 @@ const AppointmentInfo = () => {
         CountTotal()
     }, [services])
 
+    const openDiagnosis = () => {
+        setPage('DIAGNOSIS')
+    }
 
     const startAppointments = () => {
         setLoading(true)
@@ -205,6 +209,16 @@ const AppointmentInfo = () => {
                 <div className={style.fLarge}>
                     <Dentition user_id={appointment.user.id}/>
                 </div>
+                <button className={style.submit_btn} onClick={openDiagnosis}>Перейти к диагнозам</button>
+            </div>
+        )
+    }
+
+    if (page === 'DIAGNOSIS') {
+        return (
+            <div className={style.page}>
+                <p className={style.title}>Документирование диагноза</p>
+                <Diagnsosis/>
                 <button className={style.submit_btn} onClick={startAppointments}>Перейти к оформлению услуг</button>
             </div>
         )

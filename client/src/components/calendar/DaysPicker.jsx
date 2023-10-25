@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import DayItem from "./DayItem";
+import DayItem from "./dayItem";
 import styles from './daysPicker.module.css'
 import { useContext } from "react";
 import { Context } from "../../index";

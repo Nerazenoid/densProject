@@ -69,6 +69,15 @@ const Request = sequelize.define('requests',
         fullname: {type: DataTypes.STRING},
         status: {type: DataTypes.STRING, defaultValue: 'inProgress'}
     })
+const Diagnosis = sequelize.define('diagnosis',
+    {
+        id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+        name: {type: DataTypes.STRING},
+    })
+const ProvidedDiagnosis = sequelize.define( 'provided_diagnosis',
+    {
+        id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    })
 
 User.hasOne(Doctor)
 Doctor.belongsTo(User)
