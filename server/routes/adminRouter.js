@@ -12,6 +12,7 @@ router.get('/getuser/:login', userController.getUserInfo)
 router.get('/userappointments/:user_id', appointmentController.getUserAppointments)
 router.get('/doctorappointments/:user_id', appointmentController.getAppointmentsToDoctor)
 router.post('/adduser', userController.addUser)
+router.get('/getdiagnoses', appointmentController.getDiagnoses)
 
 router.get('/docx', testController.createDocument)
 

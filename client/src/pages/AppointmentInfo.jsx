@@ -12,7 +12,7 @@ import style from './appointmentInfo.module.css'
 import {getStatus} from "../utils/status";
 import {Context} from "..";
 import Dentition from "../components/dentition/Dentition";
-import Diagnsosis from "../components/diagnosis/diagnosisPage";
+import Diagnosis from "../components/diagnosis/diagnosisPage";
 
 const AppointmentInfo = () => {
 
@@ -218,7 +218,7 @@ const AppointmentInfo = () => {
         return (
             <div className={style.page}>
                 <p className={style.title}>Документирование диагноза</p>
-                <Diagnsosis/>
+                <Diagnosis/>
                 <button className={style.submit_btn} onClick={startAppointments}>Перейти к оформлению услуг</button>
             </div>
         )

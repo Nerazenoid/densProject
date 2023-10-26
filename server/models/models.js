@@ -73,10 +73,21 @@ const Diagnosis = sequelize.define('diagnosis',
     {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
         name: {type: DataTypes.STRING},
+        complaints_def: {type: DataTypes.TEXT},
+        objective_def: {type: DataTypes.TEXT},
+        probing_def: {type: DataTypes.TEXT},
+        treatment_def: {type: DataTypes.TEXT}
     })
 const ProvidedDiagnosis = sequelize.define( 'provided_diagnosis',
     {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+        complaints: {type: DataTypes.TEXT},
+        objective: {type: DataTypes.TEXT},
+        probing: {type: DataTypes.TEXT},
+        treatment: {type: DataTypes.TEXT},
+        description: {type: DataTypes.TEXT},
+        tooth : {type: DataTypes.INTEGER},
+        surface: {type: DataTypes.STRING}
     })
 
 User.hasOne(Doctor)
@@ -106,6 +117,12 @@ ProvidedService.belongsTo(Appointment)
 Service.hasMany(ProvidedService)
 ProvidedService.belongsTo(Service)
 
+Diagnosis.hasMany(ProvidedDiagnosis)
+ProvidedDiagnosis.belongsTo(Diagnosis)
+
+Appointment.hasMany(ProvidedDiagnosis)
+ProvidedDiagnosis.belongsTo(Appointment)
+
 module.exports = {
     User,
     Doctor,
@@ -115,5 +132,7 @@ module.exports = {
     Category,
     ProvidedService,
     AppointmentInfo,
-    Request
+    Request,
+    Diagnosis,
+    ProvidedDiagnosis
 }

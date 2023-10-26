@@ -1,8 +1,10 @@
-const Diagnsosis = () => {
+const Diagnosis = () => {
+
+
     return(
         <div>
             GGAGA
         </div>
     )
 }
-export default Diagnsosis
+export default Diagnosis

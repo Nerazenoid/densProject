@@ -1,4 +1,4 @@
-const { Appointment, User, Doctor, Service, ProvidedService, AppointmentInfo, Category } = require('../models/models')
+const { Appointment, User, Doctor, Service, ProvidedService, AppointmentInfo, Category, Diagnosis} = require('../models/models')
 const { Op, Model, Sequelize, where } = require("sequelize");
 
 class AppointmentController {
@@ -491,6 +491,13 @@ class AppointmentController {
             }
         }
         return res.json(dentition)
+    }
+
+    async getDiagnoses(req, res) {
+        let diagnoses = await Diagnosis.findAll({
+            attributes: ['id', 'name']
+        })
+        return res.json(diagnoses)
     }
 
 }
