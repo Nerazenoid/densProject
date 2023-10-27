@@ -9,6 +9,7 @@ import AppointmentStore from "./store/AppointmentStore";
 import ComponentsStore from './store/ComponentStore';
 import RequestStore from './store/RequestStore';
 import DenitionStore from './store/DentitionStore';
+import DiagnosisStore from "./store/DiagnosisStore";
 
 export const Context = createContext(null)
 
@@ -20,7 +21,8 @@ root.render(
             appointment: new AppointmentStore(),
             component: new ComponentsStore(),
             request: new RequestStore(),
-            dentition: new DenitionStore()
+            dentition: new DenitionStore(),
+            diagnosis: new DiagnosisStore()
         }}>
             <App />
         </Context.Provider>
