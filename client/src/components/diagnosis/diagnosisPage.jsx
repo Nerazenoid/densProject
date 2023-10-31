@@ -4,12 +4,11 @@ import Dropdown from './diagnosisDropdown'
 import Item from "./item";
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
-import {getDiagnoses} from "../../http/diagnosesAPI";
+import {getDiagnoses, getDiagnosis} from "../../http/diagnosesAPI";
 
 const Diagnosis = observer(() => {
 
     const {diagnosis} = useContext(Context)
-    let diagnosesList = []
 
     useEffect(() => {
         getDiagnoses()
@@ -24,13 +23,31 @@ const Diagnosis = observer(() => {
         description: '',
         tooth: '',
         surface: '',
-        diagnosis: {},
+        diagnosis: '',
         id: Date.now()
     }])
 
 
     const changeInput = (key, value, id) => {
-        setDiagnosisInfo(diagnosisInfo.map(item => item.id === id ? {...item, [key]: value} : item))
+        setDiagnosisInfo(diagnosisInfo.map(item =>
+            item.id === id ?
+                {...item, [key]: value}
+                : item))
+        console.log(diagnosisInfo)
+    }
+
+    const switchDiagnosis = (blockItemId, diagnosisid) => {
+        console.log(diagnosisid)
+        getDiagnosis(diagnosisid).then(data =>
+            setDiagnosisInfo(diagnosisInfo.map(item =>
+                item.id === blockItemId ?
+                    {
+                        ...item,
+                        'diagnosis': data.name,
+                        'complaints': data.complaints_def,
+                        'objective': data.objective_def
+                    } : item))
+        )
         console.log(diagnosisInfo)
     }
 
@@ -43,7 +60,7 @@ const Diagnosis = observer(() => {
             description: '',
             tooth: '',
             surface: '',
-            diagnosis: {},
+            diagnosis: '',
             id: Date.now()
         }])
     }
@@ -54,16 +71,25 @@ const Diagnosis = observer(() => {
             {diagnosisInfo.map(blockItem =>
                 <div className={style.block}>
                     <div className={style.flex_row}>
-                        <input className={style.input_tooth} placeholder='Зуб'/>
-                        <input className={style.input_surface} placeholder='Поверхности'/>
+                        <input
+                            className={style.input_tooth}
+                            value={blockItem.tooth}
+                            onChange={e => changeInput('tooth', e.target.value, blockItem.id)}
+                            placeholder='Зуб'/>
+                        <input
+                            className={style.input_surface}
+                            value={blockItem.surface}
+                            onChange={e => changeInput('surface', e.target.value, blockItem.id)}
+                            placeholder='Поверхности'/>
 
 
                         <Dropdown>
-                            <Dropdown.Toggle>{blockItem.diagnosis.name || 'Выберите диагноз'}</Dropdown.Toggle>
+                            <Dropdown.Toggle>{blockItem.diagnosis || 'Выберите диагноз'}</Dropdown.Toggle>
                             <Dropdown.Menu>
                                 {diagnosis.diagnosesList.map(listItem =>
                                     <Dropdown.Item
-                                        onClick={() => changeInput('diagnosis', listItem, blockItem.id)}>{listItem.name}</Dropdown.Item>
+                                        onClick={() => switchDiagnosis(blockItem.id, listItem.id)}>{listItem.name}
+                                    </Dropdown.Item>
                                 )}
                             </Dropdown.Menu>
                         </Dropdown>
@@ -75,6 +101,7 @@ const Diagnosis = observer(() => {
                         <div className={style.input_block}>
                             <p className={style.subtitle}>Жалобы:</p>
                             <textarea className={style.textarea}
+                                      value={blockItem.complaints}
                                       onChange={e => changeInput('complaints', e.target.value, blockItem.id)}>
                             </textarea>
                         </div>
@@ -82,6 +109,7 @@ const Diagnosis = observer(() => {
                         <div className={style.input_block}>
                             <p className={style.subtitle}>Объективно:</p>
                             <textarea className={style.textarea}
+                                      value={blockItem.objective}
                                       onChange={e => changeInput('objective', e.target.value, blockItem.id)}>
                             </textarea>
                         </div>
