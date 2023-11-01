@@ -45,10 +45,11 @@ const Diagnosis = observer(() => {
                         ...item,
                         'diagnosis': data.name,
                         'complaints': data.complaints_def,
-                        'objective': data.objective_def
+                        'objective': data.objective_def,
+                        'probing': data.probing_def,
+                        'treatment': data.treatment_def
                     } : item))
         )
-        console.log(diagnosisInfo)
     }
 
     const addDiagnosis = () => {
@@ -63,6 +64,10 @@ const Diagnosis = observer(() => {
             diagnosis: '',
             id: Date.now()
         }])
+    }
+
+    const nextStep = () =>{
+
     }
 
     return (
@@ -105,15 +110,40 @@ const Diagnosis = observer(() => {
                                       onChange={e => changeInput('complaints', e.target.value, blockItem.id)}>
                             </textarea>
                         </div>
-
+                    </div>
+                    <div className={style.flex_row}>
                         <div className={style.input_block}>
                             <p className={style.subtitle}>Объективно:</p>
-                            <textarea className={style.textarea}
+                            <textarea className={`${style.textarea} ${style.small}`}
                                       value={blockItem.objective}
                                       onChange={e => changeInput('objective', e.target.value, blockItem.id)}>
                             </textarea>
                         </div>
+                        <div className={style.input_block}>
+                            <p className={style.subtitle}>Зондирование:</p>
+                            <textarea className={`${style.textarea} ${style.small}`}
+                                      value={blockItem.probing}
+                                      onChange={e => changeInput('probing', e.target.value, blockItem.id)}>
+                            </textarea>
+                        </div>
+                        <div className={style.input_block}>
+                            <p className={style.subtitle}>Описание:</p>
+                            <textarea className={`${style.textarea} ${style.small}`}
+                                      value={blockItem.description}
+                                      onChange={e => changeInput('description', e.target.value, blockItem.id)}>
+                            </textarea>
+                        </div>
+                    </div>
 
+                    <div className={style.flex_row}>
+
+                        <div className={`${style.input_block} ${style.large}`}>
+                            <p className={style.subtitle}>Лечение:</p>
+                            <textarea className={`${style.textarea} ${style.large}`}
+                                      value={blockItem.treatment}
+                                      onChange={e => changeInput('treatment', e.target.value, blockItem.id)}>
+                            </textarea>
+                        </div>
                     </div>
                 </div>
             )}

@@ -2,21 +2,24 @@ import {makeAutoObservable} from "mobx";
 
 export default class DiagnosisStore {
     constructor() {
-        this._selectedDiagnosis = {}
         this._diagnosesList = []
+        this._providedDiagnoses = []
         makeAutoObservable(this)
     }
 
-    get selectedDiagnosis() {
-        return this._selectedDiagnosis
+    get providedDiagnoses() {
+        return this._providedDiagnoses
     }
+
     get diagnosesList() {
         return this._diagnosesList
     }
-    setSelectedDiagnosis(diagnosisId){
-        this._selectedDiagnosis = diagnosisId
-    }
+
     setDiagnosesList(diagnoses){
         return this._diagnosesList = diagnoses
+    }
+
+    setProvidedDiagnoses() {
+        return this._providedDiagnoses
     }
 }

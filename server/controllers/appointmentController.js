@@ -506,7 +506,7 @@ class AppointmentController {
         const {diagnosisid} = req.query
         let diagnosis = await Diagnosis.findOne({
             where: {id: diagnosisid},
-            attributes: ['name', 'complaints_def', 'objective_def', 'treatment_def']
+            attributes: ['name', 'complaints_def', 'objective_def', 'treatment_def', 'probing_def']
         })
         return res.json(diagnosis)
     }
