@@ -4,7 +4,22 @@ export default class DiagnosisStore {
     constructor() {
         this._diagnosesList = []
         this._providedDiagnoses = []
+        this._diagnosesInfo = [{
+            complaints: '',
+            objective: '',
+            probing: '',
+            treatment: '',
+            description: '',
+            tooth: '',
+            surface: '',
+            diagnosis: '',
+            id: Date.now()
+        }]
         makeAutoObservable(this)
+    }
+
+    get diagnosesInfo() {
+        return this._diagnosesInfo
     }
 
     get providedDiagnoses() {
@@ -15,8 +30,12 @@ export default class DiagnosisStore {
         return this._diagnosesList
     }
 
-    setDiagnosesList(diagnoses){
+    setDiagnosesList(diagnoses) {
         return this._diagnosesList = diagnoses
+    }
+
+    setDiagnosesInfo(diagnosesInfo) {
+        return this._diagnosesInfo = diagnosesInfo
     }
 
     setProvidedDiagnoses() {
